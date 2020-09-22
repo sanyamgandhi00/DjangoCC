@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Passed On Wisdom</title>
+      <link rel="icon" href="passedon\static\images\favicon.png">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+      <style>
+        body {
+          margin: 0px;
+          padding: 0px;
+          font-family: 'Raleway', sans-serif;
+          font-weight:500;
+          scroll-behavior: smooth;
+          
+        }
+            
+        #top{
+            width: 2.5vw;
+            display: none;
+            position: fixed;
+            bottom: 1vw;
+            right: 1vw;
+            z-index: 200;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: white;
+            position: sticky;
+            top: 0;
+            padding: 0;
+            z-index: 5;
+            zoom:80%;
+            transition: box-shadow 0.2s linear;
+        }
+            
+        .topnav a {
+            float: right;
+            display: block;
+            color: #1a1919;
+            text-align: center;
+            padding: 1vw 1.5vw 0.8vw 1.5vw;
+            text-decoration: none;
+            font-size: 1.5vw;
+            font-weight: 1000;
+        }
+        
+        .topnav a:hover {
+            color:#1a1919;
+            border-bottom: #1a1919 0.2vw solid;
+            transform: scale(1.03);
+            transition: transform 0.2s linear;
+        }
+        
+        .topnav a.active {
+            border-bottom: #B54D47 0.2vw solid;
+        }
+        
+        .topnav .icon {
+            display: none;
+        }
+        
+        #logo{
+            height: 3vw;
+            margin-top: 0.45vw;
+            margin-left: 1vw;
+        }
+
+        footer{
+            background-color: #1a1919;
+            color:white;
+            padding: 2vw;
+            text-align: center;
+            font-size: 1.2vw;
+        }
+
+        @media screen and (max-width: 700px) {
+            
+            #top{
+                width: 7vw;
+            }
+
+            .topnav a {display: none;}
+            .topnav a.icon {
+                float: right;
+                display: block;
+            }
+            .topnav.responsive {position: sticky;}
+            .topnav.responsive .icon {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+            .topnav.responsive a {
+                float: none;
+                display: block;
+                text-align: center;
+                font-size: 3vw;
+            }
+            .topnav.responsive a:hover {
+                background-color: lightgrey;
+                border-bottom: none;
+            }
+            
+            #logo{
+                height: 5vw !important;
+                width: 15vw !important;
+            }
+            .topnav a.active {
+                border: none;
+            }
+
+            footer{
+                font-size: 2.5vw !important;
+            }
+        }
+
+
+        @media screen and (max-width: 550px) {
+            .topnav.responsive a {
+              float: none;
+              display: block;
+              text-align: center;
+              font-size: 3.5vw;
+            }
+            #logo{
+              height: 30px !important;
+              width: 100px !important;
+            }
+            #menu{
+              font-size: 30px !important;
+            }
+          }
+
+       </style>
+
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                x.className += " responsive";
+                } else {
+                x.className = "topnav";
+                }
+            }
+        </script>
+
+        <script>
+              window.onscroll = function() {scrollFunction()};
+              
+              function scrollFunction() {
+                if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
+                  document.getElementById("myTopnav").style.opacity = "0.8";
+                  document.getElementById("myTopnav").style.boxShadow = "#1a1919 0px 0.5px 2px";
+                  document.getElementById("top").style.display = "block";
+
+                } else {
+                  document.getElementById("myTopnav").style.opacity = "1";
+                  document.getElementById("myTopnav").style.boxShadow = "0px 0px 0px";
+                  document.getElementById("top").style.display = "none";
+                }
+              }
+        </script>
+
+        {% block head-content %}
+
+        {% endblock %}
+
+    </head>
+
+    <body>
+        <a href="#myTopnav"><img src="../media/images/top.png" id="top"></a>
+
+        <div class="topnav" id="myTopnav" >
+            <a href="index1.html" style="all: unset; cursor:pointer;">
+              <img src="../media/images/logo.png" id="logo">
+            </a>
+
+            {% block nav-content %}
+
+            {% endblock nav-content %}
+
+            <a  class="icon" onclick="myFunction()">
+                <i class="material-icons" style="font-size: 4vw; color:#B54D47" id="menu">menu</i>
+                </a>
+        </div>
+        {% block body-content %}
+
+        {% endblock %}
+
+        <footer>
+            Copyright @2020 PassedOnWisdom
+        </footer>
+    </body>
+</html>
+
+<!--Yellow: #F0B742
+Red: #B54D47
+Dark Grey: #1a1919-->
+
+<!-- White: #F9F9F8
+Smoke Blue: #3A475D
+Dark Blue: #212537 -->

@@ -1,25 +1,70 @@
-from django.shortcuts import render,redirect
-from django.http import HttpResponse
-from django.contrib.auth.models import  User,auth
-from .models import Seller , Customer
-from .forms import SellerForm , CustomerForm
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
-from django.views.generic import DetailView, CreateView
-from django.views.generic.edit import UpdateView
-from django.urls import reverse_lazy
-from django.shortcuts import render,redirect, get_object_or_404
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-import re
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User, auth
+from .models import Customer, Book, Coat, Calculator, Order_Book, Order_Coat, Order_Calculator, Report_Book, Feedback
 
 # Create your views here.
 def index(request):
     return render(request,"index.html")
 
 
-def sellerSignUp(request):          
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST.get('email')
+        password = request.POST.get('password')
+        user = authenticate(request, username = username, password = password)
+        if user is not None:
+            auth.login(request, user)
+            return redirect('index')
+        else:
+            messages.error(request, 'Input correct email and password')
+    template_name = 'login.html'
+    return render(request, template_name)
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
+
+
+def signup(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if Customer.objects.filter(email = email).exists():
+            messages.error(request, 'Email already taken. Try a different one.')
+        else:
+            obj1 = User.objects.create(
+                username = email,
+                email = email,
+            )
+            obj1.set_password(request.POST.get('password'))
+            obj1.save()
+            fullName = request.POST.get('fullName')  
+            password = request.POST.get('password')
+            confirmpassword = request.POST.get('confirmPassword')
+            contactNumber = request.POST.get('contactNumber')
+            year = request.POST.get('year')
+            branch = request.POST.get('branch')
+            obj2 = Customer.objects.create(
+                email = email,
+                fullName = fullName,
+                password = password,
+                confirmPassword = confirmpassword,
+                contactNumer = contactNumber,
+                year = year,
+                branch = branch
+            )
+            obj2.save()
+            return redirect("login")
+    template_name = 'signup.html'
+    return render(request, template_name)
+
+
+
+'''def sellerSignUp(request):          
     context = {}
     if request.method == 'POST':
         s_form = SellerForm(request.POST)
@@ -127,3 +172,5 @@ def login(request):
 
     else:
         return render(request,'login.html')
+'''
+

@@ -18,21 +18,8 @@ branch_choices = (
     ("MECH","MECH"), 
 ) 
 
-#signup details
-class Seller(models.Model):
-    username = models.CharField(max_length=255)
-    email = models.EmailField()
-    fullName = models.CharField(max_length=255)
-    password = models.CharField(max_length=20)
-    confirmPassword = models.CharField(max_length=20)
-    contactNumber= models.CharField(max_length=12)
-    year=models.CharField(max_length = 2, choices = year_choices, default = 'FY') 
-    branch=models.CharField(max_length = 5, choices =branch_choices, default = 'IT') 
-    #Image = models.ImageField(upload_to="images/customer/profile/", null=True, blank=True,default="images/customer/profile/default-customer.png")
-
 
 class Customer(models.Model):
-    username = models.CharField(max_length=255)
     email = models.EmailField()
     fullName = models.CharField(max_length=255)
     password = models.CharField(max_length=20)
@@ -51,7 +38,7 @@ book_status=(
     ("sold","sold"),
 ) 
 class Book(models.Model):
-    seller=models.ForeignKey(Seller,on_delete=models.CASCADE,related_name="books")
+    seller=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name="books")
     bookName=models.CharField(max_length=255)
     author=models.CharField(max_length=255)
     price=models.DecimalField(max_digits=6,decimal_places=2)
@@ -73,7 +60,7 @@ size_choices=(
     ("XXXL","XXXL"),
 )
 class Coat(models.Model):
-    seller=models.ForeignKey(Seller,on_delete=models.CASCADE,related_name="coats")
+    seller=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name="coats")
     price=models.DecimalField(max_digits=6,decimal_places=2)
     description=models.TextField(blank=True)
     size=models.CharField(max_length = 10, choices = size_choices, default = 'L') 
@@ -84,7 +71,7 @@ class Coat(models.Model):
 
 
 class Calculator(models.Model):
-    seller=models.ForeignKey(Seller,on_delete=models.CASCADE,related_name="calculators")
+    seller=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name="calculators")
     modelNumber=models.CharField(max_length=255)
     price=models.DecimalField(max_digits=6,decimal_places=2)
     old=models.BooleanField(default=True)

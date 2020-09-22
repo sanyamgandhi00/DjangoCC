@@ -5,9 +5,10 @@ from django.conf import settings
 
 urlpatterns = [
     path('', views.index,name="index"),
-    path('sellerSignUp',views.sellerSignUp , name="sellerSignUp" ),
-    path('customerSignUp',views.customerSignUp , name="customerSignUp" ) ,
-    path('login' , views.login , name="login")
+    #path('sellerSignUp',views.sellerSignUp , name="sellerSignUp" ),
+    #path('customerSignUp',views.customerSignUp , name="customerSignUp" ) ,
+    path('login' , views.login , name="login"),
+    path('logout' , views.logout , name="logout"),
 ]
 
 if settings.DEBUG:

@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Customer, Book, Coat, Calculator, Order_Book, Order_Coat, Order_Calculator, Report_Book, Feedback
+from .models import Student, Book, Coat, Calculator, Order_Book, Order_Coat, Order_Calculator, Report_Book, Feedback
 # Register your models here.
 
-admin.site.register(Customer)
+admin.site.register(Student)
 admin.site.register(Book)
 admin.site.register(Coat)
 admin.site.register(Calculator)

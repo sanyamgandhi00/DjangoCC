@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
-from .models import Customer, Book, Coat, Calculator, Order_Book, Order_Coat, Order_Calculator, Report_Book, Feedback
+from .models import Student, Book, Coat, Calculator, Order_Book, Order_Coat, Order_Calculator, Report_Book, Feedback
 
 # Create your views here.
 def index(request):
@@ -33,7 +33,7 @@ def logout(request):
 def signup(request):
     if request.method == 'POST':
         email = request.POST.get('email')
-        if Customer.objects.filter(email = email).exists():
+        if Student.objects.filter(email = email).exists():
             messages.error(request, 'Email already taken. Try a different one.')
         else:
             obj1 = User.objects.create(
@@ -48,7 +48,7 @@ def signup(request):
             contactNumber = request.POST.get('contactNumber')
             year = request.POST.get('year')
             branch = request.POST.get('branch')
-            obj2 = Customer.objects.create(
+            obj2 = Student.objects.create(
                 email = email,
                 fullName = fullName,
                 password = password,

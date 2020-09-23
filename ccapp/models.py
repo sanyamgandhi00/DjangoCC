@@ -19,7 +19,7 @@ branch_choices = (
 ) 
 
 
-class Customer(models.Model):
+class Student(models.Model):
     email = models.EmailField()
     fullName = models.CharField(max_length=255)
     password = models.CharField(max_length=20)
@@ -38,7 +38,7 @@ book_status=(
     ("sold","sold"),
 ) 
 class Book(models.Model):
-    seller=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name="books")
+    seller=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="books")
     bookName=models.CharField(max_length=255)
     author=models.CharField(max_length=255)
     price=models.DecimalField(max_digits=6,decimal_places=2)
@@ -60,7 +60,7 @@ size_choices=(
     ("XXXL","XXXL"),
 )
 class Coat(models.Model):
-    seller=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name="coats")
+    seller=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="coats")
     price=models.DecimalField(max_digits=6,decimal_places=2)
     description=models.TextField(blank=True)
     size=models.CharField(max_length = 10, choices = size_choices, default = 'L') 
@@ -71,7 +71,7 @@ class Coat(models.Model):
 
 
 class Calculator(models.Model):
-    seller=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name="calculators")
+    seller=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="calculators")
     modelNumber=models.CharField(max_length=255)
     price=models.DecimalField(max_digits=6,decimal_places=2)
     old=models.BooleanField(default=True)
@@ -83,24 +83,24 @@ class Calculator(models.Model):
 
 class Order_Book(models.Model):
     book=models.ForeignKey(Book,on_delete=models.CASCADE,related_name="order_books")
-    customer=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name="order_books")
+    customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_books")
     timestamp=models.DateTimeField(auto_now_add=True)
 
 class Order_Coat(models.Model):
     coat=models.ForeignKey(Coat,on_delete=models.CASCADE,related_name="order_coats")
-    customer=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name="order_coats")
+    customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_coats")
     timestamp=models.DateTimeField(auto_now_add=True)
 
 class Order_Calculator(models.Model):
     calculator=models.ForeignKey(Calculator,on_delete=models.CASCADE,related_name="order_calculators")
-    customer=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name="order_calculators")
+    customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_calculators")
     timestamp=models.DateTimeField(auto_now_add=True)
 
 #feedbacks
 
 class Report_Book(models.Model):
     book=models.ForeignKey(Book,on_delete=models.CASCADE,related_name="report_books")
-    customer=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name="report_books")
+    customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="report_books")
 
 class Feedback(models.Model):
     name=models.CharField(max_length=255)

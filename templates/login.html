@@ -1,75 +1,377 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
 
-<head>
-    <title>Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <style>
-        body {
-            background-image: url("../media/images/main/background/login-bg-img.jpg");
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: 100% 100%;
-        }
-        
-        fieldset {
-            border-radius: 25px;
-            background-color: white;
-            width: 500px;
-        }
-        
-        label {
-            display: inline-block;
-            width: 70px;
-            text-align: right;
-        }
-        
-        button {
-            padding: 10px 20px;
-            color: whitesmoke;
-            border-radius: 10px;
-            border: 0px;
-            background-color: rgb(219, 16, 16);
-        }
-        
-        button:hover {
-            background-color: rgb(255, 0, 0);
-        }
-    </style>
-</head>
-<center>
+{% block head-content %}
 
-    <body>
-        <form action="login" method="POST">
-            {% csrf_token %}
-            <br><br>
-            <fieldset><br><br>
-                <h1 style="text-align:center;font-size:30px;"><i>passed</i><span style="color:red;">OnWisdom</span></h1>
-                <h1>Login</h1>
-                <br><br> New Customer <a href=#> SignUp</a><br> New Vendor <a href=#> SignUp</a><br><br>
-                <label for="Username"> Username:</label> &nbsp;
-                <input type="text" placeholder="Enter Valid Uswername" id="Username" name="Username" size="24">
-                <br><br>
-                <label for="Password">Password: </label>
-                <input type="password" placeholder="Enter password" id="Password" name="Password" maxlength="20" size="24">
-                <br><br>
-                <button type="submit"><b>Log In</b></button>
-                <br><br><br>
-                <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-                <br><br>
-            </fieldset>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	  $('.tab a').on('click', function (e) {
+	  e.preventDefault();
+	  
+	  $(this).parent().addClass('active');
+	  $(this).parent().siblings().removeClass('active');
+	  
+	  var href = $(this).attr('href');
+	  $('.forms > form').hide();
+	  $(href).fadeIn(500);
+	});
+});
 
-        </form>
+$(document).ready(function(){
+  $('#tosignup').on('click', function (e) {
+  e.preventDefault();
+  
+  $('#signupbutton').addClass('active');
+  $('#loginbutton').removeClass('active');
+  
+  var href = $(this).attr('href');
+  $('.forms > form').hide();
+  $(href).fadeIn(500);
+});
+});
 
-        <div>
-            {% for message in messages %}
-            <h3 style="color: black;">
-                {{message}} {% endfor %}
-            </h3>
+$(document).ready(function(){
+  $('#tologin').on('click', function (e) {
+  e.preventDefault();
+  
+  $('#loginbutton').addClass('active');
+  $('#signupbutton').removeClass('active');
+  
+  var href = $(this).attr('href');
+  $('.forms > form').hide();
+  $(href).fadeIn(500);
+});
+});
+</script>
+<!-- Login and Signup Form Validation -->
+<script>
+  function validatelogin(){
+    if( document.loginform.email.value == "" ) {
+      document.getElementById('loginwarning').innerHTML = "***Email ID Cannot be Blank***";
+      document.loginform.email.focus() ;
+      return false;
+    }
+    if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(document.loginform.email.value)){
+      document.getElementById('loginwarning').innerHTML = "***Invalid Email Address***";
+      document.loginform.email.focus() ;
+      return false;
+    }
+    if( document.loginform.password.value == "" ) {
+      document.getElementById('loginwarning').innerHTML = "***Password Cannot be Blank***";
+      document.loginform.password.focus() ;
+      return false;
+    }
+    return true;
+  }
+
+  function validatesignup(){
+    var letters = /^[A-Za-z]+$/;
+
+    if( document.signupform.fullName.value == "" ) {
+      document.getElementById('signupwarning').innerHTML = "***Name cannot be Blank***";
+      document.signupform.fullName.focus() ;
+      return false;
+    }
+    if( !/^[A-Za-z\s]+$/.test(document.signupform.fullName.value) ) {
+      document.getElementById('signupwarning').innerHTML = "***Name can only Contain Alphabets and Space***";
+      document.signupform.fullName.focus() ;
+      return false;
+    }
+    if( document.signupform.email.value == "" ) {
+      document.getElementById('signupwarning').innerHTML = "***Email ID Cannot be Blank***";
+      document.signupform.email.focus() ;
+      return false;
+    }
+    if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(document.signupform.email.value)){
+      document.getElementById('signupwarning').innerHTML = "***Invalid Email Address***";
+      document.signupform.email.focus() ;
+      return false;
+    }
+    if( document.signupform.contactNumber.value == "" ) {
+      document.getElementById('signupwarning').innerHTML = "***Mobile Number Cannot be Blank***";
+      document.signupform.contactNumber.focus() ;
+      return false;
+    }
+    if( document.signupform.contactNumber.value.length != 10 ){
+      document.getElementById('signupwarning').innerHTML = "***Mobile Number Must be 10 Digits***";
+      document.signupform.contactNumber.focus() ;
+      return false;
+    }
+    if( document.signupform.year.value == "-1" ) {
+      document.getElementById('signupwarning').innerHTML = "***Please Select Year of Study***";
+      document.signupform.year.focus() ;
+      return false;
+    }
+    if( document.signupform.branch.value == "-1" ) {
+      document.getElementById('signupwarning').innerHTML = "***Please Select Branch***";
+      document.signupform.branch.focus() ;
+      return false;
+    }
+    if( document.signupform.password.value == "" ) {
+      document.getElementById('signupwarning').innerHTML = "***Password Cannot be Blank***";
+      document.signupform.password.focus() ;
+      return false;
+    }
+    if( document.signupform.password.value.length<6 ){
+      document.getElementById('signupwarning').innerHTML = "***Password Too Short***";
+      document.signupform.password.focus() ;
+      return false;
+    }
+    if( document.signupform.password.value != document.signupform.confirmPassword.value ){
+      document.getElementById('signupwarning').innerHTML = "***Password and Confirm Password Fields Do Not Match***";
+      document.signupform.confirmPassword.focus() ;
+      return false;
+    }
+    
+
+return true;
+}
+</script>
+
+<style>
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .forms {
+    background: #fff;
+    box-shadow: 0 0 7px #000;
+    margin: 30px;
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+    float: left;
+    width: 35%;
+    min-height: 60vh;
+    zoom: 0.9;
+    border-radius: 10px;
+  }
+  .forms h1 {
+    font-size: 24px;
+    color: #666;
+    font-weight:bold;
+    text-align: center;
+  }
+  .forms form { padding: 30px; }
+  #signup { display: none; }
+  .forms .tab-group {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .forms .tab-group:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .forms .tab-group li a {
+    display: block;
+    text-decoration: none;
+    padding: 10px;
+    background: #eee;
+    color: #888;
+    font-size: 20px;
+    float: left;
+    width: 50%;
+    text-align: center;
+    border-top: 3px solid transparent;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+  }
+  .forms .tab-group li a:hover {
+    background: #dedfdf;
+    color: #666;
+  }
+  .forms .tab-group .active a {
+    background: #fff;
+    color: #444;
+    border-top: 3px solid #B54D47;
+  }
+  .forms input {
+    font-size: 16px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    color: #666;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+    background-color: #fff;
+  }
+  .forms input:focus {
+    outline: 0;
+    border-color: #B54D47;
+  }
+  .forms label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .forms .button {
+    border: 0;
+    outline: none;
+    border-radius: 0;
+    padding: 10px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 3px solid #B54D47;
+    border-radius: 5px;
+    color: #B54D47;
+    cursor: pointer;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+  }
+  .forms .button:hover, .button:focus { background: #B54D47; color: white; }
+  .text-p { text-align: center; }
+  .text-p a { color: #1383ea; }
+
+  ::placeholder{
+    opacity: 0.7;
+  }
+  hr{
+    border-top: 0.1px solid #B54D47;
+    width: 60%;
+    margin-bottom: 50px;
+  }
+  .grid-container{
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin-bottom: 30px;
+  }
+  select{
+    color: #666;
+    border: 1px solid #aaa;
+  }
+  .warning{
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+    margin: 20px;
+    opacity: 0.8;
+  }
+
+  #loginpage{
+    border-bottom: #B54D47 0.2vw solid;
+  }
+
+  @media screen and (max-width: 992px){
+    .forms{
+      zoom: 0.8;
+      width: 50%;
+    }
+  }
+  @media screen and (max-width: 700px){
+    .forms{
+      float: none;
+      margin: 30px auto;
+      width: 70%;
+    }
+  }
+  @media screen and (max-width: 500px){
+    .forms{
+      zoom: 0.7;
+      width: 80%;
+    }
+    .forms h1 {
+      font-size: 22px;
+      color: #666;
+    }
+  }
+  .muted-text{
+    color: #aaa;
+    font-size: 14px;
+  }
+
+</style>
+{% endblock %}
+
+{% block body-content %}
+<div style="min-height: 95vh; background-image:url('../media/images/login-background.png'); background-repeat:no-repeat;  background-size: cover; display:flex; background-position: left top; background-attachment: fixed;">
+  
+<div class="forms">
+	<ul class="tab-group">
+		<li class="tab active" id="loginbutton"><a href="#login">Log In</a></li>
+		<li class="tab" id="signupbutton"><a href="#signup" >Sign Up</a></li>
+  </ul>
+  
+  <!-- LOGIN FORM -->
+
+	<form action="/login" id="login" onsubmit="return validatelogin()" name="loginform" method="POST">
+    {% csrf_token %}
+      <h1>Login to Passed on Wisdom</h1><hr>
+      <div id="loginwarning" class="warning">
+        <!-- INSERT LOGIN WARNINGS HERE -->
+      </div>
+      <div class="input-field">
+        <label for="email">Email</label>
+        <input type="text" name="email" placeholder="john@example.com"/>
+        <label for="password">Password</label> 
+        <input type="password" name="password" placeholder="******"/>
+        <input type="submit" value="Login" class="button"/>
+        
+        <p class="text-p"> Not Yet Registered? <a href="#signup" id="tosignup">Sign Up</a> </p>
+      </div>
+  </form>
+    
+  <!-- SIGNUP FORM -->
+
+	<form action="/signup" id="signup" onsubmit="return validatesignup()" name="signupform" method="POST">
+    {% csrf_token %}
+      <h1>Sign Up on Passed on Wisdom</h1><hr>
+      <div id="signupwarning" class="warning">
+        <!-- INSERT SIGNUP WARNINGS HERE -->
+      </div>
+      <div class="input-field">
+        <label for="fullName">Name</label> 
+        <input type="text" name="fullName" placeholder="John Doe" />
+        <label for="email">Email</label> 
+        <input type="text" name="email" placeholder="john@example.com"/>
+        <label for="contactNumber">Mobile Number</label>
+        <input type="number" name="contactNumber" placeholder="9876543210"/>
+        <div class="grid-container">
+        <label for="year" class="grid-item">Year of Study</label>
+        <label for="Branch" class="grid-item">Branch</label>
+        <select id="year" name="year" class="grid-item">
+          <option value="-1">Select Year</option>
+          <option value="fy">First Year</option>
+          <option value="sy">Second Year</option>
+          <option value="ty">Third Year</option>
+          <option value="ly">Fourth Year</option>
+        </select>
+        <select id="branch" name="branch" class="grid-item">
+          <option value="-1">Select Branch</option>
+          <option value="comps">COMPS</option>
+          <option value="etrx">ETRX</option>
+          <option value="extc">EXTC</option>
+          <option value="it">IT</option>
+          <option value="mech">MECH</option>
+        </select>
         </div>
-
-    </body>
-</center>
-
-</html>
+        <label for="password">Password</label> <p class="muted-text">(Password Must be Atleast 6 Characters Long)</p>
+        <input type="password" name="password" placeholder="******"/>
+        <label for="confirmPassword">Confirm Password</label> <p class="muted-text">(Password and Confirm Password Fields Must Match)</p>
+        <input type="password" name="confirmPassword" placeholder="******"/>
+        <input type="submit" value="Sign up" class="button" />
+        <p class="text-p">Already Registered? <a href="#login" id="tologin">Login</a> </p>
+      </div>
+	  </form>
+</div>
+</div>
+{% endblock %}

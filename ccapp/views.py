@@ -10,8 +10,6 @@ from .models import Student, Book, Coat, Calculator, Order_Book, Order_Coat, Ord
 def index(request):
     return render(request,"index.html")
 
-
-
 def login(request):
     if request.method == 'POST':
         username = request.POST.get('email')
@@ -59,8 +57,7 @@ def signup(request):
             )
             obj2.save()
             return redirect("login")
-    template_name = 'signup.html'
-    return render(request, template_name)
+    return redirect("login")
 
 
 

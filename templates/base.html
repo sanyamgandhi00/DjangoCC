@@ -178,13 +178,18 @@
         <a href="#myTopnav"><img src="../media/images/top.png" id="top"></a>
 
         <div class="topnav" id="myTopnav" >
-            <a href="index1.html" style="all: unset; cursor:pointer;">
+            <a href="{% url 'index' %}" style="all: unset; cursor:pointer;">
               <img src="../media/images/logo.png" id="logo">
             </a>
 
-            {% block nav-content %}
-
-            {% endblock nav-content %}
+            {% if user.is_authenticated %}
+            <!-- Here will come the 'my account' dropdown navbar link -->
+            {% else %}
+            <a href="{% url 'login' %}" id="loginpage"> Login/Signup</a>
+            {% endif %}
+            <a href="#about" id="aboutpage"> About Us</a>
+            <a href="#news" id="sellpage"> Sell A Product</a>
+            <a href="#home" id="buypage"> Buy A Product</a>
 
             <a  class="icon" onclick="myFunction()">
                 <i class="material-icons" style="font-size: 4vw; color:#B54D47" id="menu">menu</i>
@@ -194,7 +199,7 @@
 
         {% endblock %}
 
-        <footer>
+        <footer style="bottom: 0;">
             Copyright @2020 PassedOnWisdom
         </footer>
     </body>

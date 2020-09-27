@@ -11,6 +11,7 @@ def index(request):
     return render(request,"index.html")
 
 def login(request):
+    err=""
     if request.method == 'POST':
         username = request.POST.get('email')
         password = request.POST.get('password')
@@ -19,9 +20,10 @@ def login(request):
             auth.login(request, user)
             return redirect('index')
         else:
-            messages.error(request, 'Input correct email and password')
+           err = 'Input correct email and password'
     template_name = 'login.html'
-    return render(request, template_name)
+    context={'err':err}
+    return render(request, template_name,context)
 
 def logout(request):
     auth.logout(request)
@@ -29,10 +31,12 @@ def logout(request):
 
 
 def signup(request):
+    err=""
     if request.method == 'POST':
         email = request.POST.get('email')
         if Student.objects.filter(email = email).exists():
-            messages.error(request, 'Email already taken. Try a different one.')
+            err = 'Email already taken. Try a different one.'
+
         else:
             obj1 = User.objects.create(
                 username = email,
@@ -57,9 +61,9 @@ def signup(request):
             )
             obj2.save()
             return redirect("login")
-    return redirect("login")
-
-
+    template_name = 'login.html'
+    context={'err':err}
+    return render(request, template_name,context)
 
 '''def sellerSignUp(request):          
     context = {}

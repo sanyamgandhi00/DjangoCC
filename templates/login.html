@@ -22,15 +22,12 @@
   </ul>
   
   <!-- LOGIN FORM -->
-
-	<form action="/login" id="login" onsubmit="return validatelogin()" name="loginform" method="POST">
+ 	<form action="/login" id="login" onsubmit="return validatelogin()" name="loginform" method="POST">
     {% csrf_token %}
       <h1>Login to Passed on Wisdom</h1><hr>
       <div id="loginwarning" class="warning">
         <!-- INSERT LOGIN WARNINGS HERE -->
-        {% if message %}
-        {{message}}
-        {% endif %}
+    
       </div>
       <div class="input-field">
         <label for="email">Email</label>
@@ -50,9 +47,7 @@
       <h1>Sign Up on Passed on Wisdom</h1><hr>
       <div id="signupwarning" class="warning">
         <!-- INSERT SIGNUP WARNINGS HERE -->
-        {% if message %}
-        {{message}}
-        {% endif %}
+        
       </div>
       <div class="input-field">
         <label for="fullName">Name</label> 
@@ -90,4 +85,27 @@
 	  </form>
 </div>
 </div>
+{{err}}
+{% if err %}
+  {% if err == 'Email already taken. Try a different one.' %}
+    <script>
+        $(document).ready(function(){
+          $('#signupbutton').addClass('active');
+        $('#loginbutton').removeClass('active');
+        
+        var href = $('#signupbutton > a').attr('href');
+        $('.forms > form').hide();
+        $(href).fadeIn(500);
+      });
+    </script>
+    <script>
+      document.getElementById('signupwarning').innerHTML = "Email already taken. Try a different one.";
+    </script>
+  {% else %}
+    <script>
+    document.getElementById('loginwarning').innerHTML = "Input correct email and password";
+    </script>
+  {% endif %}
+{% endif %}
+
 {% endblock %}

@@ -51,7 +51,7 @@ def signup(request):
                 fullName = fullName,
                 password = password,
                 confirmPassword = confirmpassword,
-                contactNumer = contactNumber,
+                contactNumber = contactNumber,
                 year = year,
                 branch = branch
             )

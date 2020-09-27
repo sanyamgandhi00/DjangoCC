@@ -318,6 +318,9 @@ return true;
       <h1>Login to Passed on Wisdom</h1><hr>
       <div id="loginwarning" class="warning">
         <!-- INSERT LOGIN WARNINGS HERE -->
+        {% if message %}
+        {{message}}
+        {% endif %}
       </div>
       <div class="input-field">
         <label for="email">Email</label>
@@ -337,6 +340,9 @@ return true;
       <h1>Sign Up on Passed on Wisdom</h1><hr>
       <div id="signupwarning" class="warning">
         <!-- INSERT SIGNUP WARNINGS HERE -->
+        {% if message %}
+        {{message}}
+        {% endif %}
       </div>
       <div class="input-field">
         <label for="fullName">Name</label> 

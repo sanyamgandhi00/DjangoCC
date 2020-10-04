@@ -79,6 +79,7 @@ body {
       transition: transform 0.2s linear;
       background-color: #eeeeee;
       border: 0.1px solid #dddddd;
+      cursor: pointer;
   }
   #logo{
       height: 3vw;

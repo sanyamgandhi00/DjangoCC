@@ -1,61 +1,55 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Passed On Wisdom</title>
-      <link rel="icon" href="passedon\static\images\favicon.png">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-      <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
-      <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-      <script src="{% static 'js/base.js' %}"></script> 
-        {% block head-content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images\favicon.svg' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <script src="{% static 'js/base.js' %}"></script>
+    {% block head-content %}
 
+    {% endblock %}
 
-         
+</head>
 
-        {% endblock %}
+<body>
+    <a href="#myTopnav"><img src="{% static 'images/top.png' %}" id="top"></a>
 
-    </head>
+    <div class="topnav" id="myTopnav">
+        <a href="{% url 'index' %}" style="all: unset; cursor:pointer;">
+            <img src="{% static 'images/logo.png' %}" id="logo">
+        </a>
 
-    <body>
-        <a href="#myTopnav"><img src="../media/images/top.png" id="top"></a>
-
-        <div class="topnav" id="myTopnav" >
-            <a href="{% url 'index' %}" style="all: unset; cursor:pointer;">
-              <img src="../media/images/logo.png" id="logo">
-            </a>
-
-            {% if user.is_authenticated %}
-            <!-- Here will come the 'my account' dropdown navbar link -->
-            <a href="#" id="accountpage" onmouseover="block()" onmouseout="none()"> My Account</a>
-            <div id="dropdown" onmouseover="block()" onmouseout="none()">
-                <a href="#">Profile</a>
-                <a href="#">Orders</a>
-                <a href="#">Advertisements</a>
-                <a href="#">Logout</a>
-            </div>
-
-            {% else %}
-            <a href="{% url 'login' %}" id="loginpage"> Login/Signup</a>
-            {% endif %}
-            <a href="#about" id="aboutpage"> About Us</a>
-            <a href="#news" id="sellpage"> Sell A Product</a>
-            <a href="#home" id="buypage"> Buy A Product</a>
-
-            <a  class="icon" onclick="myFunction()">
-                <i class="material-icons" style="font-size: 4vw; color:#B54D47" id="menu">menu</i>
-                </a>
+        {% if user.is_authenticated %}
+        <!-- Here will come the 'my account' dropdown navbar link -->
+        <a href="#" id="accountpage" onmouseover="block()" onmouseout="none()"> My Account</a>
+        <div id="dropdown" onmouseover="block()" onmouseout="none()">
+            <a href="#">Profile</a>
+            <a href="#">Orders</a>
+            <a href="#">Advertisements</a>
+            <a href="{% url 'logout' %}">Logout</a>
         </div>
-        {% block body-content %}
+        {% else %}
+        <a href="{% url 'login' %}" id="loginpage"> Login/Signup</a>
+        {% endif %}
 
-        {% endblock %}
+        <a href="#about" id="aboutpage"> About Us</a>
+        <a href="#news" id="sellpage"> Sell A Product</a>
+        <a href="#home" id="buypage"> Buy A Product</a>
+        <a class="icon" onclick="myFunction()">
+            <i class="material-icons" style="font-size: 4vw; color:#B54D47" id="menu">menu</i>
+        </a>
+    </div>
+    {% block body-content %}
+    {% endblock %}
+    <footer style="bottom: 0;">
+        Copyright @2020 PassedOnWisdom
+    </footer>
+</body>
 
-        <footer style="bottom: 0;">
-            Copyright @2020 PassedOnWisdom
-        </footer>
-    </body>
 </html>
 
 <!--Yellow: #F0B742

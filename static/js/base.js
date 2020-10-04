@@ -24,4 +24,11 @@
                   document.getElementById("top").style.display = "none";
                 }
               }
+
+              function block(){
+                document.getElementById("dropdown").style.display = "block";
+            }
+            function none(){
+                document.getElementById("dropdown").style.display = "none";
+            }
         

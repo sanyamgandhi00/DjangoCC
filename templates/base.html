@@ -9,11 +9,11 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
       <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-        
+      <script src="{% static 'js/base.js' %}"></script> 
         {% block head-content %}
 
 
-        <script src="{% static 'js/base.js' %}"></script>  
+         
 
         {% endblock %}
 
@@ -29,6 +29,14 @@
 
             {% if user.is_authenticated %}
             <!-- Here will come the 'my account' dropdown navbar link -->
+            <a href="#" id="accountpage" onmouseover="block()" onmouseout="none()"> My Account</a>
+            <div id="dropdown" onmouseover="block()" onmouseout="none()">
+                <a href="#">Profile</a>
+                <a href="#">Orders</a>
+                <a href="#">Advertisements</a>
+                <a href="#">Logout</a>
+            </div>
+
             {% else %}
             <a href="{% url 'login' %}" id="loginpage"> Login/Signup</a>
             {% endif %}

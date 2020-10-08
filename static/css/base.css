@@ -21,7 +21,7 @@ body {
     background-color: white;
     position: sticky;
     top: 0;
-    padding: 0;
+    padding: 0.02vw;
     z-index: 5;
     zoom: 80%;
     transition: box-shadow 0.2s linear;
@@ -55,7 +55,7 @@ body {
 
 #dropdown {
     display: none;
-    width: 17vw;
+    width: 15vw;
     position: absolute;
     right: 0px;
     box-shadow: 0px 0px 5px 2px #bbbbbb;
@@ -70,8 +70,7 @@ body {
     display: block;
     color: #1a1919;
     text-align: center;
-    border-bottom: 0.7px solid gray;
-    margin: 0px 20px;
+    margin: 0px;
     padding: 1.2vw 2.5vw 1.2vw 2.5vw;
     text-decoration: none;
     font-size: 1.4vw;
@@ -143,9 +142,7 @@ footer {
     #dropdown a {
         padding: 0.5vw 1.5vw 0.5vw 1.5vw;
         text-decoration: none;
-        font-size: 2vw;
-        margin: 0px;
-        border-bottom: 0px;
+        font-size: 2.5vw;
     }
 }
 

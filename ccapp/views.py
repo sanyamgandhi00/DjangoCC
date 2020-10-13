@@ -67,7 +67,7 @@ def signup(request):
     return render(request, template_name,context)
 
 def buyAProduct(request):
-    books=Book.objects.all()
+    books=Book.objects.filter(status="verified")
     template_name="buyAProduct.html"
     context={"books":books}
     return render(request,template_name,context)
@@ -83,13 +83,16 @@ def sellAProduct(request):
 
 @login_required(login_url="login")
 def buyBook(request,bookId):
-    customer=request.user.username
+    customer=Student.objects.get(email=request.user.username)
     book=Book.objects.get(bookId=bookId)
     order_book_obj=Order_Book.objects.create(
         book=book,
         customer=customer
     )
     order_book_obj.save()
+    status="inProcess"
+    Book.objects.filter(bookId=bookId).update(status=status)
+    print("timestamp: ",Order_Book.objects.get(book=book).timestamp)
     return redirect("buyAProduct")
 
 @login_required(login_url="login")

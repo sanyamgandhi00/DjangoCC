@@ -599,17 +599,31 @@
     <span class="bookName">{{book.bookName}}</span>
     <span class="bookAuthor">{{book.author}}</span><hr>
     <span class="bookDescription">{{book.description}}</span>
-    <span class="bookPrice">Rs. {{book.price}} <button id="buyButton" onclick="document.getElementById('id01').style.display='block'">Buy Now</button></span>
+    <span class="bookPrice">Rs. {{book.price}} <button id="buyButton" onclick="document.getElementById('id{{forloop.counter}}').style.display='block'">Buy Now</button></span>
+  </div>
+
+  <div id="id{{forloop.counter}}" class="modal" name="modalname">
+    <span onclick="document.getElementById('id{{forloop.counter}}').style.display='none'" class="close" title="Close Modal">X</span>
+    <div class="modal-content" action="#">
+      <div class="container">
+        <h1 class="modalHeading">Do you want to buy this Book?</h1><hr>
+        <p class="modalText">On Clicking "Confirm", your Contact Details will be shared with the Seller of this Book and He/She may Contact You Soon</p>
+        {% if user.is_authenticated == False %}
+        <p style="text-align: left;"><b>You need to login to buy this book</b></p>
+        {% endif %}
+        <div class="clearfix">
+          {% if user.is_authenticated %}
+          <a href="buyBook/{{book.bookId}}"><button type="button" onclick="document.getElementById('id{{forloop.counter}}').style.display='none'" class="confirmbtn">Confirm</button></a>
+          {% else %}
+          <a href="{% url 'login' %}"><button type="button" onclick="document.getElementById('id{{forloop.counter}}').style.display='none'" class="confirmbtn">Login</button></a>
+          {% endif %} 
+          <button type="button" onclick="document.getElementById('id{{forloop.counter}}').style.display='none'" class="cancelbtn">Cancel</button>
+        </div>
+      </div>
+    </div>
   </div>
   {% endfor %}
  
-  <div class="bookAd">
-    <img src="https://assets.entrepreneur.com/content/3x2/2000/20190102161219-GettyImages-904000456.jpeg" alt="">
-    <span class="bookName">Name of this Book</span>
-    <span class="bookAuthor">Author of this Book</span><hr>
-    <span class="bookDescription">Description of this Book is made to be long to see how it looks if it is kept long and in the next grid it will be short</span>
-    <span class="bookPrice">Rs. 199 <button id="buyButton" onclick="document.getElementById('id01').style.display='block'">Buy Now</button></span>
-  </div>
   <!-- Finish of Repeating Code -->
   
 </div>
@@ -617,27 +631,6 @@
    
 </div>
 
-
-<div id="id01" class="modal">
-  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">X</span>
-  <form class="modal-content" action="#">
-    <div class="container">
-      <h1 class="modalHeading">Do you want to buy this Book?</h1><hr>
-      <p class="modalText">On Clicking "Confirm", your Contact Details will be shared with the Seller of this Book and He/She may Contact You Soon</p>
-      {% if user.is_authenticated == False %}
-      <p style="text-align: left;"><b>You need to login to buy this book</b></p>
-      {% endif %}
-      <div class="clearfix">
-        {% if user.is_authenticated %}
-        <a href="{% url 'buyBook' %}"><button type="button" onclick="document.getElementById('id01').style.display='none'" class="confirmbtn">Confirm</button></a>
-        {% else %}
-        <a href="{% url 'login' %}"><button type="button" onclick="document.getElementById('id01').style.display='none'" class="confirmbtn">Login</button></a>
-        {% endif %} 
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      </div>
-    </div>
-  </form>
-</div>
 
 <script>
   function openTab(evt, tabName) {
@@ -658,12 +651,14 @@
 <!-- Modal Javascript -->
   <script>
     // Get the modal
-    var modal = document.getElementById('id01');
+    var modals = document.getElementsByname('modalname');
     
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
+      for(modal in modals){
       if (event.target == modal) {
         modal.style.display = "none";
+      }
       }
     }
     </script>

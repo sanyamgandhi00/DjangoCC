@@ -12,9 +12,9 @@ def index(request):
 
 
 #delete spam email
-spam=DeletedEmails.objects.all()
+'''spam=DeletedEmails.objects.all()
 for e in spam:
-    Student.objects.filter(email=e).delete()
+    Student.objects.filter(email=e).delete()'''
 
 def login(request):
     err=""

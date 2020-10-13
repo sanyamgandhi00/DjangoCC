@@ -1,0 +1,670 @@
+{% extends 'base.html' %}
+
+{% block head-content %}
+
+{% load static %}
+<title>Buy a Product</title>
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}"> -->
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<!-- <script src="{% static 'js/login.js' %}"></script> -->
+<style>
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      *:focus{
+        outline: none !important;
+      }
+    #buypage {
+        border-bottom: #B54D47 0.2vw solid;
+      }
+      .tab {
+        overflow: hidden;
+        margin: 1.5vw auto;
+        width: 90%;
+        text-align: center;
+      }
+      
+      /* Style the buttons inside the tab */
+      .tab button {
+        width: 45%;
+        border: none;
+        border-bottom: 2px solid #dddddd;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+        background: none;
+        margin: 2vw 2vw;
+        text-align: center;
+      }
+      
+      /* Change background color of buttons on hover */
+      .tab button:hover {
+        border-bottom: 2px solid #dba8a5;
+        transform: scale(1.01);
+        transition: transform 0.2s linear;
+      }
+      
+      /* Create an active/current tablink class */
+      .tab button.active {
+        border: none;
+        border-bottom: 2px solid #B54D47;
+      }
+      
+      /* Style the tab content */
+      .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        -webkit-animation: fadeEffect 1s;
+        animation: fadeEffect 1s;
+      }
+      
+      /* Fade in tabs */
+      @-webkit-keyframes fadeEffect {
+        from {opacity: 0;}
+        to {opacity: 1;}
+      }
+      
+      @keyframes fadeEffect {
+        from {opacity: 0;}
+        to {opacity: 1;}
+      }
+
+      .tabheading{
+        font-size: 22px;
+        font-weight: 400;
+      }
+
+      #books{
+        width: 86%;
+        margin: 24px auto;
+        background-color: #eeeeee;
+        grid-gap: 45px;
+        justify-content: space-around;
+        grid-template-columns: 1fr 1fr 1fr;
+        min-height: 80vh;
+        padding: 35px;
+        overflow: hidden;
+      }
+      #others{
+        width: 86%;
+        margin: 24px auto;
+        background-color: #efefef;
+        grid-gap: 35px;
+        justify-content: space-around;
+        grid-template-columns: 1fr 1fr;
+        min-height: 80vh;
+        padding: 45px;
+      }
+
+
+      #searchDiv{
+        background-color: #fff;
+        grid-column: 1/4;
+        padding: 5px;
+        text-align: center;
+        border-radius: 15px;
+      }
+      #bookSearch{
+        width: 70%;
+        height: 35px;
+        padding: 20px;
+        font-size: 14px;
+        border: 0.2px solid #bbbbbb;
+        background-color: #dddddd;
+        color: #1a1919;
+        border-radius: 5px;
+        margin: 10px 50px 10px 10px; 
+      }
+
+      #bookSearch:focus{
+        box-shadow: 0px 0px 3px #777777;
+        transition: box-shadow 0.2s linear;
+      }
+
+      #searchButton{
+        padding: 8px 40px;
+        border: 2px solid #20a000;
+        border-radius: 30px;
+        background-color: #fff;
+        color:#20a000;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      #searchButton:hover, #searchButton:active{
+        background-color:#20a000;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s linear;
+      }
+
+
+
+      .bookAd{
+        background-color: white;
+        /* box-shadow: #4b5261 0.1vw 0.1vw 0.3vw;
+        border-radius: 15px;  */
+        padding: 16px;
+        text-align: center;
+        color: #1a1919;
+        border-radius: 10px;
+        zoom: 0.9;
+      }
+      .bookAd:hover{
+        transform: scale(1.01);
+        transition: transform 0.2s linear;
+      }
+      .bookAd > img{
+        width: 90%;
+        margin: 10px auto;
+      }
+      .bookName{
+        display: block;
+        text-align: left;
+        font-size: 20px;
+        font-weight: 1000;
+        margin: 20px 10px 5px 10px;
+      }
+      .bookAuthor{
+        display: block;
+        text-align: left;
+        font-size: 16px;
+        font-weight: 400;
+        margin: 0px 10px;
+        color: #444444;
+      }
+      .bookAd > hr{
+        width: 75%;
+        border-bottom: 0.5px solid #B54D47;
+        margin: 25px auto;
+      }
+      .bookDescription{
+        display: block;
+        text-align: justify;
+        font-size: 14px;
+        font-weight: 300;
+        margin: 20px 20px;
+        color: #999999;
+      }
+      .bookPrice{
+        display: block;
+        font-size: 25px;
+        font-weight: 1000;
+        margin: 20px 0px 15px 0px;
+      }
+
+      #buyButton{
+        padding: 8px 25px;
+        border: 2px solid #B54D47;
+        border-radius: 20px;
+        background-color: #fff;
+        color: #B54D47;
+        font-size: 16px;
+        margin: 0px 0px 0px 15.5px;
+      }
+      #buyButton:hover, #buyButton:active{
+        border: 2px solid #B54D47;
+        background-color: #B54D47;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s linear;
+      }
+
+
+
+
+      /* Modal CSS */
+
+.container {
+  padding: 20px;
+  text-align: center;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.8);
+  padding-top: 100px;
+  animation: fadeEffect 1s;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fff;
+  margin: 2% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  width: 60%; /* Could be more or less, depending on screen size */
+  padding: 5px 2% 5px 2%;
+}
+ 
+/* The Modal Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 60px;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+  transform: rotateZ(360deg);
+  transition: transform 0.2s linear;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.modalHeading{
+  font-size: 30px;
+  margin: 0 auto 25px auto;
+  text-align: left;
+}
+.container > hr{
+  border-bottom: 0.5px solid #B54D47;
+        margin: 25px auto;
+}
+.modalText{
+  font-size: 18px;
+  text-align: left;
+  margin: 25px auto;
+}
+
+.cancelbtn{
+  margin: 12px 20px 0px 20px;
+  padding: 9px;
+  width: 20%;
+  font-size: 18px;
+  float: right;
+  border: 2px solid #B54D47;
+  border-radius: 30px;
+  background-color: #fff;
+  color: #B54D47;
+}
+.confirmbtn {
+  margin: 12px 20px 0px 20px;
+  padding: 9px;
+  width: 20%;
+  font-size: 18px;
+  float: right;
+  border: 2px solid #20a000;
+  border-radius: 30px;
+  background-color: #fff;
+  color: #20a000;
+}
+ .cancelbtn:hover, .cancelbtn:active{
+  border: 2px solid #B54D47;
+        background-color: #B54D47;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s linear;
+}
+.confirmbtn:hover, .confirmbtn:active{
+  border: 2px solid #20a000;
+        background-color: #20a000;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s linear;
+}
+
+
+/*MEDIA QUERIES*/
+
+
+@media screen and (max-width: 992px){
+  #bookSearch{
+    height: 30px;
+    border-radius: 5px;
+    margin: 10px 35px 10px 10px; 
+  }
+  #searchButton{
+    padding: 6px 35px;
+    border-radius: 26px;
+    font-size: 14px;
+  }
+
+  .bookAd{
+    padding: 14px;
+    border-radius: 10px;
+  }
+.bookAd > img{
+    margin: 8px auto;
+  }
+.bookName{
+    display: block;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 1000;
+    margin: 16px 8px 5px 8px;
+  }
+.bookAuthor{
+    font-size: 16px;
+    margin: 0px 8px;
+  }
+  .bookAd > hr{
+    margin: 20px auto;
+  }
+.bookDescription{
+    margin: 18px 10px;
+  }
+.bookPrice{
+    display: block;
+    font-size: 20px;
+    margin: 20px 0px 10px 0px;
+  }
+
+  #buyButton{
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    margin: 0px 0px 0px 15px;
+  }
+
+}
+
+@media screen and (max-width: 892px){
+  #books{
+    width: 90%;
+    margin: 20px auto;
+    grid-gap: 35px;
+    grid-template-columns: 1fr 1fr;
+    padding: 35px;
+  }
+  #searchDiv{
+    grid-column: 1/3;
+    padding: 8px;
+  }
+  #bookSearch{
+    height: 25px;
+    border-radius: 5px;
+    margin: 10px 20px 10px 10px; 
+  }
+  #searchButton{
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+  .bookDescription{
+    margin: 12px 10px;
+  }
+  .bookPrice{
+    font-size: 22px;
+    margin: 10px 10px 10px 10px;
+
+  }
+  #buyButton{
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-size: 20px;
+    margin: 15px 5px 10px 10px;
+  }
+  .modal{
+    zoom: 0.8;
+  }
+}
+
+@media screen and (max-width: 700px){
+  .tabheading{
+    font-size: 18px;
+  }
+  #buypage {
+    border: none;
+  }
+  .tab button {
+    padding: 10px 12px;
+  }
+  .bookPrice{
+    font-size: 20px;
+    margin: 10px 8px 10px 8px;
+    zoom: 0.9;
+
+  }
+  #buyButton{
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 20px;
+    margin: 15px 5px 10px 10px;
+  }
+  .modal{
+    zoom: 0.7;
+  }
+  .modal-content{
+    width: 70%;
+  }
+  .cancelbtn{
+    border-radius: 25px;
+  }
+  .confirmbtn {
+    border-radius: 25px;
+  }
+
+}
+
+@media screen and (max-width: 570px){
+  .tabheading{
+    font-size: 14px;
+  }
+
+  #bookSearch{
+    height: 14px;
+    border-radius: 4px;
+    margin: auto;
+    margin-right: 12px;
+    font-size: 10px; 
+    padding: 12px 6px;
+    width: 70%;
+  }
+  #searchButton{
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 10px;
+  }
+  #books{
+    width: 90%;
+    margin: 20px auto;
+    grid-gap: 35px;
+    grid-template-columns: 1fr;
+    padding: 25px;
+  }
+  #searchDiv{
+    width: 100%;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin: 5px auto;
+    grid-column: 1/2;
+  }
+  .bookPrice{
+    font-size: 25px;
+    margin: 10px 16px;
+    zoom: 1;
+  }
+  #buyButton{
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 25px;
+    margin: 15px 10px 10px 30px;
+    zoom: 0.85;
+  }
+  .modal-content{
+    width: 70%;
+    zoom: 0.9;
+  }
+  
+}
+
+@media screen and (max-width: 440px){
+  
+  .modalHeading{
+    font-size: 25px;
+    margin: 0 auto 20px auto;
+  }
+  .container > hr{
+    margin: 20px auto;
+  }
+  .modalText{
+    margin: 20px auto;
+  }
+  
+  .cancelbtn{
+    margin: 12px 20px 0px 20px;
+    padding: 12px;
+    width: 25%;
+  }
+  .confirmbtn {
+    margin: 12px 20px 0px 20px;
+    padding: 12px;
+    width: 25%;
+  }
+}
+@media screen and (max-width: 380px){
+  #bookSearch{
+    height: 14px;
+    border-radius: 4px;
+    margin: auto;
+    margin-right: 8px;
+    font-size: 8px; 
+    padding: 10px 6px;
+    width: 60%;
+  }
+  #searchButton{
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 8px;
+  }
+  #searchDiv{
+    width: 100%;
+  }
+  .bookPrice{
+    font-size: 20px;
+    margin: 10px 8px 10px 8px;
+    zoom: 0.9;
+
+  }
+  #buyButton{
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 20px;
+    margin: 15px 5px 10px 10px;
+  }
+  .modal-content{
+    zoom: 0.9;
+    width: 90%;
+  }
+}
+</style>
+
+{% endblock %}
+
+
+{% block body-content %}
+
+<div class="tab">
+<button class="tablinks active" onclick="openTab(event, 'books')">
+  <span class="tabheading">Reference Books</span>
+</button><button class="tablinks" onclick="openTab(event, 'others')">
+  <span class="tabheading">Other Products</span>
+</button>
+</div>
+
+
+
+<div id="books" class="tabcontent" style="display: grid;">
+  <div id="searchDiv">
+    <input type="text" name="bookSearch" id="bookSearch" placeholder="Search by Name or Author of the Book"><button id="searchButton">Search</button>
+  </div>
+
+  <!-- Repeat the following Code for all the books -->
+  
+
+  {% for book in books %}
+  <div class="bookAd">
+    {% if book.bookImage %}
+    <img src="{{book.bookImage.url}}" alt="">
+    {% endif %}
+    <span class="bookName">{{book.bookName}}</span>
+    <span class="bookAuthor">{{book.author}}</span><hr>
+    <span class="bookDescription">{{book.description}}</span>
+    <span class="bookPrice">Rs. {{book.price}} <button id="buyButton" onclick="document.getElementById('id01').style.display='block'">Buy Now</button></span>
+  </div>
+  {% endfor %}
+ 
+  <div class="bookAd">
+    <img src="https://assets.entrepreneur.com/content/3x2/2000/20190102161219-GettyImages-904000456.jpeg" alt="">
+    <span class="bookName">Name of this Book</span>
+    <span class="bookAuthor">Author of this Book</span><hr>
+    <span class="bookDescription">Description of this Book is made to be long to see how it looks if it is kept long and in the next grid it will be short</span>
+    <span class="bookPrice">Rs. 199 <button id="buyButton" onclick="document.getElementById('id01').style.display='block'">Buy Now</button></span>
+  </div>
+  <!-- Finish of Repeating Code -->
+  
+</div>
+<div id="others" class="tabcontent">
+   
+</div>
+
+
+<div id="id01" class="modal">
+  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">X</span>
+  <form class="modal-content" action="#">
+    <div class="container">
+      <h1 class="modalHeading">Do you want to buy this Book?</h1><hr>
+      <p class="modalText">On Clicking "Confirm", your Contact Details will be shared with the Seller of this Book and He/She may Contact You Soon</p>
+      {% if user.is_authenticated == False %}
+      <p style="text-align: left;"><b>You need to login to buy this book</b></p>
+      {% endif %}
+      <div class="clearfix">
+        {% if user.is_authenticated %}
+        <a href="{% url 'buyBook' %}"><button type="button" onclick="document.getElementById('id01').style.display='none'" class="confirmbtn">Confirm</button></a>
+        {% else %}
+        <a href="{% url 'login' %}"><button type="button" onclick="document.getElementById('id01').style.display='none'" class="confirmbtn">Login</button></a>
+        {% endif %} 
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "grid";
+    evt.currentTarget.className += " active";
+  }
+  </script>
+
+<!-- Modal Javascript -->
+  <script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    </script>
+{% endblock %}

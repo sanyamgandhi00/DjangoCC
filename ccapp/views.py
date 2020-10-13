@@ -10,8 +10,6 @@ from .models import Student, Book, Coat, Calculator, Order_Book, Order_Coat, Ord
 def index(request):
     return render(request,"index.html")
 
-def buy(request):
-    return render(request,"buy.html")
 
 def login(request):
     err=""
@@ -68,7 +66,56 @@ def signup(request):
     context={'err':err}
     return render(request, template_name,context)
 
-    
+def buyAProduct(request):
+    books=Book.objects.all()
+    template_name="buyAProduct.html"
+    context={"books":books}
+    return render(request,template_name,context)
+
+@login_required(login_url="login")
+def sellAProduct(request):
+    books=Book.objects.filter(seller__email__contains=request.user.username)
+    for book in books:
+        print(book.bookId)
+    template_name="sellAProduct.html"
+    context={}
+    return render(request,template_name,context)
+
+@login_required(login_url="login")
+def buyBook(request,bookId):
+    customer=request.user.username
+    book=Book.objects.get(bookId=bookId)
+    order_book_obj=Order_Book.objects.create(
+        book=book,
+        customer=customer
+    )
+    order_book_obj.save()
+    return redirect("buyAProduct")
+
+@login_required(login_url="login")
+def sellBook(request):
+    email=request.user.username
+    student=Student.objects.get(email=email)
+    if request.method == "POST" and request.FILES['bookImage']:
+        seller=student
+        bookImage=request.FILES["bookImage"]
+        bookName=request.POST["bookName"]
+        author=request.POST["author"]
+        price=request.POST["price"]
+        description=request.POST["description"]
+        status="pending"
+        book_obj=Book.objects.create(
+            seller=seller,
+            bookImage=bookImage,
+            bookName=bookName,
+            author=author,
+            price=price,
+            description=description,
+            status=status
+        )
+        book_obj.save()
+    return redirect("sellAProduct")
+
 
 '''def sellerSignUp(request):          
     context = {}

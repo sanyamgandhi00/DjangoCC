@@ -22,7 +22,7 @@ body {
     background-color: white;
     position: sticky;
     top: 0;
-    padding: 0.02vw;
+    padding: 0.1vw;
     z-index: 5;
     zoom: 80%;
     transition: box-shadow 0.2s linear;

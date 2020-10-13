@@ -39,6 +39,8 @@ book_status=(
 ) 
 class Book(models.Model):
     seller=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="books")
+    bookId = models.AutoField(primary_key=True)
+    bookImage=models.ImageField(upload_to="images/book",null=True,blank=True,default="images/book/defaultBook.jpg")
     bookName=models.CharField(max_length=255)
     author=models.CharField(max_length=255)
     price=models.DecimalField(max_digits=6,decimal_places=2)

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head-content %}
+{% load static %}
+<title>Sell a Product</title>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+{% endblock %}
+
+{% block body-content %}
+
+    <!-- LOGIN FORM -->
+    <form action="sellBook" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <h1>Post an advertisement of a book</h1>
+      <hr>
+      <div>
+        <label for="bookName">Name of the book</label>
+        <input type="text" name="bookName" placeholder="kumbojkar" /><br><br>
+        <label for="author">Author of the book</label>
+        <input type="text" name="author" placeholder="R. P. Jain" /><br><br>
+        <label for="price">Price of the book</label>
+        <input type="number" name="price" placeholder="500" /><br><br>
+        <label for="description">Description/Condition of the book</label>
+        <input type="text" name="description" placeholder="One or two pages are missing..." /><br><br>
+        <label for="bookImage">Image of the book:</label>
+        <input type="file" name="bookImage" accept="image/*" id="bookImage"><br><br><br>
+        <input type="submit" class="button" />
+        <br>
+      </div>
+    </form><br>
+
+{% endblock %}

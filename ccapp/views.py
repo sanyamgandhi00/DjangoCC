@@ -10,6 +10,9 @@ from .models import Student, Book, Coat, Calculator, Order_Book, Order_Coat, Ord
 def index(request):
     return render(request,"index.html")
 
+def buy(request):
+    return render(request,"buy.html")
+
 def login(request):
     err=""
     if request.method == 'POST':
@@ -64,6 +67,8 @@ def signup(request):
     template_name = 'login.html'
     context={'err':err}
     return render(request, template_name,context)
+
+    
 
 '''def sellerSignUp(request):          
     context = {}

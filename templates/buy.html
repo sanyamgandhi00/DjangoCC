@@ -1,0 +1,654 @@
+{% extends 'base.html' %}
+
+{% block head-content %}
+
+{% load static %}
+<title>Buy a Product</title>
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}"> -->
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<!-- <script src="{% static 'js/login.js' %}"></script> -->
+<style>
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      *:focus{
+        outline: none !important;
+      }
+    #buypage {
+        border-bottom: #B54D47 0.2vw solid;
+      }
+      .tab {
+        overflow: hidden;
+        margin: 1.5vw auto;
+        width: 90%;
+        text-align: center;
+      }
+      
+      /* Style the buttons inside the tab */
+      .tab button {
+        width: 45%;
+        border: none;
+        border-bottom: 2px solid #dddddd;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+        background: none;
+        margin: 2vw 2vw;
+        text-align: center;
+      }
+      
+      /* Change background color of buttons on hover */
+      .tab button:hover {
+        border-bottom: 2px solid #dba8a5;
+        transform: scale(1.01);
+        transition: transform 0.2s linear;
+      }
+      
+      /* Create an active/current tablink class */
+      .tab button.active {
+        border: none;
+        border-bottom: 2px solid #B54D47;
+      }
+      
+      /* Style the tab content */
+      .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        -webkit-animation: fadeEffect 1s;
+        animation: fadeEffect 1s;
+      }
+      
+      /* Fade in tabs */
+      @-webkit-keyframes fadeEffect {
+        from {opacity: 0;}
+        to {opacity: 1;}
+      }
+      
+      @keyframes fadeEffect {
+        from {opacity: 0;}
+        to {opacity: 1;}
+      }
+
+      .tabheading{
+        font-size: 22px;
+        font-weight: 400;
+      }
+
+      #books{
+        width: 86%;
+        margin: 24px auto;
+        background-color: #eeeeee;
+        grid-gap: 45px;
+        justify-content: space-around;
+        grid-template-columns: 1fr 1fr 1fr;
+        min-height: 80vh;
+        padding: 35px;
+        overflow: hidden;
+      }
+      #others{
+        width: 86%;
+        margin: 24px auto;
+        background-color: #efefef;
+        grid-gap: 35px;
+        justify-content: space-around;
+        grid-template-columns: 1fr 1fr;
+        min-height: 80vh;
+        padding: 45px;
+      }
+
+
+      #searchDiv{
+        background-color: #fff;
+        grid-column: 1/4;
+        padding: 5px;
+        text-align: center;
+        border-radius: 15px;
+      }
+      #bookSearch{
+        width: 70%;
+        height: 35px;
+        padding: 20px;
+        font-size: 14px;
+        border: 0.2px solid #bbbbbb;
+        background-color: #dddddd;
+        color: #1a1919;
+        border-radius: 5px;
+        margin: 10px 50px 10px 10px; 
+      }
+
+      #bookSearch:focus{
+        box-shadow: 0px 0px 3px #777777;
+        transition: box-shadow 0.2s linear;
+      }
+
+      #searchButton{
+        padding: 8px 40px;
+        border: 2px solid #20a000;
+        border-radius: 30px;
+        background-color: #fff;
+        color:#20a000;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      #searchButton:hover, #searchButton:active{
+        background-color:#20a000;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s linear;
+      }
+
+
+
+      .bookAd{
+        background-color: white;
+        /* box-shadow: #4b5261 0.1vw 0.1vw 0.3vw;
+        border-radius: 15px;  */
+        padding: 16px;
+        text-align: center;
+        color: #1a1919;
+        border-radius: 10px;
+        zoom: 0.9;
+      }
+      .bookAd:hover{
+        transform: scale(1.01);
+        transition: transform 0.2s linear;
+      }
+      .bookAd > img{
+        width: 90%;
+        margin: 10px auto;
+      }
+      .bookName{
+        display: block;
+        text-align: left;
+        font-size: 20px;
+        font-weight: 1000;
+        margin: 20px 10px 5px 10px;
+      }
+      .bookAuthor{
+        display: block;
+        text-align: left;
+        font-size: 16px;
+        font-weight: 400;
+        margin: 0px 10px;
+        color: #444444;
+      }
+      .bookAd > hr{
+        width: 75%;
+        border-bottom: 0.5px solid #B54D47;
+        margin: 25px auto;
+      }
+      .bookDescription{
+        display: block;
+        text-align: justify;
+        font-size: 14px;
+        font-weight: 300;
+        margin: 20px 20px;
+        color: #999999;
+      }
+      .bookPrice{
+        display: block;
+        font-size: 25px;
+        font-weight: 1000;
+        margin: 20px 0px 15px 0px;
+      }
+
+      #buyButton{
+        padding: 8px 25px;
+        border: 2px solid #B54D47;
+        border-radius: 20px;
+        background-color: #fff;
+        color: #B54D47;
+        font-size: 16px;
+        margin: 0px 0px 0px 15.5px;
+      }
+      #buyButton:hover, #buyButton:active{
+        border: 2px solid #B54D47;
+        background-color: #B54D47;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s linear;
+      }
+
+
+
+
+      /* Modal CSS */
+
+.container {
+  padding: 20px;
+  text-align: center;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.8);
+  padding-top: 100px;
+  animation: fadeEffect 1s;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fff;
+  margin: 2% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  width: 60%; /* Could be more or less, depending on screen size */
+  padding: 5px 2% 5px 2%;
+}
+ 
+/* The Modal Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 60px;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+  transform: rotateZ(360deg);
+  transition: transform 0.2s linear;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.modalHeading{
+  font-size: 30px;
+  margin: 0 auto 25px auto;
+  text-align: left;
+}
+.container > hr{
+  border-bottom: 0.5px solid #B54D47;
+        margin: 25px auto;
+}
+.modalText{
+  font-size: 18px;
+  text-align: left;
+  margin: 25px auto;
+}
+
+.cancelbtn{
+  margin: 12px 20px 0px 20px;
+  padding: 9px;
+  width: 20%;
+  font-size: 18px;
+  float: right;
+  border: 2px solid #B54D47;
+  border-radius: 30px;
+  background-color: #fff;
+  color: #B54D47;
+}
+.confirmbtn {
+  margin: 12px 20px 0px 20px;
+  padding: 9px;
+  width: 20%;
+  font-size: 18px;
+  float: right;
+  border: 2px solid #20a000;
+  border-radius: 30px;
+  background-color: #fff;
+  color: #20a000;
+}
+ .cancelbtn:hover, .cancelbtn:active{
+  border: 2px solid #B54D47;
+        background-color: #B54D47;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s linear;
+}
+.confirmbtn:hover, .confirmbtn:active{
+  border: 2px solid #20a000;
+        background-color: #20a000;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s linear;
+}
+
+
+/*MEDIA QUERIES*/
+
+
+@media screen and (max-width: 992px){
+  #bookSearch{
+    height: 30px;
+    border-radius: 5px;
+    margin: 10px 35px 10px 10px; 
+  }
+  #searchButton{
+    padding: 6px 35px;
+    border-radius: 26px;
+    font-size: 14px;
+  }
+
+  .bookAd{
+    padding: 14px;
+    border-radius: 10px;
+  }
+.bookAd > img{
+    margin: 8px auto;
+  }
+.bookName{
+    display: block;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 1000;
+    margin: 16px 8px 5px 8px;
+  }
+.bookAuthor{
+    font-size: 16px;
+    margin: 0px 8px;
+  }
+  .bookAd > hr{
+    margin: 20px auto;
+  }
+.bookDescription{
+    margin: 18px 10px;
+  }
+.bookPrice{
+    display: block;
+    font-size: 20px;
+    margin: 20px 0px 10px 0px;
+  }
+
+  #buyButton{
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    margin: 0px 0px 0px 15px;
+  }
+
+}
+
+@media screen and (max-width: 892px){
+  #books{
+    width: 90%;
+    margin: 20px auto;
+    grid-gap: 35px;
+    grid-template-columns: 1fr 1fr;
+    padding: 35px;
+  }
+  #searchDiv{
+    grid-column: 1/3;
+    padding: 8px;
+  }
+  #bookSearch{
+    height: 25px;
+    border-radius: 5px;
+    margin: 10px 20px 10px 10px; 
+  }
+  #searchButton{
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+  .bookDescription{
+    margin: 12px 10px;
+  }
+  .bookPrice{
+    font-size: 22px;
+    margin: 10px 10px 10px 10px;
+
+  }
+  #buyButton{
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-size: 20px;
+    margin: 15px 5px 10px 10px;
+  }
+  .modal{
+    zoom: 0.8;
+  }
+}
+
+@media screen and (max-width: 700px){
+  .tabheading{
+    font-size: 18px;
+  }
+  #buypage {
+    border: none;
+  }
+  .tab button {
+    padding: 10px 12px;
+  }
+  .bookPrice{
+    font-size: 20px;
+    margin: 10px 8px 10px 8px;
+    zoom: 0.9;
+
+  }
+  #buyButton{
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 20px;
+    margin: 15px 5px 10px 10px;
+  }
+  .modal{
+    zoom: 0.7;
+  }
+  .modal-content{
+    width: 70%;
+  }
+  .cancelbtn{
+    border-radius: 25px;
+  }
+  .confirmbtn {
+    border-radius: 25px;
+  }
+
+}
+
+@media screen and (max-width: 570px){
+  .tabheading{
+    font-size: 14px;
+  }
+
+  #bookSearch{
+    height: 14px;
+    border-radius: 4px;
+    margin: auto;
+    margin-right: 12px;
+    font-size: 10px; 
+    padding: 12px 6px;
+    width: 70%;
+  }
+  #searchButton{
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 10px;
+  }
+  #books{
+    width: 90%;
+    margin: 20px auto;
+    grid-gap: 35px;
+    grid-template-columns: 1fr;
+    padding: 25px;
+  }
+  #searchDiv{
+    width: 100%;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin: 5px auto;
+    grid-column: 1/2;
+  }
+  .bookPrice{
+    font-size: 25px;
+    margin: 10px 16px;
+    zoom: 1;
+  }
+  #buyButton{
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 25px;
+    margin: 15px 10px 10px 30px;
+    zoom: 0.85;
+  }
+  .modal-content{
+    width: 70%;
+    zoom: 0.9;
+  }
+  
+}
+
+@media screen and (max-width: 440px){
+  
+  .modalHeading{
+    font-size: 25px;
+    margin: 0 auto 20px auto;
+  }
+  .container > hr{
+    margin: 20px auto;
+  }
+  .modalText{
+    margin: 20px auto;
+  }
+  
+  .cancelbtn{
+    margin: 12px 20px 0px 20px;
+    padding: 12px;
+    width: 25%;
+  }
+  .confirmbtn {
+    margin: 12px 20px 0px 20px;
+    padding: 12px;
+    width: 25%;
+  }
+}
+@media screen and (max-width: 380px){
+  #bookSearch{
+    height: 14px;
+    border-radius: 4px;
+    margin: auto;
+    margin-right: 8px;
+    font-size: 8px; 
+    padding: 10px 6px;
+    width: 60%;
+  }
+  #searchButton{
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 8px;
+  }
+  #searchDiv{
+    width: 100%;
+  }
+  .bookPrice{
+    font-size: 20px;
+    margin: 10px 8px 10px 8px;
+    zoom: 0.9;
+
+  }
+  #buyButton{
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 20px;
+    margin: 15px 5px 10px 10px;
+  }
+  .modal-content{
+    zoom: 0.9;
+    width: 90%;
+  }
+}
+</style>
+
+{% endblock %}
+
+
+{% block body-content %}
+
+<div class="tab">
+<button class="tablinks active" onclick="openTab(event, 'books')">
+  <span class="tabheading">Reference Books</span>
+</button><button class="tablinks" onclick="openTab(event, 'others')">
+  <span class="tabheading">Other Products</span>
+</button>
+</div>
+
+
+
+<div id="books" class="tabcontent" style="display: grid;">
+  <div id="searchDiv">
+    <input type="text" name="bookSearch" id="bookSearch" placeholder="Search by Name or Author of the Book"><button id="searchButton">Search</button>
+  </div>
+
+  <!-- Repeat the following Code for all the books -->
+  
+  <div class="bookAd">
+    <img src="data:image/jpeg;base64,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" alt="">
+    <span class="bookName">Name of this Book</span>
+    <span class="bookAuthor">Author of this Book</span><hr>
+    <span class="bookDescription">Description of this Book is made to be long to see how it looks if it is kept long and in the next grid it will be short</span>
+    <span class="bookPrice">Rs. 199 <button id="buyButton" onclick="document.getElementById('id01').style.display='block'">Buy Now</button></span>
+  </div>
+  
+  <!-- Finish of Repeating Code -->
+  
+</div>
+<div id="others" class="tabcontent">
+   
+</div>
+
+
+<div id="id01" class="modal">
+  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">X</span>
+  <form class="modal-content" action="#">
+    <div class="container">
+      <h1 class="modalHeading">Do you want to buy this Book?</h1><hr>
+      <p class="modalText">On Clicking "Confirm", your Contact Details will be shared with the Seller of this Book and He/She may Contact You Soon</p>
+    
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="confirmbtn">Confirm</button>
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+<script>
+  function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "grid";
+    evt.currentTarget.className += " active";
+  }
+  </script>
+
+<!-- Modal Javascript -->
+  <script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    </script>
+{% endblock %}

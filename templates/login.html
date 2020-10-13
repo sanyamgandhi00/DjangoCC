@@ -99,6 +99,10 @@
 <script>
   document.getElementById('signupwarning').innerHTML = "Email already taken. Try a different one.";
 </script>
+{% elif err == 'Your account has been deleted.' %}
+<script>
+  document.getElementById('loginwarning').innerHTML = "Your account has been deleted.";
+</script>
 {% else %}
 <script>
   document.getElementById('loginwarning').innerHTML = "Input correct email and password";

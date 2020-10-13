@@ -4,12 +4,17 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
-from .models import Student, Book, Coat, Calculator, Order_Book, Order_Coat, Order_Calculator, Report_Book, Feedback
+from .models import Student, Book, Coat, Calculator, Order_Book, Order_Coat, Order_Calculator, Report_Book, Feedback, DeletedEmails
 
 # Create your views here.
 def index(request):
     return render(request,"index.html")
 
+
+#delete spam email
+spam=DeletedEmails.objects.all()
+for e in spam:
+    Student.objects.filter(email=e).delete()
 
 def login(request):
     err=""
@@ -18,8 +23,12 @@ def login(request):
         password = request.POST.get('password')
         user = authenticate(request, username = username, password = password)
         if user is not None:
-            auth.login(request, user)
-            return redirect('index')
+            if DeletedEmails.objects.filter(email=username).exists():
+                err = 'Your account has been deleted.'
+                DeletedEmails.objects.filter(email=username).delete()
+            else:
+                auth.login(request, user)
+                return redirect('buyAProduct')
         else:
            err = 'Input correct email and password'
     template_name = 'login.html'

@@ -110,3 +110,6 @@ class Feedback(models.Model):
     feedback=models.TextField()
     year=models.CharField(max_length = 2, choices = year_choices, default = 'FY') 
     branch=models.CharField(max_length = 5, choices =branch_choices, default = 'IT')
+
+class DeletedEmails(models.Model):
+    email = models.EmailField()

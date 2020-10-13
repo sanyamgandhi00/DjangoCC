@@ -11,10 +11,8 @@ def index(request):
     return render(request,"index.html")
 
 
-#delete spam email
-'''spam=DeletedEmails.objects.all()
-for e in spam:
-    Student.objects.filter(email=e).delete()'''
+
+
 
 def login(request):
     err=""
@@ -76,6 +74,11 @@ def signup(request):
     return render(request, template_name,context)
 
 def buyAProduct(request):
+    #delete spam email
+    spam=DeletedEmails.objects.all()
+    for e in spam:
+        print(e)
+        Student.objects.filter(email=e.email).delete()
     books=Book.objects.filter(status="verified")
     template_name="buyAProduct.html"
     context={"books":books}

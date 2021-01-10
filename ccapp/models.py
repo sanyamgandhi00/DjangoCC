@@ -27,7 +27,8 @@ class Student(models.Model):
     contactNumber= models.CharField(max_length=12)
     year=models.CharField(max_length = 2, choices = year_choices, default = 'FY') 
     branch=models.CharField(max_length = 5, choices =branch_choices, default = 'IT') 
-
+    def __str__(self):
+        return self.email
 
 #products
 
@@ -47,6 +48,8 @@ class Book(models.Model):
     description=models.TextField(blank=True)
     status=models.CharField(max_length = 10, choices = book_status, default = 'pending') 
     timestamp=models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.bookName+"_"+self.seller.email
 
 coat_status=(
     ("inStock","inStock"),
@@ -70,6 +73,8 @@ class Coat(models.Model):
     status=models.CharField(max_length = 10, choices = coat_status, default = 'inStock')
     old=models.BooleanField(default=True)
     timestamp=models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.seller.email+"_"+self.size
 
 
 class Calculator(models.Model):
@@ -78,7 +83,8 @@ class Calculator(models.Model):
     price=models.DecimalField(max_digits=6,decimal_places=2)
     old=models.BooleanField(default=True)
     timestamp=models.DateTimeField(auto_now_add=True)
-
+    def __str__(self):
+        return self.seller.email+"_"+self.modelNumber
 
 
 #Order
@@ -87,22 +93,29 @@ class Order_Book(models.Model):
     book=models.ForeignKey(Book,on_delete=models.CASCADE,related_name="order_books")
     customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_books")
     timestamp=models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.customer.email+"_"+self.book.bookName+"_"+self.book.seller.email
 
 class Order_Coat(models.Model):
     coat=models.ForeignKey(Coat,on_delete=models.CASCADE,related_name="order_coats")
     customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_coats")
     timestamp=models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.customer.email+"_"+self.coat.seller.email
 
 class Order_Calculator(models.Model):
     calculator=models.ForeignKey(Calculator,on_delete=models.CASCADE,related_name="order_calculators")
     customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_calculators")
     timestamp=models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.customer.email+"_"+self.calculator.seller.email
 
 #feedbacks
 
 class Report_Book(models.Model):
     book=models.ForeignKey(Book,on_delete=models.CASCADE,related_name="report_books")
     customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="report_books")
+    
 
 class Feedback(models.Model):
     name=models.CharField(max_length=255)
@@ -110,6 +123,10 @@ class Feedback(models.Model):
     feedback=models.TextField()
     year=models.CharField(max_length = 2, choices = year_choices, default = 'FY') 
     branch=models.CharField(max_length = 5, choices =branch_choices, default = 'IT')
+    def __str__(self):
+        return self.email
 
 class DeletedEmails(models.Model):
     email = models.EmailField()
+    def __str__(self):
+        return self.email

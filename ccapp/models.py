@@ -68,23 +68,31 @@ class Coat(models.Model):
     seller=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="coats")
     price=models.DecimalField(max_digits=6,decimal_places=2)
     description=models.TextField(blank=True)
-    size=models.CharField(max_length = 10, choices = size_choices, default = 'L') 
-    gender=models.CharField(max_length = 10, choices =(("M","M"),("F","F")), default = 'M') 
-    status=models.CharField(max_length = 10, choices = coat_status, default = 'inStock')
+    size=models.CharField(max_length = 10, choices = size_choices, default = 'L')
     old=models.BooleanField(default=True)
     timestamp=models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.seller.email+"_"+self.size
 
+class Suit(models.Model):
+    seller=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="suits")
+    price=models.DecimalField(max_digits=6,decimal_places=2)
+    description=models.TextField(blank=True)
+    size=models.CharField(max_length = 10, choices = size_choices, default = 'L') 
+    gender=models.CharField(max_length = 10, choices =(("M","M"),("F","F")), default = 'M') 
+    old=models.BooleanField(default=True)
+    timestamp=models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.seller.email+"_"+self.size
 
 class Calculator(models.Model):
     seller=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="calculators")
-    modelNumber=models.CharField(max_length=255)
     price=models.DecimalField(max_digits=6,decimal_places=2)
     old=models.BooleanField(default=True)
     timestamp=models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.seller.email+"_"+self.modelNumber
+
 
 
 #Order
@@ -103,12 +111,26 @@ class Order_Coat(models.Model):
     def __str__(self):
         return self.customer.email+"_"+self.coat.seller.email
 
+class Order_Suit(models.Model):
+    suit=models.ForeignKey(Suit,on_delete=models.CASCADE,related_name="order_suits")
+    customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_suits")
+    timestamp=models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.customer.email+"_"+self.suit.seller.email
+
 class Order_Calculator(models.Model):
     calculator=models.ForeignKey(Calculator,on_delete=models.CASCADE,related_name="order_calculators")
     customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_calculators")
     timestamp=models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.customer.email+"_"+self.calculator.seller.email
+
+
+class Order_Toolkit(models.Model):
+    customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_toolkits")
+    timestamp=models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.customer.email
 
 #feedbacks
 

@@ -83,7 +83,7 @@
         background-color: #eeeeee;
         grid-gap: 45px;
         justify-content: space-around;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         min-height: 80vh;
         padding: 35px;
         overflow: hidden;
@@ -101,22 +101,18 @@
 
 
       #searchDiv{
-        background-color: #fff;
-        grid-column: 1/4;
-        padding: 5px;
-        text-align: center;
-        border-radius: 15px;
+        grid-column: 1/5;
+        text-align: justify;
       }
       #bookSearch{
-        width: 70%;
+        width: 77%;
         height: 35px;
         padding: 20px;
         font-size: 14px;
         border: 0.2px solid #bbbbbb;
-        background-color: #dddddd;
         color: #1a1919;
-        border-radius: 5px;
-        margin: 10px 50px 10px 10px; 
+        border-radius: 30px;
+        margin: 10px 30px 10px 0px; 
       }
 
       #bookSearch:focus{
@@ -150,15 +146,28 @@
         text-align: center;
         color: #1a1919;
         border-radius: 10px;
-        zoom: 0.9;
+        zoom: 0.8;
       }
       .bookAd:hover{
         transform: scale(1.01);
         transition: transform 0.2s linear;
       }
-      .bookAd > img{
-        width: 90%;
-        margin: 10px auto;
+      #imageSpan{
+        width: 100%;
+        height: 45vh !important;
+        position: relative;
+      }
+      #imageSpan > img{
+        max-height: 90%;
+        max-width: 90%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
       }
       .bookName{
         display: block;
@@ -234,6 +243,7 @@
   background-color: rgba(0, 0, 0, 0.8);
   padding-top: 100px;
   animation: fadeEffect 1s;
+  zoom: 0.9;
 }
 
 /* Modal Content/Box */
@@ -325,12 +335,24 @@
 
 /*MEDIA QUERIES*/
 
+@media screen and (max-width: 1200px){
+  #books{
+    width: 90%;
+    margin: 20px auto;
+    grid-gap: 35px;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 35px;
+  }
+  #searchDiv{
+    grid-column: 1/4;
+  }
+}
 
 @media screen and (max-width: 992px){
   #bookSearch{
     height: 30px;
-    border-radius: 5px;
-    margin: 10px 35px 10px 10px; 
+    border-radius: 25px;
+    margin: 10px 20px 10px 0px; 
   }
   #searchButton{
     padding: 6px 35px;
@@ -342,9 +364,7 @@
     padding: 14px;
     border-radius: 10px;
   }
-.bookAd > img{
-    margin: 8px auto;
-  }
+
 .bookName{
     display: block;
     text-align: left;
@@ -387,12 +407,11 @@
   }
   #searchDiv{
     grid-column: 1/3;
-    padding: 8px;
   }
   #bookSearch{
     height: 25px;
-    border-radius: 5px;
-    margin: 10px 20px 10px 10px; 
+    border-radius: 20px;
+    margin: 10px 10px 10px 0px; 
   }
   #searchButton{
     padding: 8px 20px;
@@ -461,13 +480,11 @@
   }
 
   #bookSearch{
-    height: 14px;
-    border-radius: 4px;
-    margin: auto;
+    height: 12px;
+    border-radius: 20px;
     margin-right: 12px;
-    font-size: 10px; 
-    padding: 12px 6px;
-    width: 70%;
+    font-size: 10px;
+    padding: 15px;
   }
   #searchButton{
     padding: 4px 12px;
@@ -508,7 +525,23 @@
 }
 
 @media screen and (max-width: 440px){
-  
+  #bookSearch{
+    height: 14px;
+    border-radius: 14px;
+    margin: auto;
+    margin-right: 8px;
+    font-size: 8px; 
+    padding: 10px 6px;
+    width: 70%;
+  }
+  #searchButton{
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 8px;
+  }
+  #searchDiv{
+    width: 100%;
+  }
   .modalHeading{
     font-size: 25px;
     margin: 0 auto 20px auto;
@@ -533,22 +566,12 @@
 }
 @media screen and (max-width: 380px){
   #bookSearch{
-    height: 14px;
-    border-radius: 4px;
-    margin: auto;
-    margin-right: 8px;
-    font-size: 8px; 
-    padding: 10px 6px;
     width: 60%;
   }
-  #searchButton{
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 8px;
+  .tabheading{
+    font-size: 12px;
   }
-  #searchDiv{
-    width: 100%;
-  }
+
   .bookPrice{
     font-size: 20px;
     margin: 10px 8px 10px 8px;
@@ -593,9 +616,11 @@
 
   {% for book in books %}
   <div class="bookAd">
-    {% if book.bookImage %}
-    <img src="{{book.bookImage.url}}" alt="">
-    {% endif %}
+    <div id="imageSpan">
+      {% if book.bookImage %}
+      <img src="{{book.bookImage.url}}" alt="">
+      {% endif %}
+    </div>
     <span class="bookName">{{book.bookName}}</span>
     <span class="bookAuthor">{{book.author}}</span><hr>
     <span class="bookDescription">{{book.description}}</span>

@@ -159,6 +159,7 @@
         color: #1a1919;
         border-radius: 10px;
         zoom: 0.8;
+        position: relative;
       }
       .bookAd:hover{
         transform: scale(1.01);
@@ -210,6 +211,14 @@
         color: #999999;
       }
       .bookPrice{
+        display: block;
+        font-size: 25px;
+        font-weight: 1000;
+        margin: 50px 0px 15px 0px;
+        position: absolute;
+        bottom: 0;
+      }
+      .productPrice{
         display: block;
         font-size: 25px;
         font-weight: 1000;
@@ -367,7 +376,7 @@ form label {
   margin: auto 4px 10px 4px;
   text-align: center;
   min-width: 30px !important;
-  zoom: 0.8;
+  zoom: 0.7;
 }
 label:hover{background: #2255a4; color: #fff;}
 
@@ -428,7 +437,7 @@ input:checked+label{
 .bookDescription{
     margin: 18px 10px;
   }
-.bookPrice{
+.bookPrice, .productPrice{
     display: block;
     font-size: 20px;
     margin: 20px 0px 10px 0px;
@@ -467,7 +476,7 @@ input:checked+label{
   .bookDescription{
     margin: 12px 10px;
   }
-  .bookPrice{
+  .bookPrice, .productPrice{
     font-size: 22px;
     margin: 10px 10px 10px 10px;
 
@@ -493,7 +502,7 @@ input:checked+label{
   .tab button {
     padding: 10px 12px;
   }
-  .bookPrice{
+  .bookPrice, .productPrice{
     font-size: 20px;
     margin: 10px 8px 10px 8px;
     zoom: 0.9;
@@ -551,7 +560,7 @@ input:checked+label{
     margin: 5px auto;
     grid-column: 1/2;
   }
-  .bookPrice{
+  .bookPrice, .productPrice{
     font-size: 25px;
     margin: 10px 16px;
     zoom: 1;
@@ -618,7 +627,7 @@ input:checked+label{
     font-size: 12px;
   }
 
-  .bookPrice{
+  .bookPrice, .productPrice{
     font-size: 20px;
     margin: 10px 8px 10px 8px;
     zoom: 0.9;
@@ -669,7 +678,7 @@ input:checked+label{
     </div>
     <span class="bookName">{{book.bookName}}</span>
     <span class="bookAuthor">{{book.author}}</span><hr>
-    <span class="bookDescription">{{book.description}}</span>
+    <span class="bookDescription">{{book.description}}</span><br><br>
     <span class="bookPrice">Rs. {{book.price}} <button id="buyButton" onclick="document.getElementById('id{{forloop.counter}}').style.display='block'">Buy Now</button></span>
   </div>
 
@@ -704,9 +713,9 @@ input:checked+label{
   <!-- BOILER SUIT -->
   <div class="other-inner">
     <img src="{% static 'images/home/boilersuit.jpg' %}">
-    <h2 style="text-align: center;">Boiler Suit</h2><hr>
+    <h2 style="text-align: center;">Boiler Suit</h2><hr><br>
     <center>
-      <p style="zoom: 0.8;">A Boiler Suit for the Workshop <br>The Male Option is Full Length while the Female Option is Half Length</p>
+      <p style="zoom: 0.8;">A Boiler Suit for the Workshop <br>The Male Option is Full Length while the Female Option is Half Length</p><br>
 
 
       <form action="" method="POST">
@@ -730,8 +739,8 @@ input:checked+label{
         <input type="radio" name="suit-condition" value="used" id="suit-condition-u" require>
         <label for="suit-condition-u">Used</label>
         <input type="radio" name="suit-condition" value="new" id="suit-condition-n" disabled require>
-        <label for="suit-condition-n" style="color: grey; border-color: grey; cursor: not-allowed; background: #fff;">New</label><br><br>
-        <span class="bookPrice" style="zoom: 0.8;"><span id="suit-price">Rs. 0</span>
+        <label for="suit-condition-n" style="color: grey; border-color: grey; cursor: not-allowed; background: #fff;">New</label><br>
+        <span class="productPrice" style="zoom: 0.8;"><span id="suit-price">Rs. 0</span>
         <button id="buyButton" onclick="suit()" >Buy Now</button></span>
 
 <!-- Boiler Suit Modal -->
@@ -762,9 +771,9 @@ input:checked+label{
   
   <div class="other-inner">
     <img src="{% static 'images/home/labcoat.jpg' %}">
-    <h2 style="text-align: center;">Lab Coat</h2><hr>
+    <h2 style="text-align: center;">Lab Coat</h2><hr><br>
     <center>
-      <p style="zoom: 0.8;">A Lab Coat for Chemistry Lab <br>This is very helpful and necessary to protect you from the harmful chemicals</p><br>
+      <p style="zoom: 0.8;">A Lab Coat for Chemistry Lab <br>This is very helpful and necessary to protect you from the harmful chemicals</p><br><br>
     
       <form action="" method="POST">
         
@@ -783,7 +792,7 @@ input:checked+label{
         <label for="coat-condition-u">Used</label>
         <input type="radio" name="coat-condition" value="new" id="coat-condition-n" disabled require>
         <label for="coat-condition-n" style="color: grey; border-color: grey; cursor: not-allowed; background: #fff;">New</label><br><br>
-        <span class="bookPrice" style="zoom: 0.8;"><span id="coat-price">Rs. 180</span>
+        <span class="productPrice" style="zoom: 0.8;"><span id="coat-price">Rs. 180</span>
         <button id="buyButton" onclick="coat()" >Buy Now</button></span>
 
         <!-- Lab Coat Modal -->
@@ -815,13 +824,74 @@ input:checked+label{
   <div class="other-inner">
     <img src="{% static 'images/home/calculator.jpg' %}">
     <h2 style="text-align: center;">Calculator</h2><hr><br>
-    <span class="bookPrice">Rs. {{book.price}} <button id="buyButton" onclick="document.getElementById('id{{forloop.counter}}').style.display='block'">Buy Now</button></span>
+    <center>
+      <p style="zoom: 0.8;">A Scientific Calculator for All the Calculations and Passing Messages to Friends during Lectures <br><br><b>Model: Casio FX-991 ES Plus </b></p><br><br>
+
+      <form action="" method="POST">
+        
+        <input type="radio" name="calculator-condition" value="used" id="calculator-condition-u" require>
+        <label for="calculator-condition-u">Used</label>
+        <input type="radio" name="calculator-condition" value="new" id="calculator-condition-n" disabled require>
+        <label for="calculator-condition-n" style="color: grey; border-color: grey; cursor: not-allowed; background: #fff;">New</label><br><br>
+        <span class="productPrice" style="zoom: 0.8;"><span id="calculator-price">Rs. 700</span>
+        <button id="buyButton" onclick="calculator()" >Buy Now</button></span>
+<!-- Calculator Modal -->
+        <div id="calculator-modal" class="modal" name="modalname">
+          <span onclick="document.getElementById('calculator-modal').style.display='none'" class="close" title="Close Modal">X</span>
+          <div class="modal-content" action="#">
+            <div class="container">
+              <h1 class="modalHeading">Do you want to buy the Scientific Calculator?</h1><hr>
+              <p class="modalText">On Clicking "Confirm", We will Contact You for Receiving the Delivery of the Calculator</p>
+              <h4 id="calculator-condition-modal">Condition: Used</h4>
+              <h4 id="calculator-price-modal">Price: Rs. 700</h4>
+              <h4 id="calculator-payment-modal">Payment: Cash On Delivery</h4>
+              <div class="clearfix">
+                
+                <a href=""><button type="submit" onclick="document.getElementById('calculator-modal').style.display='none'" class="confirmbtn">Confirm</button></a>
+                
+                <button type="button" onclick="document.getElementById('calculator-modal').style.display='none'" class="cancelbtn">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </center> 
   </div>
+
+
+
   
   <div class="other-inner">
     <img src="{% static 'images/home/toolkit.jpg' %}">
     <h2 style="text-align: center;">Tool Kit</h2><hr><br>
-    <span class="bookPrice">Rs. {{book.price}} <button id="buyButton" onclick="document.getElementById('id{{forloop.counter}}').style.display='block'">Buy Now</button></span>
+    <center>
+      <p style="zoom: 0.8;">A Tool Kit for doing all the Hard Work at the Workshops! <br><br><b>Contents: 2 Blades, 1 Steel Ruler, 1 White Pencil </b></p><br><br>
+
+      <br><br>
+      <form action="" method="POST">
+        <span class="productPrice" style="zoom: 0.8;"><span id="toolkit-price">Rs. 120</span>
+        <button id="buyButton" onclick="toolkit()" >Buy Now</button></span>
+<!-- Toolkit Modal -->
+        <div id="toolkit-modal" class="modal" name="modalname">
+          <span onclick="document.getElementById('toolkit-modal').style.display='none'" class="close" title="Close Modal">X</span>
+          <div class="modal-content" action="#">
+            <div class="container">
+              <h1 class="modalHeading">Do you want to buy the Toolkit?</h1><hr>
+              <p class="modalText">On Clicking "Confirm", We will Contact You for Receiving the Delivery of the Toolkit</p>
+              <h4 id="toolkit-contents-modal">Contents: 2 Blades, 1 Steel Ruler, 1 White Pencil</h4>
+              <h4 id="toolkit-price-modal">Price: Rs. 120</h4>
+              <h4 id="toolkit-payment-modal">Payment: Cash On Delivery</h4>
+              <div class="clearfix">
+                
+                <a href=""><button type="submit" onclick="document.getElementById('toolkit-modal').style.display='none'" class="confirmbtn">Confirm</button></a>
+                
+                <button type="button" onclick="document.getElementById('toolkit-modal').style.display='none'" class="cancelbtn">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </center>
   </div>
    
 </div>
@@ -893,6 +963,7 @@ input:checked+label{
             }
             else{
               alert("Please Select All Fields of the Boiler Suit!");
+              return false;
             }
       }
       function suitPrice(){
@@ -930,7 +1001,30 @@ input:checked+label{
             }
             else{
               alert("Please Select All Fields of the Lab Coat!");
+              return false;
             }
+      }
+
+
+      function calculator(){
+        var condition3 = document.getElementsByName('calculator-condition');
+        var condition3Flag = 0;
+
+            if(condition3[0].checked || condition3[1].checked){
+              condition3Flag = 1;
+            }
+
+            if(condition3Flag == 1){
+              document.getElementById('calculator-modal').style.display='block';
+            }
+            else{
+              alert("Please Select All Fields of the Calculator!");
+              return false;
+            }
+      }
+
+      function toolkit(){
+              document.getElementById('toolkit-modal').style.display='block';
       }
     </script>
 {% endblock %}

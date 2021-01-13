@@ -56,43 +56,45 @@ coat_status=(
     ("inProcess","inProcess"),
     ("sold","sold"),
 )
+condition=(
+    ("used","used"),
+    ("new","new"),
+)
 size_choices=(
     ("S","S"),
     ("M","M"),
     ("L","L"),
     ("XL","XL"),
     ("XXL","XXL"),
-    ("XXXL","XXXL"),
 )
 class Coat(models.Model):
     seller=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="coats")
-    price=models.DecimalField(max_digits=6,decimal_places=2)
     description=models.TextField(blank=True)
+    status=models.CharField(max_length = 10, choices = coat_status, default = 'inStock') 
     size=models.CharField(max_length = 10, choices = size_choices, default = 'L')
-    old=models.BooleanField(default=True)
+    condition=models.CharField(max_length = 4, choices =condition, default = 'used') 
     timestamp=models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.seller.email+"_"+self.size
 
 class Suit(models.Model):
     seller=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="suits")
-    price=models.DecimalField(max_digits=6,decimal_places=2)
     description=models.TextField(blank=True)
+    status=models.CharField(max_length = 10, choices = coat_status, default = 'inStock') 
     size=models.CharField(max_length = 10, choices = size_choices, default = 'L') 
-    gender=models.CharField(max_length = 10, choices =(("M","M"),("F","F")), default = 'M') 
-    old=models.BooleanField(default=True)
+    gender=models.CharField(max_length = 10, choices =(("Male","Male"),("Female","Female")), default = 'Male') 
+    condition=models.CharField(max_length = 4, choices =condition, default = 'used') 
     timestamp=models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.seller.email+"_"+self.size
 
 class Calculator(models.Model):
     seller=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="calculators")
-    price=models.DecimalField(max_digits=6,decimal_places=2)
-    old=models.BooleanField(default=True)
+    condition=models.CharField(max_length = 4, choices =condition, default = 'used')
+    status=models.CharField(max_length = 10, choices = coat_status, default = 'inStock')
     timestamp=models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return self.seller.email+"_"+self.modelNumber
-
+        return self.seller.email
 
 
 #Order

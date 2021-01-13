@@ -4,14 +4,11 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
-from .models import Student, Book, Coat, Calculator, Order_Book, Order_Coat, Order_Calculator, Report_Book, Feedback, DeletedEmails
+from .models import Student, Book,Suit, Coat, Calculator, Order_Book,Order_Suit, Order_Coat, Order_Calculator, Order_Toolkit, Report_Book, Feedback, DeletedEmails
 
 # Create your views here.
 def index(request):
     return render(request,"index.html")
-
-
-
 
 
 def login(request):
@@ -131,6 +128,66 @@ def sellBook(request):
         book_obj.save()
     return redirect("sellAProduct")
 
+@login_required(login_url="login")
+def buySuit(request):
+    if request.method == 'POST':
+        customer=Student.objects.get(email=request.user.username)
+        suit_gender=request.POST["suit-gender"]
+        suit_size=request.POST["suit-size"]
+        suit_condition=request.POST["suit-condition"]
+        if(Suit.objects.filter(size=suit_size,gender=suit_gender,condition=suit_condition,status="inStock").exists()):
+            suit1=Suit.objects.filter(size=suit_size,gender=suit_gender,condition=suit_condition,status="inStock")[0]
+            suit_seller=suit1.seller.email
+            Suit.objects.filter(seller__email__contains = suit_seller,size=suit_size,gender=suit_gender,condition=suit_condition,status="inStock").update(status="inProcess")
+            suit_obj=Order_Suit(customer=customer,suit=suit1)
+            suit_obj.save()
+            template_name="unavailableProduct.html"
+        else:
+            template_name="unavailableProduct.html"
+        return render(request,template_name)
+
+@login_required(login_url="login")
+def buyCoat(request):
+    if request.method == 'POST':
+        customer=Student.objects.get(email=request.user.username)
+        coat_size=request.POST["coat-size"]
+        coat_condition=request.POST["coat-condition"]
+        if(Coat.objects.filter(size=coat_size, condition=coat_condition, status="inStock").exists()):
+            coat1=Coat.objects.filter(size=coat_size, condition=coat_condition,status="inStock")[0]
+            coat_seller=coat1.seller.email
+            Coat.objects.filter(seller__email__contains = coat_seller,size=coat_size, condition=coat_condition,status="inStock").update(status="inProcess")
+            coat_obj=Order_Coat(customer=customer, coat=coat1)
+            coat_obj.save()
+            template_name="unavailableProduct.html"
+        else:
+            template_name="unavailableProduct.html"
+        return render(request,template_name)
+
+@login_required(login_url="login")
+def buyCalculator(request):
+    if request.method == 'POST':
+        customer=Student.objects.get(email=request.user.username)
+        calculator_condition=request.POST["calculator-condition"]
+        if(Calculator.objects.filter(condition=calculator_condition,status="inStock").exists()):
+            calc1=Calculator.objects.filter(condition=calculator_condition,status="inStock")[0]
+            calculator_seller=calc1.seller.email
+            Calculator.objects.filter(seller__email__contains = calculator_seller, condition=calculator_condition,status="inStock").update(status="inProcess")
+            calc_obj=Order_Calculator(customer=customer,calculator=calc1)
+            calc_obj.save()
+            template_name="unavailableProduct.html"
+        else:
+            template_name="unavailableProduct.html"
+        return render(request,template_name)
+
+@login_required(login_url="login")
+def buyTool(request):
+    if request.method == 'POST':
+        customer=Student.objects.get(email=request.user.username)
+        tool_obj=Order_Toolkit(customer=customer)
+        tool_obj.save()
+        template_name="unavailableProduct.html"
+        return render(request,template_name)
+
 
 '''def sellerSignUp(request):          
     context = {}
@@ -172,7 +229,6 @@ def sellBook(request):
         return render(request, 'sellerSignUp.html', context)
 
 
-
 def customerSignUp(request):          
     context = {}
     if request.method == 'POST':
@@ -211,8 +267,6 @@ def customerSignUp(request):
         c_form = CustomerForm()
         context['c_form'] = c_form
         return render(request, 'customerSignUp.html', context)
-
-
 
 
 def login(request):

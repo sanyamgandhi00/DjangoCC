@@ -82,6 +82,48 @@
 return true;
 }
 
+function validateprofile(){
+  alert("10");
+  var letters = /^[A-Za-z]+$/;
+  if( document.signupform.contactNumber.value == "" ) {
+    document.getElementById('signupwarning').innerHTML = "***Mobile Number Cannot be Blank***";
+    document.signupform.contactNumber.focus() ;
+    return false;
+  }
+  if( document.signupform.contactNumber.value.length != 10 ){
+    document.getElementById('signupwarning').innerHTML = "***Mobile Number Must be 10 Digits***";
+    document.signupform.contactNumber.focus() ;
+    return false;
+  }
+  if( document.signupform.year.value == "-1" ) {
+    document.getElementById('signupwarning').innerHTML = "***Please Select Year of Study***";
+    document.signupform.year.focus() ;
+    return false;
+  }
+  if( document.signupform.branch.value == "-1" ) {
+    document.getElementById('signupwarning').innerHTML = "***Please Select Branch***";
+    document.signupform.branch.focus() ;
+    return false;
+  }
+  // if( document.signupform.password.value == "" ) {
+  //   document.getElementById('signupwarning').innerHTML = "***Password Cannot be Blank***";
+  //   document.signupform.password.focus() ;
+  //   return false;
+  // }
+  // if( document.signupform.password.value.length<6 ){
+  //   document.getElementById('signupwarning').innerHTML = "***Password Too Short***";
+  //   document.signupform.password.focus() ;
+  //   return false;
+  // }
+  // if( document.signupform.password.value != document.signupform.confirmPassword.value ){
+  //   document.getElementById('signupwarning').innerHTML = "***Password and Confirm Password Fields Do Not Match***";
+  //   document.signupform.confirmPassword.focus() ;
+  //   return false;
+  // }
+  
+
+return true;
+}
 $(document).ready(function(){
 	  $('.tab a').on('click', function (e) {
 	  e.preventDefault();

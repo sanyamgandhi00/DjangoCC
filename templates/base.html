@@ -27,7 +27,7 @@
         <!-- Here will come the 'my account' dropdown navbar link -->
         <a href="#" id="accountpage" onmouseover="block()" onmouseout="none()"> My Account</a>
         <div id="dropdown" onmouseover="block()" onmouseout="none()">
-            <a href="#">Profile</a>
+            <a href="{% url 'profile' %}">Profile</a>
             <a href="#">Orders</a>
             <a href="#">Advertisements</a>
             <a href="{% url 'logout' %}">Logout</a>

@@ -20,7 +20,11 @@ def login(request):
         if user is not None:
             if DeletedEmails.objects.filter(email=username).exists():
                 err = 'Your account has been deleted.'
-                DeletedEmails.objects.filter(email=username).delete()
+                spam=DeletedEmails.objects.all()
+                for e in spam:
+                    print(e)
+                    Student.objects.filter(email=e.email).delete()
+                    User.objects.filter(email=e.email).delete()
             else:
                 auth.login(request, user)
                 return redirect('buyAProduct')
@@ -70,12 +74,43 @@ def signup(request):
     context={'err':err}
     return render(request, template_name,context)
 
+@login_required(login_url="login")
+def profile(request):
+    email = request.user.username
+    if request.method=='POST':
+        # obj1 = User.objects.get(
+        #     email = email,
+        # )
+        # obj1.set_password(request.POST.get('password'))
+        # obj1.save()
+        # password = request.POST.get('password')
+        # confirmpassword = request.POST.get('confirmPassword')
+        contactNumber = request.POST.get('contactNumber')
+        year = request.POST.get('year')
+        branch = request.POST.get('branch')
+        Student.objects.filter(email=email).update(
+            # password = password,
+            # confirmPassword = confirmpassword,
+            contactNumber = contactNumber,
+            year = year,
+            branch = branch
+        )
+        # user = authenticate(request, username = request.user.email, password = request.POST.get('password'))
+        # auth.login(request, user)
+    template_name = 'profile.html'
+    # print(request.user.email)
+    # print(Student.objects.get(email=request.user.email).email)
+    context={'student':Student.objects.get(email=email)}
+    return render(request, template_name, context)
+
+
 def buyAProduct(request):
     #delete spam email
     spam=DeletedEmails.objects.all()
     for e in spam:
         print(e)
         Student.objects.filter(email=e.email).delete()
+        User.objects.filter(email=e.email).delete()
     books=Book.objects.filter(status="verified")
     template_name="buyAProduct.html"
     context={"books":books}

@@ -404,6 +404,21 @@ input:checked+label{
 }
 
 @media screen and (max-width: 992px){
+
+  #others{
+    grid-column-gap: 15%;
+    grid-row-gap: 3%;
+    justify-content: space-around;
+    grid-template-columns: 1fr;
+    min-height: 200%;
+    padding: 5%;
+    padding-bottom: 20%;
+  }
+  .other-inner{
+    background: #fff;
+    min-height: 30%;
+    padding: 2% 2% 2% 0;
+  }
   #bookSearch{
     height: 30px;
     border-radius: 25px;
@@ -493,6 +508,9 @@ input:checked+label{
 }
 
 @media screen and (max-width: 700px){
+  #others{
+    padding-bottom: 30%;
+  }
   .tabheading{
     font-size: 18px;
   }
@@ -530,6 +548,22 @@ input:checked+label{
 }
 
 @media screen and (max-width: 570px){
+
+  #others{
+    grid-column-gap: 10%;
+    padding-bottom: 30%;
+  }
+  .other-inner{
+    zoom: 0.8;
+  }
+  
+  .other-inner > img {
+    height: 70%;
+    width: 40%;
+    margin: 15% 2% 15% 0;
+    float: left;
+  }
+
   .tabheading{
     font-size: 14px;
   }
@@ -642,6 +676,12 @@ input:checked+label{
   .modal-content{
     zoom: 0.9;
     width: 90%;
+  }
+}
+
+@media screen and (max-width: 320px){
+  .other-inner{
+    zoom: 0.7;
   }
 }
 </style>

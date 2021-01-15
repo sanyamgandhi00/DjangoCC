@@ -14,11 +14,15 @@ urlpatterns = [
     path('buyAProduct',views.buyAProduct,name="buyAProduct"),
     path('sellAProduct',views.sellAProduct,name="sellAProduct"),
     path('buyBook/<int:bookId>',views.buyBook,name="buyBook"),
-    path('sellBook',views.sellBook,name="sellBook"),
+    
     path('buySuit',views.buySuit,name="buySuit"),
     path('buyCoat',views.buyCoat,name="buyCoat"),
     path('buyCalculator',views.buyCalculator,name="buyCalculator"),
     path('buyTool',views.buyTool,name="buyTool"),
+    path('sellBook',views.sellBook,name="sellBook"),
+    path('sellSuit',views.sellSuit,name="sellSuit"),
+    path('sellCoat',views.sellCoat,name="sellCoat"),
+    path('sellCalculator',views.sellCalculator,name="sellCalculator"),
 ]
 
 if settings.DEBUG:

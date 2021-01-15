@@ -139,29 +139,7 @@ def buyBook(request,bookId):
     print("timestamp: ",Order_Book.objects.get(book=book).timestamp)
     return redirect("buyAProduct")
 
-@login_required(login_url="login")
-def sellBook(request):
-    email=request.user.username
-    student=Student.objects.get(email=email)
-    if request.method == "POST" and request.FILES['bookImage']:
-        seller=student
-        bookImage=request.FILES["bookImage"]
-        bookName=request.POST["bookName"]
-        author=request.POST["author"]
-        price=request.POST["price"]
-        description=request.POST["description"]
-        status="pending"
-        book_obj=Book.objects.create(
-            seller=seller,
-            bookImage=bookImage,
-            bookName=bookName,
-            author=author,
-            price=price,
-            description=description,
-            status=status
-        )
-        book_obj.save()
-    return redirect("sellAProduct")
+
 
 @login_required(login_url="login")
 def buySuit(request):
@@ -223,6 +201,83 @@ def buyTool(request):
         template_name="unavailableProduct.html"
         return render(request,template_name)
 
+
+@login_required(login_url="login")
+def sellBook(request):
+    email=request.user.username
+    student=Student.objects.get(email=email)
+    if request.method == "POST" and request.FILES['bookImage']:
+        seller=student
+        bookImage=request.FILES["bookImage"]
+        bookName=request.POST["bookName"]
+        author=request.POST["author"]
+        price=request.POST["price"]
+        description=request.POST["description"]
+        status="pending"
+        book_obj=Book.objects.create(
+            seller=seller,
+            bookImage=bookImage,
+            bookName=bookName,
+            author=author,
+            price=price,
+            description=description,
+            status=status
+        )
+        book_obj.save()
+    return redirect("sellAProduct")
+
+@login_required(login_url="login")
+def sellSuit(request):
+    email=request.user.username
+    student=Student.objects.get(email=email)
+    if request.method == "POST":
+        suit_seller=student
+        suit_description=request.POST["suit-description"]
+        suit_size=request.POST["suit-size"]
+        suit_gender=request.POST["suit-gender"]
+        status="inStock"
+        suit_obj=Suit.objects.create(
+            seller=suit_seller,
+            description=suit_description,
+            status=status,
+            size=suit_size,
+            gender=suit_gender   
+        )
+        suit_obj.save()
+    return redirect("sellAProduct")
+
+
+@login_required(login_url="login")
+def sellCoat(request):
+    email=request.user.username
+    student=Student.objects.get(email=email)
+    if request.method == "POST":
+        coat_seller=student
+        coat_description=request.POST["coat-description"]
+        coat_size=request.POST["coat-size"]
+        status="inStock"
+        coat_obj=Suit.objects.create(
+            seller=coat_seller,
+            description=coat_description,
+            status=status,
+            size=coat_size
+        )
+        coat_obj.save()
+    return redirect("sellAProduct")
+
+@login_required(login_url="login")
+def sellCalculator(request):
+    email=request.user.username
+    student=Student.objects.get(email=email)
+    if request.method == "POST":
+        calc_seller=student
+        status="inStock"
+        calc_obj=Suit.objects.create(
+            seller=calc_seller,
+            status=status
+        )
+        calc_obj.save()
+    return redirect("sellAProduct")
 
 '''def sellerSignUp(request):          
     context = {}

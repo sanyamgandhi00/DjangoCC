@@ -277,6 +277,31 @@ def sellCalculator(request):
         calc_obj.save()
     return redirect("sellAProduct")
 
+@login_required(login_url="login")
+def advertisements(request):
+    email=request.user.username
+    seller=Student.objects.get(email=email)
+    books=Book.objects.filter(seller=seller)
+    suits=Suit.objects.filter(seller=seller)
+    coats=Coat.objects.filter(seller=seller)
+    calculators=Calculator.objects.filter(seller=seller)
+    context={'seller':seller,'books':books,'suits':suits,'coats':coats,'calculators':calculators}
+    template_name="advertisements.html"
+    return render(request, template_name, context)
+
+@login_required(login_url="login")
+def orders(request):
+    email=request.user.username
+    customer=Student.objects.get(email=email)
+    orderedBooks=Order_Book.objects.filter(customer=customer)
+    orderedSuits=Order_Suit.objects.filter(customer=customer)
+    orderedCoats=Order_Coat.objects.filter(customer=customer)
+    orderedCalculators=Order_Calculator.objects.filter(customer=customer)
+    orderedToolkits=Order_Toolkit.objects.filter(customer=customer)
+    context={'customer':customer,'orderedBooks':orderedBooks,'orderedSuits':orderedSuits, 'orderedCoats' :orderedCoats,'orderedCalculators':orderedCalculators,'orderedToolkits':orderedToolkits}
+    template_name="orders.html"
+    return render(request, template_name, context)
+
 '''def sellerSignUp(request):          
     context = {}
     if request.method == 'POST':

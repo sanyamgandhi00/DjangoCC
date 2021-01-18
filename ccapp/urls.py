@@ -14,7 +14,6 @@ urlpatterns = [
     path('buyAProduct',views.buyAProduct,name="buyAProduct"),
     path('sellAProduct',views.sellAProduct,name="sellAProduct"),
     path('buyBook/<int:bookId>',views.buyBook,name="buyBook"),
-    
     path('buySuit',views.buySuit,name="buySuit"),
     path('buyCoat',views.buyCoat,name="buyCoat"),
     path('buyCalculator',views.buyCalculator,name="buyCalculator"),
@@ -23,6 +22,8 @@ urlpatterns = [
     path('sellSuit',views.sellSuit,name="sellSuit"),
     path('sellCoat',views.sellCoat,name="sellCoat"),
     path('sellCalculator',views.sellCalculator,name="sellCalculator"),
+    path('advertisements',views.advertisements,name="advertisements"),
+    path('orders',views.orders,name="orders"),
 ]
 
 if settings.DEBUG:

@@ -91,6 +91,7 @@ class Suit(models.Model):
 class Calculator(models.Model):
     seller=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="calculators")
     condition=models.CharField(max_length = 4, choices =condition, default = 'used')
+    description=models.TextField(blank=True)
     status=models.CharField(max_length = 10, choices = coat_status, default = 'inStock')
     timestamp=models.DateTimeField(auto_now_add=True)
     def __str__(self):

@@ -22,7 +22,6 @@ def login(request):
                 err = 'Your account has been deleted.'
                 spam=DeletedEmails.objects.all()
                 for e in spam:
-                    print(e)
                     Student.objects.filter(email=e.email).delete()
                     User.objects.filter(email=e.email).delete()
             else:
@@ -108,7 +107,6 @@ def buyAProduct(request):
     #delete spam email
     spam=DeletedEmails.objects.all()
     for e in spam:
-        print(e)
         Student.objects.filter(email=e.email).delete()
         User.objects.filter(email=e.email).delete()
     books=Book.objects.filter(status="verified")
@@ -119,8 +117,6 @@ def buyAProduct(request):
 @login_required(login_url="login")
 def sellAProduct(request):
     books=Book.objects.filter(seller__email__contains=request.user.username)
-    for book in books:
-        print(book.bookId)
     template_name="sellAProduct.html"
     context={}
     return render(request,template_name,context)
@@ -206,13 +202,13 @@ def buyTool(request):
 def sellBook(request):
     email=request.user.username
     student=Student.objects.get(email=email)
-    if request.method == "POST" and request.FILES['bookImage']:
+    if request.method == "POST" and request.FILES['book-image']:
         seller=student
-        bookImage=request.FILES["bookImage"]
-        bookName=request.POST["bookName"]
-        author=request.POST["author"]
-        price=request.POST["price"]
-        description=request.POST["description"]
+        bookImage=request.FILES["book-image"]
+        bookName=request.POST["book-name"]
+        author=request.POST["book-author"]
+        price=request.POST["book-price"]
+        description=request.POST["book-description"]
         status="pending"
         book_obj=Book.objects.create(
             seller=seller,
@@ -256,7 +252,7 @@ def sellCoat(request):
         coat_description=request.POST["coat-description"]
         coat_size=request.POST["coat-size"]
         status="inStock"
-        coat_obj=Suit.objects.create(
+        coat_obj=Coat.objects.create(
             seller=coat_seller,
             description=coat_description,
             status=status,
@@ -272,9 +268,11 @@ def sellCalculator(request):
     if request.method == "POST":
         calc_seller=student
         status="inStock"
-        calc_obj=Suit.objects.create(
+        calc_description=request.POST["calculator-description"]
+        calc_obj=Calculator.objects.create(
             seller=calc_seller,
-            status=status
+            status=status,
+            description=calc_description
         )
         calc_obj.save()
     return redirect("sellAProduct")

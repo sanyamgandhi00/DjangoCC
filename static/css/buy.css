@@ -93,6 +93,7 @@
         background: #fff;
         min-height: 50vh;
         padding: 2% 2% 2% 0;
+        box-shadow: 2px 0 5px 0 #bbb;
       }
       
       .other-inner > img {
@@ -151,6 +152,7 @@
         border-radius: 10px;
         zoom: 0.8;
         position: relative;
+        box-shadow: 2px 0 5px 0 #bbb;
       }
       .bookAd:hover{
         transform: scale(1.01);

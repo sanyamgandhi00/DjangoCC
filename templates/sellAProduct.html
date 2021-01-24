@@ -18,6 +18,14 @@
     padding: 0;
     min-height: 100vh;
   }
+  @keyframes fade {
+    0% {
+      opacity: 0
+    }
+    100% {
+      opacity: 1
+    }
+  }
   .tab {
     float: left;
     background-color: #fff;
@@ -26,6 +34,7 @@
     padding-top: 5vh;
     position: fixed;
     top: 5vh;
+    animation: fade 0.7s linear;
   }
   .tab button {
     display: block;
@@ -56,6 +65,7 @@
     overflow: hidden;
     display: block;
     padding: 1% 2%;
+    animation: fade 0.7s linear;
   }
 
   hr {
@@ -388,7 +398,7 @@
       <label for="book-image">Book Image: <p class="muted-text">Upload an Image of the Front Cover of the Book</p></label>
       <input type="file" name="book-image" id="book-image" accept="image/*" id="bookImage" required><br>
 
-      <input type="checkbox" name="book-tnc" id="book-tnc" value="tick" style="display:inline; width: 5%; zoom: 1.5;" required>I Agree to the <a href="#">Terms and Conditions</a> of PassedOnWisdom and Assure that the Book is in Usable Condition
+      <input type="checkbox" name="book-tnc" id="book-tnc" value="tick" style="display:inline; width: 5%; zoom: 1.5;" required>I Agree to the <a href="{% url 'tnc' %}">Terms and Conditions</a> of PassedOnWisdom and Assure that the Book is in Usable Condition
       <br><br>
 
       <button class="button" type="button" onclick="book()" >Submit</button></span>
@@ -455,7 +465,7 @@
       <label for="suit-description">Boiler Suit Description/Condition: </label>
       <input type="text" name="suit-description" id="suit-description" placeholder="Stain on the front side...." required /><br>
 
-      <input type="checkbox" name="suit-tnc" id="suit-tnc" value="tick" style="display:inline; width: 5%; zoom: 1.5;" required>I Agree to the <a href="#">Terms and Conditions</a> of PassedOnWisdom and Assure that the Boiler Suit is in Usable Condition
+      <input type="checkbox" name="suit-tnc" id="suit-tnc" value="tick" style="display:inline; width: 5%; zoom: 1.5;" required>I Agree to the <a href="{% url 'tnc' %}">Terms and Conditions</a> of PassedOnWisdom and Assure that the Boiler Suit is in Usable Condition
       <br><br>
 
       <button class="button" type="button" onclick="suit()" >Submit</button></span>
@@ -519,7 +529,7 @@
       <label for="coat-description">Lab Coat Description/Condition: </label>
       <input type="text" name="coat-description" id="coat-description" placeholder="Stain on the front side...." required /><br>
 
-      <input type="checkbox" name="coat-tnc" id="coat-tnc" value="tick" style="display:inline; width: 5%; zoom: 1.5;" required>I Agree to the <a href="#">Terms and Conditions</a> of PassedOnWisdom and Assure that the Lab Coat is in Usable Condition
+      <input type="checkbox" name="coat-tnc" id="coat-tnc" value="tick" style="display:inline; width: 5%; zoom: 1.5;" required>I Agree to the <a href="{% url 'tnc' %}">Terms and Conditions</a> of PassedOnWisdom and Assure that the Lab Coat is in Usable Condition
       <br><br>
 
       <button class="button" type="button" onclick="coat()" >Submit</button></span>
@@ -573,7 +583,7 @@
       <label for="calculator-description">Calculator Description/Condition: <p class="muted-text">Kindly Enter the Year of Purchase along with the Description/Condition</p></label>
       <input type="text" name="calculator-description" id="calculator-description" placeholder="% Key Not Working...." required /><br>
 
-      <input type="checkbox" name="calculator-tnc" id="calculator-tnc" value="tick" style="display:inline; width: 5%; zoom: 1.5;" required>I Agree to the <a href="#">Terms and Conditions</a> of PassedOnWisdom and Assure that the Calculator is in Working Condition
+      <input type="checkbox" name="calculator-tnc" id="calculator-tnc" value="tick" style="display:inline; width: 5%; zoom: 1.5;" required>I Agree to the <a href="{% url 'tnc' %}">Terms and Conditions</a> of PassedOnWisdom and Assure that the Calculator is in Working Condition
       <br><br>
 
       <button class="button" type="button" onclick="calculator()" >Submit</button></span>

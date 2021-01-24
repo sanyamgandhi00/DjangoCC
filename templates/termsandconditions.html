@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block head-content %}
+
+{% load static %}
+<title>Terms and Conditions</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/termsandconditions.css' %}">
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+<style>
+    #main{
+        width: 90%;
+        margin: 2% auto;
+        min-height: 80vh;
+        background: #efefef;
+        padding: 2% 2% 5% 2%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 3% 2%;
+        align-content: start;
+        animation: fade 0.7s linear;
+        font-size: 22px;
+    }
+    @keyframes fade {
+        0% {
+          opacity: 0
+        }
+        100% {
+          opacity: 1
+        }
+      }
+
+    hr{
+        border-bottom: 0.5px solid #B54D47;
+        margin: -10px auto 0px auto;
+        width: 60%;
+      }
+</style>
+
+{% endblock %}
+
+{% block body-content %}
+<h1 style="text-align: center;">Terms And Conditions</h1><hr>
+<div id="main">
+    <ul>
+        <li>Term or Condition 1</li>
+        <li>Term or Condition 2</li>
+        <li>Term or Condition 3</li>
+        <li>Term or Condition 4</li>
+        <li>Term or Condition 5</li>
+        <li>Term or Condition 6</li>
+        <li>Term or Condition 7</li>
+    </ul>
+</div>
+
+{% endblock %}

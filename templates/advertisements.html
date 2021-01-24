@@ -3,7 +3,164 @@
 {% block head-content %}
 
 {% load static %}
+<title>Your Advertisemets</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/advertisements.css' %}">
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+<style>
+    #main{
+        width: 90%;
+        margin: 2% auto;
+        min-height: 80vh;
+        background: #efefef;
+        padding: 2% 2% 5% 2%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: 3% 2%;
+        align-content: start;
+        animation: fade 0.7s linear;
+    }
+    @keyframes fade {
+        0% {
+          opacity: 0
+        }
+        100% {
+          opacity: 1
+        }
+      }
+
+    .hr{
+        border-bottom: 0.5px solid #B54D47;
+        margin: -10px auto 0px auto;
+        width: 60%;
+      }
+    
+    .inner{
+        margin: 1%;
+        background: #fff;
+        min-height: 45vh;
+        padding: 2%;
+        box-shadow: 2px 0 5px 0 #bbb;
+    }
+    .inner:hover{
+        transition: transform 0.2s linear;
+        transform: scale(1.01);
+    }
+    #imageSpan{
+        width: 100%;
+        height: 35vh !important;
+        position: relative;
+      }
+      #imageSpan > img{
+        max-height: 90%;
+        max-width: 90%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+      #accountpage {
+        border-bottom: #B54D47 0.2vw solid;
+      }
+</style>
+
 {% endblock %}
 
 {% block body-content %}
+<h1 style="text-align: center;">Your Advertisements</h1><hr class="hr">
+<div id="main">
+
+    <!-- Book Card -->
+
+    <div class="inner" id="bookDiv" style="display: grid; grid-template-columns: 1fr 1fr;  grid-template-rows: auto 10%;grid-column: 1/3;">
+        <div><span class="type">Book</span>
+        <span class="price" style="float: right; margin-right: 20px;">Rs. 350</span><br><br>
+        <span class="title">Title of the Book</span><br><br>
+        <span class="others">Author Name Here</span><br><br>
+        <div id="imageSpan"><img src="https://5.imimg.com/data5/UG/OF/GLADMIN-3018525/concepts-of-physics-vol-1-book-500x500.png" alt="bookImage"></div>
+        <span class="description">Description of the Book will be here and other products also will have their description like this</span><br><br>
+        <span class="date">Date of Posting: 11/11/2011</span></div>
+        <div><span class="type">Buyer Details</span><br><br><hr><br>
+        <span class="title">Name: Yash Parihar Gandhi</span><br><br>
+        <span class="others">Email ID: abc@gmail.com</span><br><br>
+        <span class="others">Mobile Number: 9876543210</span><br><br>
+        <span class="others">Year/Branch: TY/IT</span><br><br>
+        <span class="others">Status Print</span><br><br>
+        <span class="others">Date of Order: 11/11/2011</span><br><br>
+        <span class="muted">If you have successfully delivered the book at the mentioned price and the order is complete, press the button below</span><br><br></div>
+        <div style="grid-column: 1/3;">
+            <center style="margin: 3%;">
+            <span class="last">
+                <button class="delete-button">Delete Advertisement</button>
+                <button class="complete-button">Order Complete?</button>
+            </span>
+            </center>
+        </div>
+    </div>
+
+    <!-- Boiler Suit Card -->
+
+    <div class="inner" id="suitDiv">
+        <span class="type">Boiler Suit</span>
+        <span class="price" style="float: right; margin-right: 20px;">Rs. 300</span><br><br><br>
+        <span class="others">Variant - Male/Female</span><br><br>
+        <span class="others">Size - S/M/L/XL/XXL</span><br><br>
+        <span class="description">Description of the Boiler Suit will be here and other products also will have their description like this</span><br><br>
+        <span class="date">Date of Purchase: 11/11/2011</span><br><br>
+        <span class="muted">If you have successfully sold the Boiler Suit to us at the mentioned price, press the button below</span><br><br>
+        <span class="others">Status Print</span><br><br>
+        <span class="others">TIMESTAMP OF ORDER: 12:12, 11/11/2011</span><br><br>
+        <center style="margin: 3%;">
+            <span class="last">
+                <button class="delete-button">Delete Advertisement</button><br><br>
+                <button class="complete-button">Order Complete?</button>
+            </span>
+            </center>
+    </div>
+
+    <!-- Lab Coat Card -->
+
+    <div class="inner" id="coatDiv">
+        <span class="type">Lab Coat</span>
+        <span class="price" style="float: right; margin-right: 20px;">Rs. 180</span><br><br><br><br>
+        <span class="others">Size - S/M/L/XL/XXL</span><br><br><br>
+        <span class="description">Description of the Lab Coat will be here and other products also will have their description like this</span><br><br>
+        <span class="date">Date of Purchase: 11/11/2011</span><br><br>
+        <span class="muted">If you have successfully sold the Lab Coat at the mentioned price to us, press the button below</span><br><br>
+        <span class="others">Status Print</span><br><br>
+        <span class="others">TIMESTAMP OF ORDER: 12:12, 11/11/2011</span><br><br>
+        <center style="margin: 3%;">
+            <span class="last">
+                <button class="delete-button">Delete Advertisement</button><br><br>
+                <button class="complete-button">Order Complete?</button>
+            </span>
+        </center>
+    </div>
+
+    <!-- Calculator Card -->
+
+    <div class="inner" id="calculatorDiv">
+        <span class="type">Calculator</span>
+        <span class="price" style="float: right; margin-right: 20px;">Rs. 700</span><br><br><br><br>
+        <span class="others">Model: Casio FX-991 ES Plus</span><br><br><br>
+        <span class="description">Description of the Calculator will be here and other products also will have their description like this</span><br><br>
+        <span class="date">Date of Purchase: 11/11/2011</span><br><br>
+        <span class="muted">If you have successfully sold the Calculator at the mentioned price to us, press the button below</span><br><br>
+        <span class="others">Status Print</span><br><br>
+        <span class="others">TIMESTAMP OF ORDER: 12:12, 11/11/2011</span><br><br>
+        <center style="margin: 3%;">
+            <span class="last">
+                <button class="delete-button">Delete Advertisement</button><br><br>
+                <button class="complete-button">Order Complete?</button>
+            </span>
+        </center>
+    </div>
+
+    
+</div>
+
 {% endblock %}

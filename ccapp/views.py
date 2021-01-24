@@ -302,6 +302,10 @@ def orders(request):
     template_name="orders.html"
     return render(request, template_name, context)
 
+def tnc(request):
+    return render(request,"termsandconditions.html")
+
+    
 '''def sellerSignUp(request):          
     context = {}
     if request.method == 'POST':

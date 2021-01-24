@@ -29,7 +29,7 @@
         <div id="dropdown" onmouseover="block()" onmouseout="none()">
             <a href="{% url 'profile' %}">Profile</a>
             <a href="{% url 'orders' %}">Orders</a>
-            <a href="#">Advertisements</a>
+            <a href="{% url 'advertisements' %}">Advertisements</a>
             <a href="{% url 'logout' %}">Logout</a>
         </div>
         {% else %}

@@ -24,6 +24,7 @@ urlpatterns = [
     path('sellCalculator',views.sellCalculator,name="sellCalculator"),
     path('advertisements',views.advertisements,name="advertisements"),
     path('orders',views.orders,name="orders"),
+    path('termsandconditions',views.tnc,name="tnc"),
 ]
 
 if settings.DEBUG:

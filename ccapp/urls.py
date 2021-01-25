@@ -24,6 +24,7 @@ urlpatterns = [
     path('sellCalculator',views.sellCalculator,name="sellCalculator"),
     path('advertisements',views.advertisements,name="advertisements"),
     path('orders',views.orders,name="orders"),
+    path('deleteBook/<int:bookId>',views.deleteBook,name="deleteBook"),
     path('termsandconditions',views.tnc,name="tnc"),
 ]
 

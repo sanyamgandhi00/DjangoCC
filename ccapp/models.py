@@ -104,6 +104,8 @@ class Order_Book(models.Model):
     book=models.ForeignKey(Book,on_delete=models.CASCADE,related_name="order_books")
     customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_books")
     timestamp=models.DateTimeField(auto_now_add=True)
+    flag_seller_complete=models.CharField(max_length = 1, choices =(("0","0"),("1","1")), default = '0') 
+    flag_customer_complete=models.CharField(max_length = 1, choices =(("0","0"),("1","1")), default = '0') 
     def __str__(self):
         return self.customer.email+"_"+self.book.bookName+"_"+self.book.seller.email
 
@@ -111,6 +113,8 @@ class Order_Coat(models.Model):
     coat=models.ForeignKey(Coat,on_delete=models.CASCADE,related_name="order_coats")
     customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_coats")
     timestamp=models.DateTimeField(auto_now_add=True)
+    flag_seller_complete=models.CharField(max_length = 1, choices =(("0","0"),("1","1")), default = '0') 
+    flag_customer_complete=models.CharField(max_length = 1, choices =(("0","0"),("1","1")), default = '0') 
     def __str__(self):
         return self.customer.email+"_"+self.coat.seller.email
 
@@ -118,6 +122,8 @@ class Order_Suit(models.Model):
     suit=models.ForeignKey(Suit,on_delete=models.CASCADE,related_name="order_suits")
     customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_suits")
     timestamp=models.DateTimeField(auto_now_add=True)
+    flag_seller_complete=models.CharField(max_length = 1, choices =(("0","0"),("1","1")), default = '0') 
+    flag_customer_complete=models.CharField(max_length = 1, choices =(("0","0"),("1","1")), default = '0') 
     def __str__(self):
         return self.customer.email+"_"+self.suit.seller.email
 
@@ -125,6 +131,8 @@ class Order_Calculator(models.Model):
     calculator=models.ForeignKey(Calculator,on_delete=models.CASCADE,related_name="order_calculators")
     customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_calculators")
     timestamp=models.DateTimeField(auto_now_add=True)
+    flag_seller_complete=models.CharField(max_length = 1, choices =(("0","0"),("1","1")), default = '0') 
+    flag_customer_complete=models.CharField(max_length = 1, choices =(("0","0"),("1","1")), default = '0') 
     def __str__(self):
         return self.customer.email+"_"+self.calculator.seller.email
 

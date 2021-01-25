@@ -6,6 +6,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from .models import Student, Book,Suit, Coat, Calculator, Order_Book,Order_Suit, Order_Coat, Order_Calculator, Order_Toolkit, Report_Book, Feedback, DeletedEmails
 
+from django.conf import settings 
+from django.core.mail import send_mail 
+
 # Create your views here.
 def index(request):
     return render(request,"index.html")
@@ -68,6 +71,11 @@ def signup(request):
                 branch = branch
             )
             obj2.save()
+            subject = 'Welcome to passed on wisdom.'
+            message = 'Helloo ' +str(fullName) + ' Welcome to passed on wisdom.'
+            email_from = settings.EMAIL_HOST_USER 
+            recipient_list = [email, ] 
+            send_mail( subject, message, email_from, recipient_list )
             return redirect("login")
     template_name = 'login.html'
     context={'err':err}
@@ -133,7 +141,12 @@ def buyBook(request,bookId):
     status="inProcess"
     Book.objects.filter(bookId=bookId).update(status=status)
     print("timestamp: ",Order_Book.objects.get(book=book).timestamp)
-    return redirect("buyAProduct")
+    subject = 'Got a buyer for book ' + str(book.bookName)
+    message = 'Someone has booked your book named ' + str(book.bookName) + '. Hurry up and check it asap!!!!'
+    email_from = settings.EMAIL_HOST_USER 
+    recipient_list = [book.seller.email, ] 
+    send_mail( subject, message, email_from, recipient_list )
+    return redirect("orders")
 
 
 
@@ -150,10 +163,10 @@ def buySuit(request):
             Suit.objects.filter(seller__email__contains = suit_seller,size=suit_size,gender=suit_gender,condition=suit_condition,status="inStock").update(status="inProcess")
             suit_obj=Order_Suit(customer=customer,suit=suit1)
             suit_obj.save()
-            template_name="unavailableProduct.html"
+            return redirect("orders")
         else:
             template_name="unavailableProduct.html"
-        return render(request,template_name)
+            return render(request,template_name)
 
 @login_required(login_url="login")
 def buyCoat(request):
@@ -167,10 +180,10 @@ def buyCoat(request):
             Coat.objects.filter(seller__email__contains = coat_seller,size=coat_size, condition=coat_condition,status="inStock").update(status="inProcess")
             coat_obj=Order_Coat(customer=customer, coat=coat1)
             coat_obj.save()
-            template_name="unavailableProduct.html"
+            return redirect("orders")
         else:
             template_name="unavailableProduct.html"
-        return render(request,template_name)
+            return render(request,template_name)
 
 @login_required(login_url="login")
 def buyCalculator(request):
@@ -183,10 +196,10 @@ def buyCalculator(request):
             Calculator.objects.filter(seller__email__contains = calculator_seller, condition=calculator_condition,status="inStock").update(status="inProcess")
             calc_obj=Order_Calculator(customer=customer,calculator=calc1)
             calc_obj.save()
-            template_name="unavailableProduct.html"
+            return redirect("orders")
         else:
             template_name="unavailableProduct.html"
-        return render(request,template_name)
+            return render(request,template_name)
 
 @login_required(login_url="login")
 def buyTool(request):
@@ -194,8 +207,7 @@ def buyTool(request):
         customer=Student.objects.get(email=request.user.username)
         tool_obj=Order_Toolkit(customer=customer)
         tool_obj.save()
-        template_name="unavailableProduct.html"
-        return render(request,template_name)
+        return redirect("orders")
 
 
 @login_required(login_url="login")
@@ -220,7 +232,7 @@ def sellBook(request):
             status=status
         )
         book_obj.save()
-    return redirect("sellAProduct")
+    return redirect("advertisements")
 
 @login_required(login_url="login")
 def sellSuit(request):
@@ -240,7 +252,7 @@ def sellSuit(request):
             gender=suit_gender   
         )
         suit_obj.save()
-    return redirect("sellAProduct")
+    return redirect("advertisements")
 
 
 @login_required(login_url="login")
@@ -259,7 +271,7 @@ def sellCoat(request):
             size=coat_size
         )
         coat_obj.save()
-    return redirect("sellAProduct")
+    return redirect("advertisements")
 
 @login_required(login_url="login")
 def sellCalculator(request):
@@ -275,7 +287,7 @@ def sellCalculator(request):
             description=calc_description
         )
         calc_obj.save()
-    return redirect("sellAProduct")
+    return redirect("advertisements")
 
 @login_required(login_url="login")
 def advertisements(request):
@@ -301,6 +313,17 @@ def orders(request):
     context={'customer':customer,'orderedBooks':orderedBooks,'orderedSuits':orderedSuits, 'orderedCoats' :orderedCoats,'orderedCalculators':orderedCalculators,'orderedToolkits':orderedToolkits}
     template_name="orders.html"
     return render(request, template_name, context)
+
+
+
+
+@login_required(login_url="login")
+def deleteBook(request,bookId):
+    seller=Student.objects.get(email=request.user.username)
+    book= Book.objects.get(bookId=bookId)
+    if(book.status=="verified" or book.status=="pending"):
+        Book.objects.filter(bookId=bookId).delete()
+    return redirect("advertisements")
 
 def tnc(request):
     return render(request,"termsandconditions.html")

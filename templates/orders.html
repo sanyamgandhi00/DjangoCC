@@ -58,66 +58,70 @@
 <div id="main">
 
     <!-- Book Card -->
-
+    {% for obook in orderedBooks %}
     <div class="inner" id="bookDiv">
         <span class="type">Book</span>
-        <span class="price" style="float: right; margin-right: 20px;">Rs. 350</span><br><br>
-        <span class="title">Title of the Book</span><br><br>
-        <span class="others">Author Name Here</span><br><br>
-        <span class="description">Description of the Book will be here and other products also will have their description like this</span><br><br>
-        <span class="date">Date of Purchase: 11/11/2011</span><br><br>
+        <span class="price" style="float: right; margin-right: 20px;">Rs. {{obook.book.price}}</span><br><br>
+        <span class="title">{{obook.book.bookName}}</span><br><br>
+        <span class="others">{{obook.book.author}}</span><br><br>
+        <span class="description">{{obook.book.description}}</span><br><br>
+        <span class="date">Date of Purchase: {{obook.timestamp}}</span><br><br>
         <span class="muted">If you have successfully received the book at the mentioned price and the order is complete, press the button below</span><br><br>
-        <span class="last">Status Print <button class="complete-button">Order Complete?</button></span>
+        <span class="last">{{obook.book.status}}  Print <button class="complete-button">Order Complete?</button></span>
     </div>
+    {% endfor %}
 
     <!-- Boiler Suit Card -->
-
+    {% for osuit in orderedSuits %}
     <div class="inner" id="suitDiv">
         <span class="type">Boiler Suit</span>
         <span class="price" style="float: right; margin-right: 20px;">Rs. 300</span><br><br>
-        <span class="others">Variant - Male/Female</span><br><br>
-        <span class="others">Size - S/M/L/XL/XXL</span><br><br>
-        <span class="description">Description of the Boiler Suit will be here and other products also will have their description like this</span><br><br>
-        <span class="date">Date of Purchase: 11/11/2011</span><br><br>
+        <span class="others">Variant - {{osuit.suit.gender}}</span><br><br>
+        <span class="others">Size - {{osuit.suit.size}}</span><br><br>
+        <span class="description"> {{osuit.suit.description}}</span><br><br>
+        <span class="date">Date of Purchase:  {{osuit.timestamp}}</span><br><br>
         <span class="muted">If you have successfully received the Boiler Suit at the mentioned price and the order is complete, press the button below</span><br><br>
-        <span class="last">Status Print<button class="complete-button">Order Complete?</button></span>
+        <span class="last">{{osuit.suit.status}} Print<button class="complete-button">Order Complete?</button></span>
     </div>
+    {% endfor %}
 
     <!-- Lab Coat Card -->
-
+    {% for ocoat in orderedCoats %}
     <div class="inner" id="coatDiv">
         <span class="type">Lab Coat</span>
         <span class="price" style="float: right; margin-right: 20px;">Rs. 180</span><br><br><br>
-        <span class="others">Size - S/M/L/XL/XXL</span><br><br><br>
-        <span class="description">Description of the Lab Coat will be here and other products also will have their description like this</span><br><br>
-        <span class="date">Date of Purchase: 11/11/2011</span><br><br>
+        <span class="others">Size - {{ocoat.coat.size}}</span><br><br><br>
+        <span class="description">{{ocoat.coat.description}}</span><br><br>
+        <span class="date">Date of Purchase: {{ocoat.timestamp}}</span><br><br>
         <span class="muted">If you have successfully received the Lab Coat at the mentioned price and the order is complete, press the button below</span><br><br>
-        <span class="last">Status Print<button class="complete-button">Order Complete?</button></span>
+        <span class="last">{{ocoat.coat.status}} Print<button class="complete-button">Order Complete?</button></span>
     </div>
+    {% endfor %}
 
     <!-- Calculator Card -->
-
+    {% for ocalculator in orderedCalculators %}
     <div class="inner" id="calculatorDiv">
         <span class="type">Calculator</span>
         <span class="price" style="float: right; margin-right: 20px;">Rs. 700</span><br><br><br>
         <span class="others">Model: Casio FX-991 ES Plus</span><br><br><br>
-        <span class="description">Description of the Calculator will be here and other products also will have their description like this</span><br><br>
-        <span class="date">Date of Purchase: 11/11/2011</span><br><br>
+        <span class="description">{{ocalculator.calculator.description}}</span><br><br>
+        <span class="date">Date of Purchase: {{ocalculator.timestamp}}1</span><br><br>
         <span class="muted">If you have successfully received the Calculator at the mentioned price and the order is complete, press the button below</span><br><br>
-        <span class="last">Status Print<button class="complete-button">Order Complete?</button></span>
+        <span class="last">{{ocalculator.calculator.status}} Print<button class="complete-button">Order Complete?</button></span>
     </div>
+    {% endfor %}
 
     <!-- ToolKit Card -->
-
+    {% for otk in orderedToolkits %}
     <div class="inner" id="toolkitDiv">
         <span class="type">Tool Kit</span>
         <span class="price" style="float: right; margin-right: 20px;">Rs. 120</span><br><br><br>
         <span class="others">Contents: 2 Blades, 1 Steel Ruler, 1 White Pencil</span><br><br><br>
-        <span class="date">Date of Purchase: 11/11/2011</span><br><br>
+        <span class="date">Date of Purchase: {{otk.timestamp}}</span><br><br>
         <!-- <span class="muted">If you have successfully received the Toolkit at the mentioned price and the order is complete, press the button below</span><br><br>
         <span class="last">Status Print<button class="complete-button">Order Complete?</button></span> -->
     </div>
-
+    {% endfor %}
 </div>
 
 {% endblock %}

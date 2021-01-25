@@ -75,91 +75,123 @@
 <div id="main">
 
     <!-- Book Card -->
-
+    {% for adbook in books %}
+    
     <div class="inner" id="bookDiv" style="display: grid; grid-template-columns: 1fr 1fr;  grid-template-rows: auto 10%;grid-column: 1/3;">
         <div><span class="type">Book</span>
-        <span class="price" style="float: right; margin-right: 20px;">Rs. 350</span><br><br>
-        <span class="title">Title of the Book</span><br><br>
-        <span class="others">Author Name Here</span><br><br>
-        <div id="imageSpan"><img src="https://5.imimg.com/data5/UG/OF/GLADMIN-3018525/concepts-of-physics-vol-1-book-500x500.png" alt="bookImage"></div>
-        <span class="description">Description of the Book will be here and other products also will have their description like this</span><br><br>
-        <span class="date">Date of Posting: 11/11/2011</span></div>
+        <span class="price" style="float: right; margin-right: 20px;">Rs. {{adbook.price}}</span><br><br>
+        <span class="title">{{adbook.bookName}}</span><br><br>
+        <span class="others">{{adbook.author}}</span><br><br>
+        {% if adbook.bookImage %}
+        <div id="imageSpan"><img src="{{adbook.bookImage.url}}" alt="bookImage"></div>
+        {% endif %}
+        <span class="description">{{adbook.description}}</span><br><br>
+        <span class="date">Date of Posting: {{adbook.timestamp}}</span></div>
+        {% if adbook.status == 'inProcess' or adbook.status == 'sold' %}
         <div><span class="type">Buyer Details</span><br><br><hr><br>
-        <span class="title">Name: Yash Parihar Gandhi</span><br><br>
-        <span class="others">Email ID: abc@gmail.com</span><br><br>
-        <span class="others">Mobile Number: 9876543210</span><br><br>
-        <span class="others">Year/Branch: TY/IT</span><br><br>
-        <span class="others">Status Print</span><br><br>
-        <span class="others">Date of Order: 11/11/2011</span><br><br>
+        <span class="title">Name: {{adbook.order_books.customer}}</span><br><br>
+        <span class="others">Email ID:  {{adbook.order_books.customer.email}}</span><br><br>
+        <span class="others">Mobile Number:  {{adbook.order_books.customer.contactNumber}}</span><br><br>
+        <span class="others">Year/Branch:  {{adbook.order_books.customer.year}} / {{adbook.order_books.customer.branch}}</span><br><br>
+        {% endif %}
+        <span class="others">{{adbook.status}} Print</span><br><br>
+        {% if adbook.status == 'inProcess' or adbook.status == 'sold' %}
+        <span class="others">Date of Order:  {{adbook.order_books.timestamp}}</span><br><br>
         <span class="muted">If you have successfully delivered the book at the mentioned price and the order is complete, press the button below</span><br><br></div>
+        {% endif %}
         <div style="grid-column: 1/3;">
             <center style="margin: 3%;">
             <span class="last">
-                <button class="delete-button">Delete Advertisement</button>
+                {% if adbook.status == 'pending' or adbook.status == 'verified' %}
+                <a href="deleteBook/{{adbook.bookId}}"><button class="delete-button">Delete Advertisement</button></a>
+                {% endif %}
+                {% if adbook.status == 'inProcess'  or adbook.status == 'sold' %}
                 <button class="complete-button">Order Complete?</button>
+                {% endif %}
             </span>
             </center>
         </div>
     </div>
+    {% endfor %}
 
     <!-- Boiler Suit Card -->
-
+    {% for adsuit in suits %}       
     <div class="inner" id="suitDiv">
         <span class="type">Boiler Suit</span>
         <span class="price" style="float: right; margin-right: 20px;">Rs. 300</span><br><br><br>
-        <span class="others">Variant - Male/Female</span><br><br>
-        <span class="others">Size - S/M/L/XL/XXL</span><br><br>
-        <span class="description">Description of the Boiler Suit will be here and other products also will have their description like this</span><br><br>
-        <span class="date">Date of Purchase: 11/11/2011</span><br><br>
+        <span class="others">Variant - {{adsuit.gender}}</span><br><br>
+        <span class="others">Size - {{adsuit.size}}</span><br><br>
+        <span class="description">{{adsuit.description}}</span><br><br>
+        <span class="date">Date of advertisement: {{adsuit.timestamp}}</span><br><br>
         <span class="muted">If you have successfully sold the Boiler Suit to us at the mentioned price, press the button below</span><br><br>
-        <span class="others">Status Print</span><br><br>
-        <span class="others">TIMESTAMP OF ORDER: 12:12, 11/11/2011</span><br><br>
+        <span class="others">{{adsuit.status}} Print</span><br><br>
+        {% if adsuit.status == 'inProcess' or adsuit.status == 'sold' %}
+        <span class="others">TIMESTAMP OF ORDER: {{adsuit.order_suits.timestamp}}</span><br><br>
+        {% endif %}
         <center style="margin: 3%;">
             <span class="last">
+                {% if adsuit.status == 'inStock' %}
                 <button class="delete-button">Delete Advertisement</button><br><br>
+                {% endif %}
+                {% if adsuit.status == 'inProcess' or adsuit.status == 'sold' %}
                 <button class="complete-button">Order Complete?</button>
+                {% endif %}
             </span>
             </center>
     </div>
+    {% endfor %}
 
     <!-- Lab Coat Card -->
-
+    {% for adcoat in coats %} 
     <div class="inner" id="coatDiv">
         <span class="type">Lab Coat</span>
         <span class="price" style="float: right; margin-right: 20px;">Rs. 180</span><br><br><br><br>
-        <span class="others">Size - S/M/L/XL/XXL</span><br><br><br>
-        <span class="description">Description of the Lab Coat will be here and other products also will have their description like this</span><br><br>
-        <span class="date">Date of Purchase: 11/11/2011</span><br><br>
+        <span class="others">Size - {{adcoat.size}}</span><br><br><br>
+        <span class="description">{{adcoat.description}}</span><br><br>
+        <span class="date">Date of advertisement: {{adsuit.timestamp}}</span><br><br>
         <span class="muted">If you have successfully sold the Lab Coat at the mentioned price to us, press the button below</span><br><br>
-        <span class="others">Status Print</span><br><br>
-        <span class="others">TIMESTAMP OF ORDER: 12:12, 11/11/2011</span><br><br>
+        <span class="others">{{adcoat.status}} Print</span><br><br>
+        {% if adcoat.status == 'inProcess' or adcoat.status == 'sold' %}
+        <span class="others">TIMESTAMP OF ORDER: {{adcoat.order_coats.timestamp}}</span><br><br>
+        {% endif %}
         <center style="margin: 3%;">
             <span class="last">
+                {% if adcoat.status == 'inStock' %}
                 <button class="delete-button">Delete Advertisement</button><br><br>
+                {% endif %}
+                {% if adcoat.status == 'inProcess'  or adcoat.status == 'sold' %}
                 <button class="complete-button">Order Complete?</button>
+                {% endif %}
             </span>
         </center>
     </div>
+    {% endfor %}
 
     <!-- Calculator Card -->
-
+    {% for adcalc in calculators %} 
     <div class="inner" id="calculatorDiv">
         <span class="type">Calculator</span>
         <span class="price" style="float: right; margin-right: 20px;">Rs. 700</span><br><br><br><br>
         <span class="others">Model: Casio FX-991 ES Plus</span><br><br><br>
-        <span class="description">Description of the Calculator will be here and other products also will have their description like this</span><br><br>
-        <span class="date">Date of Purchase: 11/11/2011</span><br><br>
+        <span class="description">{{adcalc.description}}</span><br><br>
+        <span class="date">Date of advertisement: {{adcalc.timestamp}}</span><br><br>
         <span class="muted">If you have successfully sold the Calculator at the mentioned price to us, press the button below</span><br><br>
-        <span class="others">Status Print</span><br><br>
-        <span class="others">TIMESTAMP OF ORDER: 12:12, 11/11/2011</span><br><br>
+        <span class="others">{{adcalc.status}} Print</span><br><br>
+        {% if adcalc.status == 'inProcess' or adcalc.status == 'sold' %}
+        <span class="others">TIMESTAMP OF ORDER: {{adcalc.order_calculators.timestamp}}</span><br><br>
+        {% endif %}
         <center style="margin: 3%;">
             <span class="last">
+                {% if adcalc.status == 'inStock' %}
                 <button class="delete-button">Delete Advertisement</button><br><br>
+                {% endif %}
+                {% if adcalc.status == 'inProcess'  or adcalc.status == 'sold' %}
                 <button class="complete-button">Order Complete?</button>
+                {% endif %}
             </span>
         </center>
     </div>
-
+    {% endfor %}
     
 </div>
 

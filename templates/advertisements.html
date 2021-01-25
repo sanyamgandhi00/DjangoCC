@@ -87,18 +87,24 @@
         {% endif %}
         <span class="description">{{adbook.description}}</span><br><br>
         <span class="date">Date of Posting: {{adbook.timestamp}}</span></div>
+        
+        {% for order in adbook.order_books}
         {% if adbook.status == 'inProcess' or adbook.status == 'sold' %}
         <div><span class="type">Buyer Details</span><br><br><hr><br>
-        <span class="title">Name: {{adbook.order_books.customer}}</span><br><br>
+        
+        <span class="title">Name: {{order.customer.name}}</span><br><br>
         <span class="others">Email ID:  {{adbook.order_books.customer.email}}</span><br><br>
         <span class="others">Mobile Number:  {{adbook.order_books.customer.contactNumber}}</span><br><br>
         <span class="others">Year/Branch:  {{adbook.order_books.customer.year}} / {{adbook.order_books.customer.branch}}</span><br><br>
+        
         {% endif %}
         <span class="others">{{adbook.status}} Print</span><br><br>
         {% if adbook.status == 'inProcess' or adbook.status == 'sold' %}
         <span class="others">Date of Order:  {{adbook.order_books.timestamp}}</span><br><br>
         <span class="muted">If you have successfully delivered the book at the mentioned price and the order is complete, press the button below</span><br><br></div>
+        
         {% endif %}
+        {% endfor %}
         <div style="grid-column: 1/3;">
             <center style="margin: 3%;">
             <span class="last">

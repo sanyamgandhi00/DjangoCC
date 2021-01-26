@@ -25,6 +25,13 @@ urlpatterns = [
     path('advertisements',views.advertisements,name="advertisements"),
     path('orders',views.orders,name="orders"),
     path('deleteBook/<int:bookId>',views.deleteBook,name="deleteBook"),
+    path('deleteSuit/<int:suitId>',views.deleteSuit,name="deleteSuit"),
+    path('deleteCoat/<int:coatId>',views.deleteCoat,name="deleteCoat"),
+    path('deleteCalculator/<int:calculatorId>',views.deleteCalculator,name="deleteCalculator"),
+    path('completedBook/<int:bookId>/<str:person>',views.completedBook,name="completedBook"),
+    path('completedSuit/<int:suitId>/<str:person>',views.completedSuit,name="completedSuit"),
+    path('completedCoat/<int:coatId>/<str:person>',views.completedCoat,name="completedCoat"),
+    path('completedCalculator/<int:calculatorId>/<str:person>',views.completedCalculator,name="completedCalculator"),
     path('termsandconditions',views.tnc,name="tnc"),
 ]
 

@@ -88,34 +88,32 @@
         <span class="description">{{adbook.description}}</span><br><br>
         <span class="date">Date of Posting: {{adbook.timestamp}}</span></div>
         
-        {% for order in adbook.order_books.all %}
-        {% if forloop.counter0 == 0 %}
+        
         {% if adbook.status == 'inProcess' or adbook.status == 'sold' %}
         <div><span class="type">Buyer Details</span><br><br><hr><br>
         
-        <span class="title">Name: {{order.customer.fullName}}</span><br><br>
-        <span class="others">Email ID:  {{order.customer.email}}</span><br><br>
-        <span class="others">Mobile Number:  {{order.customer.contactNumber}}</span><br><br>
-        <span class="others">Year/Branch:  {{order.customer.year}} / {{order.customer.branch}}</span><br><br>
+        <span class="title">Name: {{adbook.order_books.customer.fullName}}</span><br><br>
+        <span class="others">Email ID:  {{adbook.order_books.customer.email}}</span><br><br>
+        <span class="others">Mobile Number:  {{adbook.order_books.customer.contactNumber}}</span><br><br>
+        <span class="others">Year/Branch:  {{adbook.order_books.customer.year}} / {{adbook.order_books.customer.branch}}</span><br><br>
         {% endif %}
         <!-- shift the belowwww  -->
         <span class="others">{{adbook.status}} Print</span><br><br>
         <!--till heree   -->
         {% if adbook.status == 'inProcess' or adbook.status == 'sold' %}
-        <span class="others">Date of Order:  {{order.timestamp}}</span><br><br>
+        <span class="others">Date of Order:  {{adbook.order_books.timestamp}}</span><br><br>
         <span class="muted">If you have successfully delivered the book at the mentioned price and the order is complete, press the button below</span><br><br></div>
         {% endif %}
 
-        {% endif %}
-        {% endfor %}
+      
         <div style="grid-column: 1/3;">
             <center style="margin: 3%;">
             <span class="last">
                 {% if adbook.status == 'pending' or adbook.status == 'verified' %}
                 <a href="deleteBook/{{adbook.bookId}}"><button class="delete-button">Delete Advertisement</button></a>
                 {% endif %}
-                {% if adbook.status == 'inProcess'  or adbook.status == 'sold' %}
-                <button class="complete-button">Order Complete?</button>
+                {% if adbook.status == 'inProcess' %}
+                <a href="completedBook/{{adbook.bookId}}/seller"><button class="complete-button">Order Complete?</button></a>
                 {% endif %}
             </span>
             </center>
@@ -136,25 +134,23 @@
         <span class="others">{{adsuit.status}} Print</span><br><br>
         {% if adsuit.status == 'inProcess' or adsuit.status == 'sold' %}
 
-        {% for order in adsuit.order_suits.all %}
-        {% if forloop.counter0 == 0 %}
+        
         <span class="others">TIMESTAMP OF ORDER: {{adsuit.order_suits.timestamp}}</span><br><br>
-        {% endif %}
-        {% endfor %}
+    
 
         {% endif %}
         <center style="margin: 3%;">
             <span class="last">
                 {% if adsuit.status == 'inStock' %}
-                <form action="deleteCoat" method="POST">
-                    <input name="customer" type="hidden">
-                    <input name="size" type="hidden">
-                    <input name="gender" type="hidden">
-                    <button class="delete-button">Delete Advertisement</button><br><br>
-                </form>
+    
+                    <a href="deleteSuit/{{adsuit.suitId}}"><button class="delete-button">Delete Advertisement</button><br><br></a>
+                
                 {% endif %}
+
                 {% if adsuit.status == 'inProcess' %}
-                <button class="complete-button">Order Complete?</button>
+
+                    <a href="completedSuit/{{adsuit.suitId}}/seller"><button class="complete-button">Order Complete?</button></a>
+
                 {% endif %}
             </span>
             </center>
@@ -168,29 +164,27 @@
         <span class="price" style="float: right; margin-right: 20px;">Rs. 180</span><br><br><br><br>
         <span class="others">Size - {{adcoat.size}}</span><br><br><br>
         <span class="description">{{adcoat.description}}</span><br><br>
-        <span class="date">Date of advertisement: {{adsuit.timestamp}}</span><br><br>
+        <span class="date">Date of advertisement: {{adcoat.timestamp}}</span><br><br>
         <span class="muted">If you have successfully sold the Lab Coat at the mentioned price to us, press the button below</span><br><br>
         <span class="others">{{adcoat.status}} Print</span><br><br>
         {% if adcoat.status == 'inProcess' or adcoat.status == 'sold' %}
 
-        {% for order in adcoat.order_coats.all %}
-        {% if forloop.counter0 == 0 %}
-        <span class="others">TIMESTAMP OF ORDER: {{order.timestamp}}</span><br><br>
-        {% endif %}
-        {% endfor %}
+        <span class="others">TIMESTAMP OF ORDER: {{adcoat.order_coats.timestamp}}</span><br><br>
+
 
         {% endif %}
         <center style="margin: 3%;">
             <span class="last">
                 {% if adcoat.status == 'inStock' %}
-                <form action="deleteCoat" method="POST">
-                    <input name="customer" type="hidden">
-                    <input name="size" type="hidden">
-                    <button type="submit" class="delete-button">Delete Advertisement</button><br><br>
-                </form>
+                
+                <a href="deleteCoat/{{adcoat.coatId}}"><button type="submit" class="delete-button">Delete Advertisement</button><br><br></a>
+          
                 {% endif %}
+
                 {% if adcoat.status == 'inProcess' %}
-                <button class="complete-button">Order Complete?</button>
+
+                <a href="completedCoat/{{adcoat.coatId}}/seller"><button class="complete-button">Order Complete?</button></a>
+
                 {% endif %}
             </span>
         </center>
@@ -209,23 +203,22 @@
         <span class="others">{{adcalc.status}} Print</span><br><br>
         {% if adcalc.status == 'inProcess' or adcalc.status == 'sold' %}
 
-        {% for order in adccalc.order_calculators.all %}
-        {% if forloop.counter0 == 0 %}
-        <span class="others">TIMESTAMP OF ORDER: {{order.timestamp}}</span><br><br>
-        {% endif %}
-        {% endfor %}
+        <span class="others">TIMESTAMP OF ORDER: {{adcalc.order_calculators.timestamp}}</span><br><br>
+    
 
         {% endif %}
         <center style="margin: 3%;">
             <span class="last">
                 {% if adcalc.status == 'inStock' %}
-                <form action="deleteCoat" method="POST">
-                    <input name="customer" type="hidden">
-                    <button class="delete-button">Delete Advertisement</button><br><br>
-                </form>
+               
+                <a href="deleteCalculator/{{adcalc.calculatorId}}"><button class="delete-button">Delete Advertisement</button><br><br></a>
+
                 {% endif %}
+
                 {% if adcalc.status == 'inProcess' %}
-                <button class="complete-button">Order Complete?</button>
+
+                <a href="completedCalculator/{{adcalc.calculatorId}}/seller"><button class="complete-button">Order Complete?</button></a>
+
                 {% endif %}
             </span>
         </center>

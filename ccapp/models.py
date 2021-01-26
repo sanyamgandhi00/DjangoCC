@@ -69,6 +69,7 @@ size_choices=(
 )
 class Coat(models.Model):
     seller=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="coats")
+    coatId = models.AutoField(primary_key=True)
     description=models.TextField(blank=True)
     status=models.CharField(max_length = 10, choices = coat_status, default = 'inStock') 
     size=models.CharField(max_length = 10, choices = size_choices, default = 'L')
@@ -79,6 +80,7 @@ class Coat(models.Model):
 
 class Suit(models.Model):
     seller=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="suits")
+    suitId = models.AutoField(primary_key=True)
     description=models.TextField(blank=True)
     status=models.CharField(max_length = 10, choices = coat_status, default = 'inStock') 
     size=models.CharField(max_length = 10, choices = size_choices, default = 'L') 
@@ -90,6 +92,7 @@ class Suit(models.Model):
 
 class Calculator(models.Model):
     seller=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="calculators")
+    calculatorId = models.AutoField(primary_key=True)
     condition=models.CharField(max_length = 4, choices =condition, default = 'used')
     description=models.TextField(blank=True)
     status=models.CharField(max_length = 10, choices = coat_status, default = 'inStock')
@@ -101,7 +104,7 @@ class Calculator(models.Model):
 #Order
 
 class Order_Book(models.Model):
-    book=models.ForeignKey(Book,on_delete=models.CASCADE,related_name="order_books")
+    book=models.OneToOneField(Book,on_delete=models.CASCADE,related_name="order_books")
     customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_books")
     timestamp=models.DateTimeField(auto_now_add=True)
     flag_seller_complete=models.CharField(max_length = 1, choices =(("0","0"),("1","1")), default = '0') 
@@ -110,7 +113,7 @@ class Order_Book(models.Model):
         return self.customer.email+"_"+self.book.bookName+"_"+self.book.seller.email
 
 class Order_Coat(models.Model):
-    coat=models.ForeignKey(Coat,on_delete=models.CASCADE,related_name="order_coats")
+    coat=models.OneToOneField(Coat,on_delete=models.CASCADE,related_name="order_coats")
     customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_coats")
     timestamp=models.DateTimeField(auto_now_add=True)
     flag_seller_complete=models.CharField(max_length = 1, choices =(("0","0"),("1","1")), default = '0') 
@@ -119,7 +122,7 @@ class Order_Coat(models.Model):
         return self.customer.email+"_"+self.coat.seller.email
 
 class Order_Suit(models.Model):
-    suit=models.ForeignKey(Suit,on_delete=models.CASCADE,related_name="order_suits")
+    suit=models.OneToOneField(Suit,on_delete=models.CASCADE,related_name="order_suits")
     customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_suits")
     timestamp=models.DateTimeField(auto_now_add=True)
     flag_seller_complete=models.CharField(max_length = 1, choices =(("0","0"),("1","1")), default = '0') 
@@ -128,7 +131,7 @@ class Order_Suit(models.Model):
         return self.customer.email+"_"+self.suit.seller.email
 
 class Order_Calculator(models.Model):
-    calculator=models.ForeignKey(Calculator,on_delete=models.CASCADE,related_name="order_calculators")
+    calculator=models.OneToOneField(Calculator,on_delete=models.CASCADE,related_name="order_calculators")
     customer=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="order_calculators")
     timestamp=models.DateTimeField(auto_now_add=True)
     flag_seller_complete=models.CharField(max_length = 1, choices =(("0","0"),("1","1")), default = '0') 

@@ -321,9 +321,93 @@ def orders(request):
 def deleteBook(request,bookId):
     seller=Student.objects.get(email=request.user.username)
     book= Book.objects.get(bookId=bookId)
-    if(book.status=="verified" or book.status=="pending"):
+    if((book.status=="verified" or book.status=="pending") and book.seller.email == request.user.username):
         Book.objects.filter(bookId=bookId).delete()
     return redirect("advertisements")
+
+
+@login_required(login_url="login")
+def deleteSuit(request,suitId):
+    seller=Student.objects.get(email=request.user.username)
+    suit= Suit.objects.get(suitId=suitId)
+    if(suit.status=="inStock" and suit.seller.email == request.user.username):
+        Suit.objects.filter(suitId=suitId).delete()
+    return redirect("advertisements")
+
+@login_required(login_url="login")
+def deleteCoat(request,coatId):
+    seller=Student.objects.get(email=request.user.username)
+    coat= Coat.objects.get(coatId=coatId)
+    if(coat.status=="inStock" and coat.seller.email == request.user.username):
+        Coat.objects.filter(coatId=coatId).delete()
+    return redirect("advertisements")
+    
+@login_required(login_url="login")
+def deleteCalculator(request,calculatorId):
+    seller=Student.objects.get(email=request.user.username)
+    calculator= Calculator.objects.get(calculatorId=calculatorId)
+    if(calculator.status=="inStock" and calculator.seller.email == request.user.username):
+        Calculator.objects.filter(calculatorId=calculatorId).delete()
+    return redirect("advertisements")
+
+
+@login_required(login_url="login")
+def completedBook(request,bookId,person):
+    book=Book.objects.get(bookId=bookId)
+    if(person=="seller"):
+        if(book.status=="inProcess" and book.seller.email == request.user.username):
+            Order_Book.objects.filter(book=book).update(flag_seller_complete=1)
+    elif(person=="customer"):
+        if(book.status=="inProcess" and book.order_books.customer.email == request.user.username):
+            Order_Book.objects.filter(book=book).update(flag_customer_complete=1)
+    if(book.order_books.flag_seller_complete == '1' and book.order_books.flag_customer_complete == '1'):
+        status="sold"
+        Book.objects.filter(bookId=bookId).update(status=status)
+    return redirect("orders")
+
+@login_required(login_url="login")
+def completedSuit(request,suitId,person):
+    suit=Suit.objects.get(suitId=suitId)
+    if(person=="seller"):
+        if(suit.status=="inProcess" and suit.seller.email == request.user.username):
+            Order_Suit.objects.filter(suit=suit).update(flag_seller_complete=1)
+    elif(person=="customer"):
+        if(suit.status=="inProcess" and suit.order_suits.customer.email == request.user.username):
+            Order_Suit.objects.filter(suit=suit).update(flag_customer_complete=1)
+    if(suit.order_suits.flag_seller_complete == '1' and suit.order_suits.flag_customer_complete == '1'):
+        print("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+        status="sold"
+        Suit.objects.filter(suitId=suitId).update(status=status)
+    return redirect("orders")
+
+@login_required(login_url="login")
+def completedCoat(request,coatId,person):
+    coat=Coat.objects.get(coatId=coatId)
+    if(person=="seller"):
+        if(coat.status=="inProcess" and coat.seller.email == request.user.username):
+            Order_Coat.objects.filter(coat=coat).update(flag_seller_complete=1)
+    elif(person=="customer"):
+        if(coat.status=="inProcess" and coat.order_coats.customer.email == request.user.username):
+            Order_Coat.objects.filter(coat=coat).update(flag_customer_complete=1)
+    if(coat.order_coats.flag_seller_complete == '1' and coat.order_coats.flag_customer_complete == '1'):
+        status="sold"
+        Coat.objects.filter(coatId=coatId).update(status=status)
+    return redirect("orders")
+
+@login_required(login_url="login")
+def completedCalculator(request,calculatorId,person):
+    calculator=Calculator.objects.get(calculatorId=calculatorId)
+    if(person=="seller"):
+        if(calculator.status=="inProcess" and calculator.seller.email == request.user.username):
+            Order_Calculator.objects.filter(calculator=calculator).update(flag_seller_complete=1)
+    elif(person=="customer"):
+        if(calculator.status=="inProcess" and calculator.order_calculators.customer.email == request.user.username):
+            Order_Calculator.objects.filter(calculator=calculator).update(flag_customer_complete=1)
+    if(calculator.order_calculators.flag_seller_complete == '1' and calculator.order_calculators.flag_customer_complete== '1'):
+        status="sold"
+        Calculator.objects.filter(calculatorId=calculatorId).update(status=status)
+    return redirect("orders")
+
 
 def tnc(request):
     return render(request,"termsandconditions.html")

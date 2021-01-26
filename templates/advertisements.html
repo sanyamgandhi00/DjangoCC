@@ -112,7 +112,7 @@
                 {% if adbook.status == 'pending' or adbook.status == 'verified' %}
                 <a href="deleteBook/{{adbook.bookId}}"><button class="delete-button">Delete Advertisement</button></a>
                 {% endif %}
-                {% if adbook.status == 'inProcess' %}
+                {% if adbook.status == 'inProcess' and adbook.order_books.flag_seller_complete == '0' %}
                 <a href="completedBook/{{adbook.bookId}}/seller"><button class="complete-button">Order Complete?</button></a>
                 {% endif %}
             </span>
@@ -147,7 +147,7 @@
                 
                 {% endif %}
 
-                {% if adsuit.status == 'inProcess' %}
+                {% if adsuit.status == 'inProcess' and adsuit.order_suits.flag_seller_complete == '0'  %}
 
                     <a href="completedSuit/{{adsuit.suitId}}/seller"><button class="complete-button">Order Complete?</button></a>
 
@@ -181,7 +181,7 @@
           
                 {% endif %}
 
-                {% if adcoat.status == 'inProcess' %}
+                {% if adcoat.status == 'inProcess' and adcoat.order_coats.flag_seller_complete == '0'  %}
 
                 <a href="completedCoat/{{adcoat.coatId}}/seller"><button class="complete-button">Order Complete?</button></a>
 
@@ -215,7 +215,7 @@
 
                 {% endif %}
 
-                {% if adcalc.status == 'inProcess' %}
+                {% if adcalc.status == 'inProcess' and adcalc.order_calculators.flag_seller_complete == '0'  %}
 
                 <a href="completedCalculator/{{adcalc.calculatorId}}/seller"><button class="complete-button">Order Complete?</button></a>
 

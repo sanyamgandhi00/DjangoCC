@@ -69,8 +69,8 @@
         
         <span class="muted">If you have successfully received the book at the mentioned price and the order is complete, press the button below</span><br><br>
         <span class="last">{{obook.book.status}}  Print 
-            {% if obook.book.status == 'inProcess' %}
-            <a href="completedSuit/{{obook.book.bookId}}/customer"><button class="complete-button">Order Complete?</button></a>
+            {% if obook.book.status == 'inProcess' and obook.flag_customer_complete == '0' %}
+            <a href="completedBook/{{obook.book.bookId}}/customer"><button class="complete-button">Order Complete?</button></a>
             {% endif %}
         </span>
         
@@ -88,7 +88,7 @@
         <span class="date">Date of Purchase:  {{osuit.timestamp}}</span><br><br>
         <span class="muted">If you have successfully received the Boiler Suit at the mentioned price and the order is complete, press the button below</span><br><br>
         <span class="last">{{osuit.suit.status}} Print
-            {% if osuit.suit.status == 'inProcess' %}
+            {% if osuit.suit.status == 'inProcess' and osuit.flag_customer_complete == '0' %}
             <a href="completedSuit/{{osuit.suit.suitId}}/customer"><button class="complete-button">Order Complete?</button></a>
             {% endif %}
         </span>
@@ -105,7 +105,7 @@
         <span class="date">Date of Purchase: {{ocoat.timestamp}}</span><br><br>
         <span class="muted">If you have successfully received the Lab Coat at the mentioned price and the order is complete, press the button below</span><br><br>
         <span class="last">{{ocoat.coat.status}} Print
-            {% if ocoat.coat.status == 'inProcess' %}
+            {% if ocoat.coat.status == 'inProcess' and ocoat.flag_customer_complete == '0' %}
             <a href="completedCoat/{{ocoat.coat.coatId}}/customer"><button class="complete-button">Order Complete?</button></a>
             {% endif %}
         </span>
@@ -122,7 +122,7 @@
         <span class="date">Date of Purchase: {{ocalculator.timestamp}}1</span><br><br>
         <span class="muted">If you have successfully received the Calculator at the mentioned price and the order is complete, press the button below</span><br><br>
         <span class="last">{{ocalculator.calculator.status}} Print
-            {% if ocalculator.calculator.status == 'inProcess' %}
+            {% if ocalculator.calculator.status == 'inProcess' and ocalculator.flag_customer_complete == '0' %}
             <a href="completedCalculator/{{ocalculator.calculator.calculatorId}}/customer"><button class="complete-button">Order Complete?</button></a>
             {% endif %}
         </span>

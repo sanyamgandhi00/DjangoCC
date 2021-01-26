@@ -362,6 +362,7 @@ def completedBook(request,bookId,person):
         if(book.status=="inProcess" and book.order_books.customer.email == request.user.username):
             Order_Book.objects.filter(book=book).update(flag_customer_complete=1)
             page="orders"
+    print(book.order_books.flag_customer_complete)
     if(book.order_books.flag_seller_complete == '1' and book.order_books.flag_customer_complete == '1'):
         print("hiiiiiiiiiii")
         status="sold"

@@ -194,7 +194,7 @@ button:hover, button:active{
         <center>
             <span class="status">Status: {{obook.book.status}}</span><br><br>
             {% if obook.book.status == 'inProcess' and obook.flag_customer_complete == '0' %}
-                <a href="completedBook/{{obook.book.bookId}}/customer"><button class="complete-button">Order Complete?</button></a>
+                <a href="completedBook/{{obook.book.bookId}}/customer"><button class="complete-button" onclick="return complete()">Order Complete?</button></a>
             {% endif %}
         </center>
         
@@ -219,7 +219,7 @@ button:hover, button:active{
         <center>
             <span class="status">Status: {{osuit.suit.status}}</span><br><br>
             {% if osuit.suit.status == 'inProcess' and osuit.flag_customer_complete == '0' %}
-                <a href="completedSuit/{{osuit.suit.suitId}}/customer"><button class="complete-button">Order Complete?</button></a>
+                <a href="completedSuit/{{osuit.suit.suitId}}/customer"><button class="complete-button" onclick="return complete()">Order Complete?</button></a>
             {% endif %}
         </center>
     </div>
@@ -242,7 +242,7 @@ button:hover, button:active{
         <center>
             <span class="status">Status: {{ocoat.coat.status}}</span><br><br>
             {% if ocoat.coat.status == 'inProcess' and ocoat.flag_customer_complete == '0' %}
-                <a href="completedCoat/{{ocoat.coat.coatId}}/customer"><button class="complete-button">Order Complete?</button></a>
+                <a href="completedCoat/{{ocoat.coat.coatId}}/customer"><button class="complete-button" onclick="return complete()">Order Complete?</button></a>
             {% endif %}
         </center>
     </div>
@@ -265,7 +265,7 @@ button:hover, button:active{
         <center>
             <span class="status">Status: {{ocalculator.calculator.status}}</span><br><br>
             {% if ocalculator.calculator.status == 'inProcess' and ocalculator.flag_customer_complete == '0' %}
-                <a href="completedCalculator/{{ocalculator.calculator.calculatorId}}/customer"><button class="complete-button">Order Complete?</button></a>
+                <a href="completedCalculator/{{ocalculator.calculator.calculatorId}}/customer"><button class="complete-button" onclick="return complete()">Order Complete?</button></a>
             {% endif %}
         </center>
     </div>
@@ -284,5 +284,15 @@ button:hover, button:active{
     </div>
     {% endfor %}
 </div>
+
+<script>
+    function complete(){
+        if (confirm("Are you Sure the Order is Complete?")) {
+            return true;
+          } else {
+            return false;
+          }
+    }
+</script>
 
 {% endblock %}

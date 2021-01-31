@@ -105,11 +105,13 @@ def profile(request):
         # user = authenticate(request, username = request.user.email, password = request.POST.get('password'))
         # auth.login(request, user)
     template_name = 'profile.html'
+    student=Student.objects.get(email=request.user.username)
+    count_sold=Book.objects.filter(seller=student).count()
+    count_bought=Order_Book.objects.filter(customer=student).count()
     # print(request.user.email)
     # print(Student.objects.get(email=request.user.email).email)
-    context={'student':Student.objects.get(email=email)}
+    context={'student':Student.objects.get(email=email),'count_sold':count_sold,'count_bought':count_bought}
     return render(request, template_name, context)
-
 
 def buyAProduct(request):
     #delete spam email
@@ -419,6 +421,8 @@ def completedCalculator(request,calculatorId,person):
 def tnc(request):
     return render(request,"termsandconditions.html")
 
+def aboutUs(request):
+    return render(request,"aboutUs.html")
     
 '''def sellerSignUp(request):          
     context = {}

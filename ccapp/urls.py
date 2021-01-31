@@ -33,6 +33,7 @@ urlpatterns = [
     path('completedCoat/<int:coatId>/<str:person>',views.completedCoat,name="completedCoat"),
     path('completedCalculator/<int:calculatorId>/<str:person>',views.completedCalculator,name="completedCalculator"),
     path('termsandconditions',views.tnc,name="tnc"),
+    path('aboutUs',views.aboutUs,name="aboutUs"),
 ]
 
 if settings.DEBUG:

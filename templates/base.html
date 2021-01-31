@@ -36,7 +36,7 @@
         <a href="{% url 'login' %}" id="loginpage"> Login/Signup</a>
         {% endif %}
 
-        <a href="#about" id="aboutpage"> About Us</a>
+        <a href="{% url 'aboutUs' %}" id="aboutpage"> About Us</a>
         <a href="{% url 'sellAProduct' %}" id="sellpage"> Sell A Product</a>
         <a href="{% url 'buyAProduct' %}" id="buypage"> Buy A Product</a>
         <a class="icon" onclick="myFunction()">

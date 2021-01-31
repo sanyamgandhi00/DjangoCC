@@ -8,6 +8,8 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src="{% static 'js/login.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js" integrity="sha512-hZf9Qhp3rlDJBvAKvmiG+goaaKRZA6LKUO35oK6EsM0/kjPK32Yw7URqrq3Q+Nvbbt8Usss+IekL7CRn83dYmw==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" />
 
 {% endblock %}
 
@@ -18,9 +20,22 @@
 
 <!-- Modal -->
 
-{{student.year}}<br>
-{{student.fullName}}<br>
-{{student.email}}<br>
+
+<div class="container-grid">
+<div class="containerProfile" >
+  <div class="nameProfile">Name: {{student.fullName}}<br><br></div>
+  <div class="nameProfile">Email address: {{student.email}}<br><br></div>
+  <div class="nameProfile">Contact Number: {{student.contactNumber}}<br><br></div>
+  <div class="nameProfile">Year: {% if student.year == "fy" %} First Year {% endif %}
+                                  {% if student.year == "sy" %} Second Year {% endif %}
+                                  {% if student.year == "ty" %} Third Year {% endif %}
+                                  {% if student.year == "ly" %} Last Year {% endif %}
+                                  <br><br></div>
+  <div class="nameProfile">Branch: {% if student.branch == "comps" %}Computer Science {% endif %}
+    {% if student.branch == "etrx" %}Electronics  {% endif %}
+    {% if student.branch == "extc" %}Electronics and Telecommunication {% endif %}
+    {% if student.branch == "it" %}Information Technology {% endif %}
+    {% if student.branch == "mech" %}Mechanical {% endif %}<br><br></div>
 
 <!-- Trigger/Open The Modal -->
 <button id="myBtn" class="button">Update Profile</button>
@@ -44,19 +59,21 @@
       </div>
       
       <div class="input-field">
-        <label for="contactNumber">Mobile Number</label>
-        <input type="number" name="contactNumber" value={{student.contactNumber}} />
+        <div class="nameProfile">Name: {{student.fullName}}<br><br></div>
+        <div class="nameProfile">Email address: {{student.email}}<br><br></div>
+        <div class="nameProfile">Mobile Number</div>
+        <input type="number" class="nameProfile" name="contactNumber" value={{student.contactNumber}} />
         <div class="grid-container">
-          <label for="year" class="grid-item">Year of Study</label>
-          <label for="Branch" class="grid-item">Branch</label>
-          <select id="year" name="year" class="grid-item">
+          <label for="year" class="grid-item nameProfile">Year of Study</label>
+          <label for="Branch" class="grid-item nameProfile">Branch</label>
+          <select id="year" name="year" class="grid-item nameProfile">
             <option value="-1">Select Year</option>
             <option value="fy" {% if student.year == "fy" %} selected {% endif %}>First Year</option>
             <option value="sy" {% if student.year == "sy" %} selected {% endif %}>Second Year</option>
             <option value="ty" {% if student.year == "ty" %} selected {% endif %}>Third Year</option>
             <option value="ly" {% if student.year == "ly" %} selected {% endif %}>Fourth Year</option>
           </select>
-          <select id="branch" name="branch" class="grid-item">
+          <select id="branch" name="branch" class="grid-item nameProfile">
             <option value="-1">Select Branch</option>
             <option value="comps" {% if student.branch == "comps" %} selected {% endif %}>COMPS</option>
             <option value="etrx" {% if student.branch == "etrx" %} selected {% endif %}>ETRX</option>
@@ -83,7 +100,50 @@
     </div>
   
   </div>
+</div>
+<div class="graph">
+  <div class="nameProfile" style="margin: auto;">Your Transactions</div>
+  <div> 
+    <canvas id="myChart" class="graphin"></canvas>
+  </div>
+</div>
+</div>
   <script>
+    var count_b=parseInt("{{count_bought}}");
+    var count_s=parseInt("{{count_sold}}");
+    var sum=count_b+count_s;
+    if(sum!=0){
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: ["Book Sold", "Books Bought"],
+    datasets: [{
+      backgroundColor: [
+        "rgba(0,0,0,0.9)",
+        "rgba(0,0,0,0.6)",
+      ],
+      data: [count_s, count_b]
+    }]
+  }
+});}
+else{
+  var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: ["No Transaction"],
+    datasets: [{
+      backgroundColor: [
+        "rgba(0,0,0,0.2)",
+
+      ],
+      data: [100]
+    }]
+  }
+});
+}
+
     // Get the modal
     var modal = document.getElementById("myModal");
     

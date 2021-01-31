@@ -102,7 +102,7 @@
   </div>
 </div>
 <div class="graph">
-  <div class="nameProfile" style="margin: auto;">Your Transactions</div>
+  <div class="nameProfile"><div style="margin:auto;text-align: center;">Your Transactions</div></div>
   <div> 
     <canvas id="myChart" class="graphin"></canvas>
   </div>
@@ -117,7 +117,7 @@
     var myChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Book Sold", "Books Bought"],
+    labels: ["Books Sold", "Books Bought"],
     datasets: [{
       backgroundColor: [
         "rgba(0,0,0,0.9)",

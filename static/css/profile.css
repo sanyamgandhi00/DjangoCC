@@ -334,6 +334,7 @@ select {
   transition-property: grid-template-columns, width;
   transition-duration: 1s;
   transition-timing-function: ease-in-out;
+  min-height: 90vh;
 }
 .containerProfile{
   margin: auto;

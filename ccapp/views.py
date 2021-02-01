@@ -106,11 +106,65 @@ def profile(request):
         # auth.login(request, user)
     template_name = 'profile.html'
     student=Student.objects.get(email=request.user.username)
-    count_sold=Book.objects.filter(seller=student).count()
-    count_bought=Order_Book.objects.filter(customer=student).count()
+    
+    # Books
+    count_bought_inProcess=Order_Book.objects.filter(customer=student).exclude(flag_seller_complete=1,flag_customer_complete=1).count()
+    count_bought_total=Order_Book.objects.filter(customer=student).count()
+    count_bought_complete=count_bought_total-count_bought_inProcess
+
+    # count_sold_total=Book.objects.filter(seller=student).count()
+    count_sold_pending=Book.objects.filter(seller=student,status="pending").count()
+    count_sold_inProcess=Book.objects.filter(seller=student,status="inProcess").count()
+    count_sold_sold=Book.objects.filter(seller=student,status="sold").count()
+    count_sold_verified=Book.objects.filter(seller=student,status="verified").count()
+    
+    #suits
+    count_bought_inProcess_suit=Order_Suit.objects.filter(customer=student).exclude(flag_seller_complete=1,flag_customer_complete=1).count()
+    count_bought_total_suit=Order_Suit.objects.filter(customer=student).count()
+    count_bought_complete_suit=count_bought_total_suit-count_bought_inProcess_suit
+
+    # count_sold_total=Book.objects.filter(seller=student).count()
+    count_sold_inProcess_suit=Suit.objects.filter(seller=student,status="inProcess").count()
+    count_sold_sold_suit=Suit.objects.filter(seller=student,status="sold").count()
+    count_sold_inStock_suit=Suit.objects.filter(seller=student,status="inStock").count()
+
+    #Coat
+    count_bought_inProcess_coat=Order_Coat.objects.filter(customer=student).exclude(flag_seller_complete=1,flag_customer_complete=1).count()
+    count_bought_total_coat=Order_Coat.objects.filter(customer=student).count()
+    count_bought_complete_coat=count_bought_total_coat-count_bought_inProcess_coat
+
+    # count_sold_total=Book.objects.filter(seller=student).count()
+    count_sold_inProcess_coat=Coat.objects.filter(seller=student,status="inProcess").count()
+    count_sold_sold_coat=Coat.objects.filter(seller=student,status="sold").count()
+    count_sold_inStock_coat=Coat.objects.filter(seller=student,status="inStock").count()
+    
+    #Coat
+    count_bought_inProcess_calc=Order_Calculator.objects.filter(customer=student).exclude(flag_seller_complete=1,flag_customer_complete=1).count()
+    count_bought_total_calc=Order_Calculator.objects.filter(customer=student).count()
+    count_bought_complete_calc=count_bought_total_calc-count_bought_inProcess_calc
+
+    # count_sold_total=Book.objects.filter(seller=student).count()
+    count_sold_inProcess_calc=Calculator.objects.filter(seller=student,status="inProcess").count()
+    count_sold_sold_calc=Calculator.objects.filter(seller=student,status="sold").count()
+    count_sold_inStock_calc=Calculator.objects.filter(seller=student,status="inStock").count()
+
+    count_bought_toolkit=Order_Toolkit.objects.filter(customer=student).count()
+
+    total_inProcess_bought=count_bought_inProcess+count_bought_inProcess_calc+count_bought_inProcess_coat+count_bought_inProcess_suit
+
+    total_complete_bought=count_bought_complete+count_bought_complete_calc+count_bought_complete_coat+count_bought_complete_suit+count_bought_toolkit
+
+    total_inProcess_sold=count_sold_inProcess+count_sold_inProcess_calc+count_sold_inProcess_coat+count_sold_inProcess_suit
+
+    total_complete_sold=count_sold_sold+count_sold_sold_calc+count_sold_sold_coat+count_sold_sold_suit
+
+    total_inStock_sold=count_sold_inStock_suit+count_sold_inStock_calc+count_sold_inStock_coat+count_sold_verified+count_sold_pending
+
+    #pending books to verify
+    #TODO ask how toolkit is getting processed
     # print(request.user.email)
     # print(Student.objects.get(email=request.user.email).email)
-    context={'student':Student.objects.get(email=email),'count_sold':count_sold,'count_bought':count_bought}
+    context={'student':Student.objects.get(email=email),'total_inProcess_bought':total_inProcess_bought,'total_complete_bought':total_complete_bought,'total_inProcess_sold':total_inProcess_sold,'total_complete_sold':total_complete_sold,'total_inStock_sold':total_inStock_sold,'count_sold_pending':count_sold_pending}
     return render(request, template_name, context)
 
 def buyAProduct(request):

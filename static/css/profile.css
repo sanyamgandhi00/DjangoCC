@@ -135,7 +135,7 @@
 hr {
   border-top: 0.1px solid #B54D47;
   width: 60%;
-  margin-bottom: 5px;
+  margin-bottom: 50px;
 }
 
 .grid-container {
@@ -158,6 +158,17 @@ select {
   font-size: 18px;
   margin: 20px;
   opacity: 0.8;
+}
+
+#loginpage {
+  border-bottom: #B54D47 0.2vw solid;
+}
+
+@media screen and (max-width: 992px) {
+  .forms {
+    /* zoom: 0.8; */
+    /* width: 50%; */
+  }
 }
 
 @media screen and (max-width: 700px) {
@@ -184,9 +195,6 @@ select {
 .muted-text {
   color: #aaa;
   font-size: 14px;
-}
-#accountpage {
-  border-bottom: #B54D47 0.2vw solid;
 }
 
 /* modal*/
@@ -285,10 +293,8 @@ select {
 }
 
 .button {
-  border: 0;
   outline: none;
-  border-radius: 0;
-  padding: 10px 10px;
+  padding: 10px 0;
   font-size: 18px;
   font-weight: 300;
   text-transform: uppercase;
@@ -319,29 +325,34 @@ select {
 }
 .container-grid{
   /* background-color: #000000; */
-  width: 90%;
-  margin: auto;
+  width: 96%;
+  /* margin: auto; */
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   transition-property: grid-template-columns, width;
   transition-duration: 1s;
   transition-timing-function: ease-in-out;
-  min-height: 75vh;
+  min-height: 80vh;
+  margin-left: auto;
+  margin-bottom: 20px;
+  margin-right: auto;
+  margin-top: auto;
+  row-gap: 20px;
 }
 .containerProfile{
-  margin: 7% auto;
+  margin: auto;
   height: max-content;
-  min-width: 500px;
+  min-width: 460px;
   background-color: #f7f7f7;
   box-shadow: rgba(0,0,0,1);
-  padding: 2%;
+  padding: 5%;
   transition-property: width;
   transition-duration: 1s;
   transition-timing-function: ease-in-out;
 }
 .graph{
-  margin: 7% auto;
-  width: 600px;
+  margin: auto;
+  width: 500px;
   /* background-color: #1383ea; */
   transition-property: width;
   transition-duration: 1s;
@@ -351,20 +362,39 @@ select {
   margin: auto;
   
 }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1450px) {
+  .containerProfile{
+    width: 400px;
+  }
   .graph{
-    width: 600px;
+    width: 420px;
   }
   .container-grid{
     width: 100%;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .modal-content{
+    width: 70%;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .graph{
+    width: 500px;
+  }
+  .container-grid{
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
   }
   .modal-content{
     width: 70%;
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 940px) {
+  .button{
+    padding: 8px 3px;
+    font-size: 15px;
+  }
   .graph{
     width: 500px;
   }
@@ -373,7 +403,7 @@ select {
     grid-template-columns: 1fr;
   }
   .containerProfile{
-    width: 600px;
+    width: 500px;
   }
   .nameProfile{
     font-size: 15px;
@@ -383,6 +413,10 @@ select {
   }
 }
 @media screen and (max-width: 550px) {
+  .button{
+    padding: 8px 3px;
+    font-size: 14px;
+  }
   .container-grid{
     width: 100%;
     grid-template-columns: 1fr;

@@ -135,7 +135,7 @@
 hr {
   border-top: 0.1px solid #B54D47;
   width: 60%;
-  margin-bottom: 50px;
+  margin-bottom: 5px;
 }
 
 .grid-container {
@@ -158,17 +158,6 @@ select {
   font-size: 18px;
   margin: 20px;
   opacity: 0.8;
-}
-
-#loginpage {
-  border-bottom: #B54D47 0.2vw solid;
-}
-
-@media screen and (max-width: 992px) {
-  .forms {
-    /* zoom: 0.8; */
-    /* width: 50%; */
-  }
 }
 
 @media screen and (max-width: 700px) {
@@ -195,6 +184,9 @@ select {
 .muted-text {
   color: #aaa;
   font-size: 14px;
+}
+#accountpage {
+  border-bottom: #B54D47 0.2vw solid;
 }
 
 /* modal*/
@@ -296,7 +288,7 @@ select {
   border: 0;
   outline: none;
   border-radius: 0;
-  padding: 10px 0;
+  padding: 10px 10px;
   font-size: 18px;
   font-weight: 300;
   text-transform: uppercase;
@@ -334,21 +326,21 @@ select {
   transition-property: grid-template-columns, width;
   transition-duration: 1s;
   transition-timing-function: ease-in-out;
-  min-height: 90vh;
+  min-height: 75vh;
 }
 .containerProfile{
-  margin: auto;
+  margin: 7% auto;
   height: max-content;
   min-width: 500px;
   background-color: #f7f7f7;
   box-shadow: rgba(0,0,0,1);
-  padding: 5%;
+  padding: 2%;
   transition-property: width;
   transition-duration: 1s;
   transition-timing-function: ease-in-out;
 }
 .graph{
-  margin: auto;
+  margin: 7% auto;
   width: 600px;
   /* background-color: #1383ea; */
   transition-property: width;

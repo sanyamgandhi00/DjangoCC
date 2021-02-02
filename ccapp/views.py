@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from .models import Student, Book,Suit, Coat, Calculator, Order_Book,Order_Suit, Order_Coat, Order_Calculator, Order_Toolkit, Report_Book, Feedback, DeletedEmails
 
+from django.contrib.auth.hashers import make_password, check_password
 from django.conf import settings 
 from django.core.mail import send_mail 
 
@@ -58,6 +59,10 @@ def signup(request):
             fullName = request.POST.get('fullName')  
             password = request.POST.get('password')
             confirmpassword = request.POST.get('confirmPassword')
+            
+            password=make_password(password)
+            confirmpassword=password
+            print(password)
             contactNumber = request.POST.get('contactNumber')
             year = request.POST.get('year')
             branch = request.POST.get('branch')

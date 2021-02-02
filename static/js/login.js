@@ -83,7 +83,7 @@ return true;
 }
 
 function validateprofile(){
-  alert("10");
+  
   var letters = /^[A-Za-z]+$/;
   if( document.signupform.contactNumber.value == "" ) {
     document.getElementById('signupwarning').innerHTML = "***Mobile Number Cannot be Blank***";

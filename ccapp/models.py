@@ -18,13 +18,13 @@ branch_choices = (
     ("MECH","MECH"), 
 ) 
 
-
+#TODO make migration with editable = False
 class Student(models.Model):
     email = models.EmailField()
     fullName = models.CharField(max_length=255)
-    password = models.CharField(max_length=20)
-    confirmPassword = models.CharField(max_length=20)
-    contactNumber= models.CharField(max_length=12)
+    password = models.CharField(max_length=20,editable = False)
+    confirmPassword = models.CharField(max_length=20,editable = False)
+    contactNumber= models.CharField(max_length=12, )
     year=models.CharField(max_length = 2, choices = year_choices, default = 'FY') 
     branch=models.CharField(max_length = 5, choices =branch_choices, default = 'IT') 
     def __str__(self):
@@ -56,10 +56,12 @@ coat_status=(
     ("inProcess","inProcess"),
     ("sold","sold"),
 )
+
 condition=(
     ("used","used"),
     ("new","new"),
 )
+
 size_choices=(
     ("S","S"),
     ("M","M"),
@@ -67,6 +69,7 @@ size_choices=(
     ("XL","XL"),
     ("XXL","XXL"),
 )
+
 class Coat(models.Model):
     seller=models.ForeignKey(Student,on_delete=models.CASCADE,related_name="coats")
     coatId = models.AutoField(primary_key=True)

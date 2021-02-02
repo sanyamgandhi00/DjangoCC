@@ -4,7 +4,7 @@
 
 {% block head-content %}
 {% load static %}
-<title>Profile</title>
+<title>Login</title>
 <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src="{% static 'js/login.js' %}"></script>
@@ -20,9 +20,9 @@
 
 <!-- Modal -->
 
-<h1 style="text-align: center;">Your Profile</h1><hr class="hr">
+
 <div class="container-grid">
-<div class="containerProfile" >
+<div class="containerProfile">
   <div class="nameProfile">Name: {{student.fullName}}<br><br></div>
   <div class="nameProfile">Email address: {{student.email}}<br><br></div>
   <div class="nameProfile">Contact Number: {{student.contactNumber}}<br><br></div>
@@ -36,8 +36,10 @@
     {% if student.branch == "extc" %}Electronics and Telecommunication {% endif %}
     {% if student.branch == "it" %}Information Technology {% endif %}
     {% if student.branch == "mech" %}Mechanical {% endif %}<br><br></div>
+
 <!-- Trigger/Open The Modal -->
 <button id="myBtn" class="button">Update Profile</button>
+
 <!-- The Modal -->
 <div id="myModal" class="modal">
   <!-- Modal content -->
@@ -54,6 +56,7 @@
       <div id="signupwarning" class="warning">
         <!-- INSERT SIGNUP WARNINGS HERE -->
       </div>
+      
       <div class="input-field">
         <div class="nameProfile">Name: {{student.fullName}}<br><br></div>
         <div class="nameProfile">Email address: {{student.email}}<br><br></div>
@@ -86,6 +89,7 @@
         <input type="password" name="confirmPassword" placeholder="******" /> -->
         <input type="submit" value="Update" class="button" />
       </div>
+
     </form>
     </div>
       </div>
@@ -93,36 +97,44 @@
         <h3>Modal Footer</h3>
       </div> -->
     </div>
+  
   </div>
 </div>
 <div class="graph">
-  <div class="nameProfile"><div style="margin:auto;text-align: center;">Your Transactions</div></div>
+  <div class="nameProfile"><div style="margin:auto;text-align: center;">Selling Transactions</div></div>
   <div> 
-    <canvas id="myChart" class="graphin"></canvas>
+    <canvas id="sell" class="graphin"></canvas>
+  </div>
+</div>
+<div class="graph">
+  <div class="nameProfile"><div style="margin:auto;text-align: center;">Buying Transactions</div></div>
+  <div> 
+    <canvas id="buy" class="graphin"></canvas>
   </div>
 </div>
 </div>
   <script>
-    var count_b=parseInt("{{count_bought}}");
-    var count_s=parseInt("{{count_sold}}");
-    var sum=count_b+count_s;
+    var total_inProcess_bought=parseInt("{{total_inProcess_bought}}");
+    var total_complete_bought=parseInt("{{total_complete_bought}}");
+    var sum=total_inProcess_bought+total_complete_bought;
     if(sum!=0){
-    var ctx = document.getElementById("myChart").getContext('2d');
+    var ctx = document.getElementById("buy").getContext('2d');
     var myChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Books Sold", "Books Bought"],
+    labels: ["Orders In Process", "Orders Completed"],
     datasets: [{
       backgroundColor: [
-        "rgba(0,0,0,0.9)",
-        "rgba(0,0,0,0.6)",
+        "rgba(34,85,164,0.7)",
+        "rgba(181,77,71,0.7)",
       ],
-      data: [count_s, count_b]
+      data: [total_inProcess_bought, total_complete_bought]
     }]
   }
-});}
+});
+}
 else{
-  var ctx = document.getElementById("myChart").getContext('2d');
+  var ctx = document.getElementById("buy").getContext('2d');
     var myChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
@@ -137,6 +149,45 @@ else{
   }
 });
 }
+
+    var total_inProcess_sold=parseInt("{{total_inProcess_sold}}");
+    var total_complete_sold=parseInt("{{total_complete_sold}}");
+    var total_inStock_sold=parseInt("{{total_inStock_sold}}");
+    // var count_sold_pending=parseInt("{{count_sold_pending}}")
+    sum=total_inProcess_sold+total_complete_sold+total_inStock_sold;
+    if(sum!=0){
+    var ctx = document.getElementById("sell").getContext('2d');
+    var myChart = new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: ["Advertisement Posted", "Orders In Process", "Orders Completed"],
+    datasets: [{
+      backgroundColor: [
+        "rgba(0,0,0,0.7)",
+        "rgba(34,85,164,0.7)",
+        "rgba(181,77,71,0.7)",
+      ],
+      data: [total_inStock_sold, total_inProcess_sold,total_complete_sold]
+    }]
+  }
+});}
+else{   
+  var ctx = document.getElementById("sell").getContext('2d');
+    var myChart = new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: ["No Transaction"],
+    datasets: [{
+      backgroundColor: [
+        "rgba(0,0,0,0.2)",
+
+      ],
+      data: [100]
+    }]
+  }
+});
+}
+
 
     // Get the modal
     var modal = document.getElementById("myModal");

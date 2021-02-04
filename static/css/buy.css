@@ -380,6 +380,16 @@ input[type="radio"] {
 input:checked+label{
   background: #2255a4 !important; color: #fff !important;}
 
+  #warning{
+    margin: -1% 7% 1%;
+    padding: 1%;
+    color: #B54D47;
+    border: 3px solid #B54D47;
+    border-radius: 20px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5vw;
+  }
 
 /*MEDIA QUERIES*/
 
@@ -536,6 +546,11 @@ input:checked+label{
   }
   .confirmbtn {
     border-radius: 25px;
+  }
+  #warning{
+    font-size: 2.5vw;
+    border: 2px solid #B54D47;
+    padding: 3%;
   }
 
 }

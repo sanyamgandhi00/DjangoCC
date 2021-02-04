@@ -274,6 +274,15 @@
   input:checked+label{
     background: #2255a4 !important; color: #fff !important;}
   
+    #warning{
+      margin: 5%;
+      padding: 5%;
+      color: #B54D47;
+      border: 3px solid #B54D47;
+      border-radius: 25px;
+      font-weight: bold;
+      text-align: center;
+    }
 
   /* MEDIA QUERIES */
 
@@ -374,6 +383,7 @@
 <button class="tablinks" onclick="openCity(event, 'suit')">Boiler Suit</button>
 <button class="tablinks" onclick="openCity(event, 'coat')">Lab Coat</button>
 <button class="tablinks" onclick="openCity(event, 'calculator')">Calculator</button>
+<div id="warning">Colleges are Shut due to COVID, Make Sure You Co-ordinate with the Buyer of your BOOK to Meet Somewhere Common and Complete The Transaction. For Other Products, We will collect them from you.</div>
 </div>
 
 <div id="books" class="tabcontent">
@@ -382,6 +392,7 @@
     {% csrf_token %}
     <h2 style="text-align: center;">Post an Advertisement of a Book</h2>
     <hr>
+    
     <div>
       <label for="book-name">Book Name: </label>
       <input type="text" name="book-name" id="book-name" placeholder="Modern Digital Electronics" required /><br>
